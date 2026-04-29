@@ -4,6 +4,8 @@ import { Star, ArrowRight, Quote, Camera, Gift, Award, Plus, Minus, ChevronLeft,
 import api from '../utils/api';
 import PageLoader from '../components/PageLoader';
 
+const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5004' : '';
+
 const FAQItem = ({ faq, isOpen, toggle }) => (
   <div className="border-b border-gray-100 last:border-0">
     <button 
@@ -245,7 +247,7 @@ const Home = () => {
                     <div className="flex justify-center mb-4">
                       <div className="w-20 h-20 rounded-full border-2 border-accent/30 p-1 overflow-hidden">
                         <img 
-                          src={testimonials[currentTestimonial].imageUrl?.startsWith('http') ? testimonials[currentTestimonial].imageUrl : `http://localhost:5004${testimonials[currentTestimonial].imageUrl}`} 
+                          src={testimonials[currentTestimonial].imageUrl?.startsWith('http') ? testimonials[currentTestimonial].imageUrl : `${BASE_URL}${testimonials[currentTestimonial].imageUrl}`} 
                           className="w-full h-full object-cover rounded-full bg-secondary"
                           alt="Client"
                           onError={(e) => { e.target.src = "https://ui-avatars.com/api/?name=" + testimonials[currentTestimonial].name + "&background=c49a6c&color=fff"; }}

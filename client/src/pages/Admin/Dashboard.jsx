@@ -10,7 +10,7 @@ import {
 import api from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
-// --- SHARED COMPONENTS ---
+const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5004' : '';
 
 const StatCard = ({ label, value, icon: Icon, isWarning }) => (
   <div className={`bg-white p-8 border border-gray-100 shadow-sm group hover:border-primary transition-all duration-500 relative overflow-hidden rounded-sm`}>
@@ -108,7 +108,8 @@ const ProductManagement = ({ refreshStats }) => {
       fetchData(); 
       refreshStats();
     } catch (err) { 
-      alert('Failed to save product. Please try again.'); 
+      const msg = err.response?.data?.message || 'Failed to save product. Please try again.';
+      alert(msg); 
     } finally { 
       setIsSubmitting(false); 
     }
@@ -147,10 +148,10 @@ const ProductManagement = ({ refreshStats }) => {
               <tbody className="divide-y divide-gray-100">
                 {filteredProducts.map((p) => (
                   <tr key={p.id} className="hover:bg-secondary/20 transition-colors group">
-                    <td className="px-8 py-6"><div className="flex items-center gap-4"><div onClick={() => setShowZoom(p.imageUrl)} className="w-16 h-16 bg-secondary rounded-sm overflow-hidden relative cursor-zoom-in group/img border border-gray-100 shadow-sm"><img src={p.imageUrl?.startsWith('http') ? p.imageUrl : `http://localhost:5004${p.imageUrl}`} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500" /><div className="absolute inset-0 bg-dark/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center"><ZoomIn size={16} className="text-white" /></div></div><span className="font-serif text-dark font-bold line-clamp-1">{p.title}</span></div></td>
+                    <td className="px-8 py-6"><div className="flex items-center gap-4"><div onClick={() => setShowZoom(p.imageUrl)} className="w-16 h-16 bg-secondary rounded-sm overflow-hidden relative cursor-zoom-in group/img border border-gray-100 shadow-sm"><img src={p.imageUrl?.startsWith('http') ? p.imageUrl : `${BASE_URL}${p.imageUrl}`} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500" /><div className="absolute inset-0 bg-dark/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center"><ZoomIn size={16} className="text-white" /></div></div><span className="font-serif text-dark font-bold line-clamp-1">{p.title}</span></div></td>
                     <td className="px-8 py-6"><span className="text-[10px] uppercase tracking-widest font-bold px-3 py-1 bg-secondary text-primary border border-primary/10 rounded-full">{p.category?.name}</span></td>
                     <td className="px-8 py-6 font-bold text-dark text-base"><span className="text-primary mr-1">₹</span>{p.price.toLocaleString('en-IN')}</td>
-                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"><button onClick={() => { setModalType('edit'); setSelectedProduct(p); setFormData({ title: p.title, price: p.price, description: p.description, categoryId: p.categoryId }); setImagePreview(p.imageUrl?.startsWith('http') ? p.imageUrl : `http://localhost:5004${p.imageUrl}`); }} className="p-2 text-gray-400 hover:text-primary transition-colors"><Edit2 size={16} /></button><button onClick={() => setDeleteData(p)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><Trash2 size={16} /></button></div></td>
+                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"><button onClick={() => { setModalType('edit'); setSelectedProduct(p); setFormData({ title: p.title, price: p.price, description: p.description, categoryId: p.categoryId }); setImagePreview(p.imageUrl?.startsWith('http') ? p.imageUrl : `${BASE_URL}${p.imageUrl}`); }} className="p-2 text-gray-400 hover:text-primary transition-colors"><Edit2 size={16} /></button><button onClick={() => setDeleteData(p)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><Trash2 size={16} /></button></div></td>
                   </tr>
                 ))}
               </tbody>
@@ -283,7 +284,8 @@ const PortfolioManagement = ({ refreshStats }) => {
       fetchData(); 
       refreshStats();
     } catch (err) {
-      alert('Failed to save album. Please try again.');
+      const msg = err.response?.data?.message || 'Failed to save album. Please try again.';
+      alert(msg);
     } finally { 
       setIsSubmitting(false); 
     }
@@ -319,11 +321,11 @@ const PortfolioManagement = ({ refreshStats }) => {
                 {filteredAlbums.map((a, index) => (
                   <tr key={a.id} className="hover:bg-secondary/20 transition-colors group">
                     <td className="px-8 py-6 font-bold text-dark text-xs opacity-50">{index + 1}</td>
-                    <td className="px-8 py-6"><div className="flex items-center gap-4"><div onClick={() => setShowZoom(a.coverImage)} className="w-16 h-12 bg-secondary rounded-sm overflow-hidden relative cursor-zoom-in group/img border border-gray-100 shadow-sm"><img src={a.coverImage?.startsWith('http') ? a.coverImage : `http://localhost:5004${a.coverImage}`} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500" /></div><div className="flex flex-col"><span className="font-serif text-dark font-bold line-clamp-1">{a.title}</span><span className="text-[8px] uppercase tracking-widest text-gray-400 font-bold">Client: {a.clientName}</span></div></div></td>
+                    <td className="px-8 py-6"><div className="flex items-center gap-4"><div onClick={() => setShowZoom(a.coverImage)} className="w-16 h-12 bg-secondary rounded-sm overflow-hidden relative cursor-zoom-in group/img border border-gray-100 shadow-sm"><img src={a.coverImage?.startsWith('http') ? a.coverImage : `${BASE_URL}${a.coverImage}`} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500" /></div><div className="flex flex-col"><span className="font-serif text-dark font-bold line-clamp-1">{a.title}</span><span className="text-[8px] uppercase tracking-widest text-gray-400 font-bold">Client: {a.clientName}</span></div></div></td>
                     <td className="px-8 py-6"><span className="text-[9px] uppercase tracking-widest font-bold px-3 py-1 bg-secondary text-primary border border-primary/10 rounded-full">{a.category?.name}</span></td>
                     <td className="px-8 py-6"><button onClick={() => { setSelectedAlbum(a); setModalType('media'); }} className="flex items-center gap-2 text-primary hover:text-dark transition-colors font-bold text-[10px] uppercase tracking-widest"><Layers size={14} /> {a.images?.length || 0} Assets</button></td>
                     <td className="px-8 py-6 text-gray-400 text-[10px] uppercase font-bold">{new Date(a.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
-                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"><button onClick={() => { setSelectedAlbum(a); setModalType('editAlbum'); setAlbumData({ title: a.title, clientName: a.clientName, categoryId: a.categoryId }); setCoverPreview(a.coverImage?.startsWith('http') ? a.coverImage : `http://localhost:5004${a.coverImage}`); }} className="p-2 text-gray-400 hover:text-primary transition-colors"><Edit2 size={16} /></button><button onClick={() => setDeleteData(a)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><Trash2 size={16} /></button></div></td>
+                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"><button onClick={() => { setSelectedAlbum(a); setModalType('editAlbum'); setAlbumData({ title: a.title, clientName: a.clientName, categoryId: a.categoryId }); setCoverPreview(a.coverImage?.startsWith('http') ? a.coverImage : `${BASE_URL}${a.coverImage}`); }} className="p-2 text-gray-400 hover:text-primary transition-colors"><Edit2 size={16} /></button><button onClick={() => setDeleteData(a)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><Trash2 size={16} /></button></div></td>
                   </tr>
                 ))}
               </tbody>
@@ -456,6 +458,9 @@ const TestimonialManagement = ({ refreshStats }) => {
       if (modalType === 'add') { await api.post('/testimonials', data, { headers: { 'Content-Type': 'multipart/form-data' } }); }
       else { await api.put(`/testimonials/${selectedReview.id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }); }
       setModalType(null); fetchData(); refreshStats();
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Failed to save testimonial. Please try again.';
+      alert(msg);
     } finally { setIsSubmitting(false); }
   };
 
@@ -487,11 +492,11 @@ const TestimonialManagement = ({ refreshStats }) => {
                 {testimonials.map((t, index) => (
                   <tr key={t.id} className="hover:bg-secondary/20 transition-colors group">
                     <td className="px-8 py-6 font-bold text-dark text-xs opacity-50">{index + 1}</td>
-                    <td className="px-8 py-6"><div className="flex items-center gap-4"><div className="w-12 h-12 bg-dark rounded-full overflow-hidden border border-white/10 shadow-sm flex items-center justify-center"><img src={t.imageUrl?.startsWith('http') ? t.imageUrl : `http://localhost:5004${t.imageUrl}`} className="w-full h-full object-contain" /></div><span className="font-serif text-dark font-bold">{t.name}</span></div></td>
+                    <td className="px-8 py-6"><div className="flex items-center gap-4"><div className="w-12 h-12 bg-dark rounded-full overflow-hidden border border-white/10 shadow-sm flex items-center justify-center"><img src={t.imageUrl?.startsWith('http') ? t.imageUrl : `${BASE_URL}${t.imageUrl}`} className="w-full h-full object-contain" /></div><span className="font-serif text-dark font-bold">{t.name}</span></div></td>
                     <td className="px-8 py-6 text-xs text-gray-400 italic font-serif line-clamp-1 max-w-[300px]">"{t.comment}"</td>
                     <td className="px-8 py-6"><div className="flex gap-1">{[...Array(5)].map((_, i) => <Star key={i} size={12} className={i < t.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-200"} />)}</div></td>
                     <td className="px-8 py-6 text-gray-400 text-[10px] uppercase font-bold">{new Date(t.createdAt).toLocaleDateString()}</td>
-                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"><button onClick={() => { setSelectedReview(t); setModalType('edit'); setFormData({ name: t.name, comment: t.comment, rating: t.rating }); setImagePreview(t.imageUrl?.startsWith('http') ? t.imageUrl : `http://localhost:5004${t.imageUrl}`); }} className="p-2 text-gray-400 hover:text-primary transition-colors"><Edit2 size={16} /></button><button onClick={() => setDeleteData(t)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><Trash2 size={16} /></button></div></td>
+                    <td className="px-8 py-6 text-right"><div className="flex justify-end gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"><button onClick={() => { setSelectedReview(t); setModalType('edit'); setFormData({ name: t.name, comment: t.comment, rating: t.rating }); setImagePreview(t.imageUrl?.startsWith('http') ? t.imageUrl : `${BASE_URL}${t.imageUrl}`); }} className="p-2 text-gray-400 hover:text-primary transition-colors"><Edit2 size={16} /></button><button onClick={() => setDeleteData(t)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><Trash2 size={16} /></button></div></td>
                   </tr>
                 ))}
               </tbody>

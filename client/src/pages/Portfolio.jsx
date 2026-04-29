@@ -7,6 +7,8 @@ import PageLoader from '../components/PageLoader';
 
 const fallbackImg = "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000";
 
+const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5004' : '';
+
 const Portfolio = () => {
   const [albums, setAlbums] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -89,7 +91,7 @@ const Portfolio = () => {
               >
                 <div className="relative overflow-hidden aspect-[4/5] mb-6 md:mb-8 bg-zinc-900 rounded-sm shadow-sm group-hover:shadow-2xl transition-all duration-700">
                   <img 
-                    src={album.coverImage?.startsWith('http') ? album.coverImage : `http://localhost:5004${album.coverImage}`} 
+                    src={album.coverImage?.startsWith('http') ? album.coverImage : `${BASE_URL}${album.coverImage}`} 
                     alt={album.title} 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                     onError={(e) => { e.target.src = fallbackImg; }}
@@ -174,7 +176,7 @@ const Portfolio = () => {
                     className="relative overflow-hidden group bg-zinc-900 rounded-sm shadow-sm hover:shadow-2xl transition-all duration-700"
                   >
                     <img 
-                      src={img.imageUrl?.startsWith('http') ? img.imageUrl : `http://localhost:5004${img.imageUrl}`} 
+                      src={img.imageUrl?.startsWith('http') ? img.imageUrl : `${BASE_URL}${img.imageUrl}`} 
                       alt={`Gallery ${idx}`} 
                       className="w-full h-auto object-cover hover:scale-105 transition-transform duration-1000" 
                       onError={(e) => { e.target.src = fallbackImg; }}

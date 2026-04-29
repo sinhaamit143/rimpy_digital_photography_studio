@@ -8,6 +8,8 @@ import PageLoader from '../components/PageLoader';
 
 const fallbackImg = "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000";
 
+const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5004' : '';
+
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -90,8 +92,7 @@ const Shop = () => {
                 className="bg-white group shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-sm overflow-hidden border border-gray-100"
               >
                 <div className="relative aspect-square overflow-hidden bg-zinc-900">
-                  <img 
-                    src={product.imageUrl?.startsWith('http') ? product.imageUrl : `http://localhost:5004${product.imageUrl}`} 
+                    src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
                     alt={product.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                     onError={(e) => { e.target.src = fallbackImg; }}
