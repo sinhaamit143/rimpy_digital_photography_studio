@@ -58,15 +58,20 @@ app.use((req, res, next) => {
 // Static Folders
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
-// Routes - Consolidated correctly
+// Serve Static Files
+app.use(express.static(path.join(__dirname, '../../client/dist')));
+
+// API Routes
 app.use('/api', apiRoutes);
 
-// Health Check
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Rimpy Digital Photography API is running',
-    documentation: 'http://localhost:5004/api-docs'
-  });
+// SPA Fallback - MUST BE AFTER API ROUTES
+app.use((req, res, next) => {
+  if (req.method !== 'GET') return next();
+  // If request is for an API or an asset that was not found by express.static, don't return index.html
+  if (req.path.startsWith('/api') || req.path.includes('.')) {
+    return res.status(404).json({ error: 'Not Found' });
+  }
+  res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
 });
 
 // Error Handling
