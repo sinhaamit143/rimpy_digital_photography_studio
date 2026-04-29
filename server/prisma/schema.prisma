@@ -1,0 +1,101 @@
+// This is your main Prisma configuration file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// --- ADMIN ---
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  passwordHash  String
+  role          String   @default("ADMIN")
+  refreshToken  String?  @db.Text
+  createdAt     DateTime @default(now())
+}
+
+// --- SHOP (WhatsApp Redirect) ---
+model ProductCategory {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique // e.g., "Frames", "Presets"
+  products  Product[]
+}
+
+model Product {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String?
+  price       Decimal         @db.Decimal(10, 2)
+  imageUrl    String
+  categoryId  Int
+  category    ProductCategory @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime        @default(now())
+}
+
+// --- PORTFOLIO (The New Album Structure) ---
+model PortfolioCategory {
+  id        Int              @id @default(autoincrement())
+  name      String           @unique // e.g., "Weddings", "Maternity"
+  albums    PortfolioAlbum[]
+}
+
+model PortfolioAlbum {
+  id          Int               @id @default(autoincrement())
+  title       String            // e.g., "Rahul & Priya's Wedding"
+  clientName  String?           // Optional: To search by client later
+  coverImage  String            // The thumbnail shown on the main gallery page
+  categoryId  Int
+  category    PortfolioCategory @relation(fields: [categoryId], references: [id])
+  images      PortfolioImage[]  // Relation to the multiple photos inside
+  createdAt   DateTime          @default(now())
+}
+
+model PortfolioImage {
+  id          Int            @id @default(autoincrement())
+  imageUrl    String         // The actual full-size photo
+  albumId     Int
+  album       PortfolioAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade) 
+}
+
+// --- CONTACT ---
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// --- TESTIMONIAL ---
+model Testimonial {
+  id         Int      @id @default(autoincrement())
+  name       String
+  profession String?
+  comment    String
+  rating     Int      @default(5)
+  imageUrl   String?
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// --- STUDIO SETTINGS ---
+model StudioSettings {
+  id            Int      @id @default(1)
+  address       String?  @db.Text
+  workingHours  String?
+  phone         String?
+  email         String?
+  instagram     String?
+  facebook      String?
+  whatsapp      String?
+  youtube       String?
+  updatedAt     DateTime @updatedAt
+}
