@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, Instagram, Facebook, Youtube, ChevronDown, Globe } from 'lucide-react';
 import api from '../utils/api';
 import PageLoader from '../components/PageLoader';
@@ -80,7 +80,7 @@ const Contact = () => {
         
         {/* Header Section */}
         <div className="max-w-4xl mb-16 md:mb-32">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
@@ -89,14 +89,14 @@ const Contact = () => {
             <p className="text-gray-500 font-serif italic text-base md:text-xl max-w-xl leading-relaxed text-center md:text-left mx-auto md:mx-0">
               Whether it's a grand wedding or a personalized gift, we are here to turn your vision into a masterpiece.
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12 md:gap-24">
           
           {/* Left: Contact Form */}
           <div className="lg:col-span-7 order-2 lg:order-1">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -156,7 +156,7 @@ const Contact = () => {
                         
                         <AnimatePresence>
                           {showCountryMenu && (
-                            <motion.div 
+                            <m.div 
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: 10 }}
@@ -179,7 +179,7 @@ const Contact = () => {
                                   </div>
                                 ))}
                               </div>
-                            </motion.div>
+                            </m.div>
                           )}
                         </AnimatePresence>
                       </div>
@@ -218,12 +218,12 @@ const Contact = () => {
                   </button>
                 </form>
               )}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Right: Studio Info */}
           <div className="lg:col-span-5 space-y-10 md:space-y-16 order-1 lg:order-2">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
@@ -281,7 +281,7 @@ const Contact = () => {
                   "At Rimpy Digital Studio, we don't just take photos; we capture the soul of your most precious moments. Let's create a legacy together."
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
         </div>
@@ -291,3 +291,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

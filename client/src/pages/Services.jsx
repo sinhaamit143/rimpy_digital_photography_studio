@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ChevronRight, ArrowRight } from 'lucide-react';
 import PageLoader from '../components/PageLoader';
 
@@ -53,7 +53,7 @@ const Services = () => {
         
         {/* Page Header */}
         <div className="text-center mb-20 md:mb-32">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
@@ -63,13 +63,13 @@ const Services = () => {
             <p className="text-gray-500 max-w-2xl mx-auto font-serif italic text-base md:text-lg leading-relaxed">
               From the lens to the final gift, Rimpy Digital Studio offers a complete ecosystem of visual storytelling in Karnal.
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Services List */}
         <div className="space-y-32 md:space-y-48">
           {allServices.map((service, index) => (
-            <motion.div 
+            <m.div 
               key={service.title}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -117,7 +117,7 @@ const Services = () => {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
@@ -126,3 +126,4 @@ const Services = () => {
 };
 
 export default Services;
+

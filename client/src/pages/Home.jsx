@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Star, ArrowRight, Quote, Camera, Gift, Award, Plus, Minus, ChevronLeft, ChevronRight } from 'lucide-react';
 import api from '../utils/api';
 import PageLoader from '../components/PageLoader';
@@ -19,7 +19,7 @@ const FAQItem = ({ faq, isOpen, toggle }) => (
     </button>
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
@@ -29,7 +29,7 @@ const FAQItem = ({ faq, isOpen, toggle }) => (
           <p className="pb-8 text-text-light text-lg leading-relaxed font-serif italic">
             {faq.a}
           </p>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   </div>
@@ -105,7 +105,7 @@ const Home = () => {
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center bg-dark">
-        <motion.div 
+        <m.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.5 }}
@@ -116,26 +116,26 @@ const Home = () => {
             alt="Photography Hero"
             className="w-full h-full object-cover opacity-60"
           />
-        </motion.div>
+        </m.div>
 
         <div className="container relative z-10 text-center text-white">
-          <motion.span 
+          <m.span 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
             className="block text-[10px] md:text-sm uppercase tracking-[0.4em] mb-6 font-medium text-accent"
           >
             Since 2004 • Karnal's Premier Studio
-          </motion.span>
-          <motion.h1 
+          </m.span>
+          <m.h1 
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
             className="text-5xl md:text-8xl font-serif mb-10 leading-tight"
           >
             Crafting <span className="italic">Timeless</span> <br /> Memories
-          </motion.h1>
-          <motion.div
+          </m.h1>
+          <m.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
@@ -143,7 +143,7 @@ const Home = () => {
           >
             <a href="/portfolio" className="btn-accent inline-block">View Portfolio</a>
             <a href="/shop" className="btn-primary !border-white !text-white hover:!bg-white hover:!text-dark inline-block">Browse Gift Shop</a>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -156,7 +156,7 @@ const Home = () => {
           </div>
           <div className="grid lg:grid-cols-3 gap-10">
             {shopCategories.map((cat) => (
-              <motion.div 
+              <m.div 
                 key={cat.title}
                 whileHover={{ y: -10 }}
                 className="group relative h-[500px] overflow-hidden bg-zinc-900 cursor-pointer shadow-2xl"
@@ -174,7 +174,7 @@ const Home = () => {
                     Shop Category <ArrowRight size={14} />
                   </a>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -183,7 +183,7 @@ const Home = () => {
       {/* About Section Snippet - RESTORED */}
       <section className="py-32 bg-white overflow-hidden">
         <div className="container grid lg:grid-cols-2 gap-20 items-center">
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -198,8 +198,8 @@ const Home = () => {
               <span className="text-5xl font-serif block text-primary mb-2">20+</span>
               <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Years of Trust</span>
             </div>
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -222,7 +222,7 @@ const Home = () => {
               </div>
             </div>
             <a href="/about" className="px-10 py-5 bg-dark text-white uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary transition-all shadow-xl inline-block">Read Our Story</a>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -236,7 +236,7 @@ const Home = () => {
               
               <div className="relative h-auto md:h-[350px] flex items-center justify-center py-10 md:py-0">
                 <AnimatePresence mode='wait'>
-                  <motion.div
+                  <m.div
                     key={currentTestimonial}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -271,7 +271,7 @@ const Home = () => {
                         {testimonials[currentTestimonial].profession || 'Happy Client'}
                       </p>
                     </div>
-                  </motion.div>
+                  </m.div>
                 </AnimatePresence>
               </div>
 
@@ -324,7 +324,7 @@ const Home = () => {
 
       {/* Call to Action - FULLY RESTORED */}
       <section className="py-24 bg-primary text-white text-center relative overflow-hidden group">
-        <motion.div 
+        <m.div 
           animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }} 
           transition={{ repeat: Infinity, duration: 10 }}
           className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" 
@@ -341,3 +341,4 @@ const Home = () => {
 };
 
 export default Home;
+

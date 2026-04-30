@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { CameraOff, ArrowLeft } from 'lucide-react';
 
 const NotFound = () => {
@@ -9,7 +9,7 @@ const NotFound = () => {
       {/* Abstract Background Element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-      <motion.div 
+      <m.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-xl w-full text-center relative z-10"
@@ -30,9 +30,10 @@ const NotFound = () => {
         >
           <ArrowLeft size={14} /> Back to Civilization
         </Link>
-      </motion.div>
+      </m.div>
     </div>
   );
 };
 
 export default NotFound;
+

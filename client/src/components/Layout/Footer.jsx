@@ -28,7 +28,7 @@ const Footer = () => {
             <img 
               src="/logo_rdps.png" 
               alt="Rimpy Digital Studio" 
-              className="h-10 md:h-12 brightness-0 invert transition-transform hover:scale-105 duration-500" 
+              className="h-10 md:h-12 w-auto aspect-[2.5/1] brightness-0 invert transition-transform hover:scale-105 duration-500" 
               width="120"
               height="48"
             />

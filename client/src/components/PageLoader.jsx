@@ -1,18 +1,18 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 const PageLoader = ({ message = "Loading...", visible = true }) => {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }} 
           exit={{ opacity: 0 }} 
           className="fixed inset-0 z-[1000] bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8"
         >
           <div className="relative">
-            <motion.div 
+            <m.div 
               animate={{ rotate: 360 }} 
               transition={{ repeat: Infinity, duration: 2, ease: "linear" }} 
               className="w-24 h-24 md:w-32 md:h-32 border-2 border-primary/20 border-t-primary rounded-full shadow-2xl shadow-primary/20" 
@@ -29,10 +29,11 @@ const PageLoader = ({ message = "Loading...", visible = true }) => {
               {message}
             </p>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
 };
 
 export default PageLoader;
+

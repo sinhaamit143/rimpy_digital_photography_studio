@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ShieldCheck, Lock, Eye, FileText } from 'lucide-react';
 import PageLoader from '../components/PageLoader';
 
@@ -17,7 +17,7 @@ const Privacy = () => {
       <div className="container max-w-4xl px-6 md:px-8">
         
         {/* Header */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-24"
@@ -29,10 +29,10 @@ const Privacy = () => {
           <h1 className="text-4xl md:text-7xl font-serif leading-tight text-dark italic">Privacy <span className="not-italic font-sans text-primary">Policy</span></h1>
           <div className="w-24 h-[2px] bg-primary mx-auto mt-8"></div>
           <p className="mt-8 text-gray-500 text-xs uppercase tracking-widest font-bold">Last Updated: {new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}</p>
-        </motion.div>
+        </m.div>
 
         {/* Content */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -108,10 +108,11 @@ const Privacy = () => {
             </section>
 
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
 };
 
 export default Privacy;
+

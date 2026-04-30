@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
@@ -38,7 +38,7 @@ const FAQItem = ({ faq, isOpen, toggle }) => (
     </button>
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
@@ -48,7 +48,7 @@ const FAQItem = ({ faq, isOpen, toggle }) => (
           <p className="pb-8 text-text-light text-lg leading-relaxed font-serif italic">
             {faq.a}
           </p>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   </div>
@@ -90,3 +90,4 @@ const FAQ = () => {
 };
 
 export default FAQ;
+

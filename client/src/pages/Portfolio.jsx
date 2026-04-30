@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, Grid, Image as ImageIcon, Loader2, Camera } from 'lucide-react';
 import api from '../utils/api';
 
@@ -79,7 +79,7 @@ const Portfolio = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 md:gap-y-16">
           <AnimatePresence mode='popLayout'>
             {filteredAlbums.map((album, index) => (
-              <motion.div
+              <m.div
                 layout
                 key={album.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -111,7 +111,7 @@ const Portfolio = () => {
                   </div>
                   <ChevronRight size={18} className="text-text-light group-hover:text-primary transition-all group-hover:translate-x-2 mt-2" />
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
         </div>
@@ -129,7 +129,7 @@ const Portfolio = () => {
       {/* Full-Screen Lightbox / Album Detail */}
       <AnimatePresence>
         {selectedAlbum && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
@@ -169,7 +169,7 @@ const Portfolio = () => {
               {/* Dynamic Grid */}
               <div className="columns-1 md:columns-2 lg:columns-2 gap-6 md:gap-10 space-y-6 md:space-y-10">
                 {selectedAlbum.images?.map((img, idx) => (
-                  <motion.div
+                  <m.div
                     key={img.id}
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -184,7 +184,7 @@ const Portfolio = () => {
                       onError={(e) => { e.target.src = fallbackImg; }}
                     />
                     <div className="absolute inset-0 bg-dark/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
@@ -194,7 +194,7 @@ const Portfolio = () => {
                 <a href="/contact" className="inline-block bg-dark text-white px-10 md:px-14 py-4 md:py-6 uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-primary transition-all shadow-2xl rounded-sm">Book a Session Now</a>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -202,3 +202,4 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
+

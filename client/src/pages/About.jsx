@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Camera, Zap, Gift, Award, TrendingUp, Users, Heart, ShieldCheck, Sparkles, Coffee } from 'lucide-react';
 import PageLoader from '../components/PageLoader';
 
@@ -55,7 +55,7 @@ const About = () => {
       {/* Intro Section */}
       <section className="container mb-32">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -82,7 +82,7 @@ const About = () => {
                 <p className="text-[10px] uppercase tracking-widest text-gray-400">Google Rating</p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
           <div className="relative">
             <img 
               src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000" 
@@ -108,7 +108,7 @@ const About = () => {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
             {values.map((value, idx) => (
-              <motion.div 
+              <m.div 
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -121,7 +121,7 @@ const About = () => {
                 </div>
                 <h4 className="text-sm uppercase tracking-widest font-bold mb-4">{value.title}</h4>
                 <p className="text-sm text-text-light leading-relaxed">{value.desc}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -141,7 +141,7 @@ const About = () => {
             
             <div className="grid lg:grid-cols-4 gap-8 relative z-10">
               {timeline.map((item, idx) => (
-                <motion.div
+                <m.div
                   key={item.year}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -163,7 +163,7 @@ const About = () => {
                   <p className="text-text-light text-sm leading-relaxed font-sans">
                     {item.desc}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -214,7 +214,7 @@ const About = () => {
         
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -228,7 +228,7 @@ const About = () => {
                 <a href="/contact" className="px-12 py-5 bg-primary text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-white hover:text-dark transition-all duration-500 shadow-2xl rounded-sm">Book a Session</a>
                 <a href="/shop" className="px-12 py-5 bg-transparent border border-white/30 text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-white hover:text-dark transition-all duration-500 rounded-sm">Visit Gift Shop</a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -237,3 +237,4 @@ const About = () => {
 };
 
 export default About;
+

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, ArrowRight, ArrowLeft, Loader2, HelpCircle } from 'lucide-react';
 import api from '../../utils/api';
 
@@ -39,16 +39,16 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-secondary p-4 md:p-10 relative">
       <AnimatePresence>
         {isAuthenticating && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[1000] bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8">
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[1000] bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8">
             <div className="relative">
-              <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} className="w-32 h-32 border-2 border-primary/20 border-t-primary rounded-full shadow-2xl shadow-primary/20" />
+              <m.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} className="w-32 h-32 border-2 border-primary/20 border-t-primary rounded-full shadow-2xl shadow-primary/20" />
               <img src="/logo_rdps2.png" className="w-12 absolute inset-0 m-auto brightness-0 invert opacity-60" alt="Logo" />
             </div>
             <div className="text-center space-y-3">
               <h4 className="text-2xl font-serif text-white italic">Verifying Credentials</h4>
               <p className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold animate-pulse">Initializing Studio Workspace...</p>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
       
@@ -79,7 +79,7 @@ const Login = () => {
 
         {/* Right Side: Form */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-20 py-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-10 text-center lg:text-left">
               <img src="/logo_rdps.png" alt="Logo" className="h-10 mb-8 mx-auto lg:mx-0" />
               <h1 className="text-3xl font-serif text-dark mb-2">Welcome Back</h1>
@@ -87,13 +87,13 @@ const Login = () => {
             </div>
 
             {error && (
-              <motion.div 
+              <m.div 
                 initial={{ opacity: 0, x: -10 }} 
                 animate={{ opacity: 1, x: 0 }}
                 className="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-600 text-[10px] font-bold uppercase tracking-widest"
               >
                 {error}
-              </motion.div>
+              </m.div>
             )}
 
             <form onSubmit={handleLogin} className="space-y-8">
@@ -150,7 +150,7 @@ const Login = () => {
                 <span>Trouble logging in? Contact support.</span>
               </div>
             </form>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </div>
@@ -158,3 +158,4 @@ const Login = () => {
 };
 
 export default Login;
+

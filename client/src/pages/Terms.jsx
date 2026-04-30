@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Gavel, Calendar, CreditCard, ShoppingBag, Copyright } from 'lucide-react';
 import PageLoader from '../components/PageLoader';
 
@@ -17,7 +17,7 @@ const Terms = () => {
       <div className="container max-w-4xl px-6 md:px-8">
         
         {/* Header */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-24"
@@ -28,10 +28,10 @@ const Terms = () => {
           <span className="text-primary uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block italic">Studio Agreement</span>
           <h1 className="text-4xl md:text-7xl font-serif leading-tight text-dark italic">Terms & <span className="not-italic font-sans text-primary">Conditions</span></h1>
           <div className="w-24 h-[2px] bg-primary mx-auto mt-8"></div>
-        </motion.div>
+        </m.div>
 
         {/* Content */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -95,10 +95,11 @@ const Terms = () => {
             </section>
 
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
 };
 
 export default Terms;
+

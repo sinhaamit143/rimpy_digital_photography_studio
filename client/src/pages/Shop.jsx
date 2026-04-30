@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { openWhatsApp } from '../utils/whatsapp';
 import { Filter, ShoppingBag, Loader2 } from 'lucide-react';
 import api from '../utils/api';
@@ -82,7 +82,7 @@ const Shop = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           <AnimatePresence mode='popLayout'>
             {filteredProducts.map((product) => (
-              <motion.div
+              <m.div
                 layout
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -117,7 +117,7 @@ const Shop = () => {
                   <h3 className="text-lg md:text-xl font-serif mb-4 tracking-wide group-hover:text-primary transition-colors line-clamp-1">{product.title}</h3>
                   <div className="h-0.5 w-12 bg-primary/20 mx-auto group-hover:w-24 transition-all duration-500" />
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
         </div>
@@ -168,3 +168,4 @@ const Shop = () => {
 };
 
 export default Shop;
+
