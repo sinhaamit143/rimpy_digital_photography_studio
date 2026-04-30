@@ -108,8 +108,9 @@ const ProductManagement = ({ refreshStats }) => {
       fetchData(); 
       refreshStats();
     } catch (err) { 
-      const msg = err.response?.data?.message || 'Failed to save product. Please try again.';
-      alert(msg); 
+      console.error('Product save error:', err);
+      const msg = err.response?.data?.message || err.response?.data || err.message || 'Failed to save product. Please try again.';
+      alert(typeof msg === 'string' ? msg : 'An unexpected error occurred while saving the product.'); 
     } finally { 
       setIsSubmitting(false); 
     }
@@ -284,8 +285,9 @@ const PortfolioManagement = ({ refreshStats }) => {
       fetchData(); 
       refreshStats();
     } catch (err) {
-      const msg = err.response?.data?.message || 'Failed to save album. Please try again.';
-      alert(msg);
+      console.error('Album save error:', err);
+      const msg = err.response?.data?.message || err.response?.data || err.message || 'Failed to save album. Please try again.';
+      alert(typeof msg === 'string' ? msg : 'An unexpected error occurred while saving the album.');
     } finally { 
       setIsSubmitting(false); 
     }
@@ -459,8 +461,9 @@ const TestimonialManagement = ({ refreshStats }) => {
       else { await api.put(`/testimonials/${selectedReview.id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }); }
       setModalType(null); fetchData(); refreshStats();
     } catch (err) {
-      const msg = err.response?.data?.message || 'Failed to save testimonial. Please try again.';
-      alert(msg);
+      console.error('Testimonial save error:', err);
+      const msg = err.response?.data?.message || err.response?.data || err.message || 'Failed to save testimonial. Please try again.';
+      alert(typeof msg === 'string' ? msg : 'An unexpected error occurred while saving the testimonial.');
     } finally { setIsSubmitting(false); }
   };
 
