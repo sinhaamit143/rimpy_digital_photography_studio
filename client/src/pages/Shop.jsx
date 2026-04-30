@@ -92,9 +92,11 @@ const Shop = () => {
                 className="bg-white group shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-sm overflow-hidden border border-gray-100"
               >
                 <div className="relative aspect-square overflow-hidden bg-zinc-900">
+                  <img 
                     src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
                     alt={product.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    loading="lazy"
                     onError={(e) => { e.target.src = fallbackImg; }}
                   />
                   <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">

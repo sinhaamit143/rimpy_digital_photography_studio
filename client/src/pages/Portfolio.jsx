@@ -94,6 +94,7 @@ const Portfolio = () => {
                     src={album.coverImage?.startsWith('http') ? album.coverImage : `${BASE_URL}${album.coverImage}`} 
                     alt={album.title} 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                    loading="lazy"
                     onError={(e) => { e.target.src = fallbackImg; }}
                   />
                   <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center backdrop-blur-[2px]">
@@ -179,6 +180,7 @@ const Portfolio = () => {
                       src={img.imageUrl?.startsWith('http') ? img.imageUrl : `${BASE_URL}${img.imageUrl}`} 
                       alt={`Gallery ${idx}`} 
                       className="w-full h-auto object-cover hover:scale-105 transition-transform duration-1000" 
+                      loading="lazy"
                       onError={(e) => { e.target.src = fallbackImg; }}
                     />
                     <div className="absolute inset-0 bg-dark/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>

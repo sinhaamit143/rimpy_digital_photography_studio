@@ -250,6 +250,7 @@ const Home = () => {
                           src={testimonials[currentTestimonial].imageUrl?.startsWith('http') ? testimonials[currentTestimonial].imageUrl : `${BASE_URL}${testimonials[currentTestimonial].imageUrl}`} 
                           className="w-full h-full object-cover rounded-full bg-secondary"
                           alt="Client"
+                          loading="lazy"
                           onError={(e) => { e.target.src = "https://ui-avatars.com/api/?name=" + testimonials[currentTestimonial].name + "&background=c49a6c&color=fff"; }}
                         />
                       </div>
