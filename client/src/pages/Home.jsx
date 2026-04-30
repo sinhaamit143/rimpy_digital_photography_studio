@@ -81,9 +81,9 @@ const Home = () => {
   ];
 
   const shopCategories = [
-    { title: "Personalized Gifts", icon: Gift, img: "https://images.unsplash.com/photo-1549465220-1d8c95ad76e0?q=80&w=2070&auto=format&fit=crop" },
-    { title: "Premium Frames", icon: Camera, img: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=2070&auto=format&fit=crop" },
-    { title: "3D Crystals", icon: Award, img: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=80&w=2071&auto=format&fit=crop" },
+    { title: "Personalized Gifts", icon: Gift, img: "https://images.unsplash.com/photo-1549465220-1d8c95ad76e0?q=75&w=800&auto=format&fit=crop" },
+    { title: "Premium Frames", icon: Camera, img: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=75&w=800&auto=format&fit=crop" },
+    { title: "3D Crystals", icon: Award, img: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=75&w=800&auto=format&fit=crop" },
   ];
 
   // Auto-slide logic
@@ -112,7 +112,7 @@ const Home = () => {
           className="absolute inset-0 z-0"
         >
           <img 
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000" 
+            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=75&w=1600" 
             alt="Photography Hero"
             className="w-full h-full object-cover opacity-60"
           />
@@ -190,7 +190,7 @@ const Home = () => {
             className="relative group"
           >
             <img 
-              src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1000" 
+              src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=75&w=800" 
               alt="Studio Interior"
               className="w-full aspect-[4/5] object-cover rounded-sm shadow-2xl"
             />

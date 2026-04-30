@@ -41,6 +41,8 @@ const Navbar = () => {
             src="/logo_rdps.png" 
             alt="Rimpy Digital Logo" 
             className="h-16 md:h-24 w-auto transition-all duration-300 group-hover:scale-105"
+            width="240"
+            height="96"
           />
         </Link>
 
@@ -67,7 +69,7 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       <div className={`fixed top-0 left-0 w-full h-[100dvh] bg-dark z-[1000] flex flex-col items-center justify-center transition-all duration-500 lg:hidden ${isOpen ? 'translate-y-0' : '-translate-y-full opacity-0 invisible'}`}>
         <div className="absolute top-0 left-0 w-full h-28 px-8 flex items-center justify-between border-b border-white/5">
-           <img src="/logo_rdps.png" alt="Logo" className="h-16 brightness-0 invert" />
+           <img src="/logo_rdps.png" alt="Logo" className="h-16 brightness-0 invert" width="160" height="64" />
            <div className="w-10"></div> {/* Spacer to balance the logo */}
         </div>
         

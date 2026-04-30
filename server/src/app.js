@@ -1,12 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const compression = require('compression');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const apiRoutes = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler.middleware');
 
 const app = express();
+
+app.use(compression());
 
 // Updated Swagger Configuration
 const swaggerOptions = {
