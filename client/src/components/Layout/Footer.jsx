@@ -44,7 +44,7 @@ const Footer = () => {
 
           {/* Column 2: Studio Navigation */}
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Studio Guide</h4>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Studio Guide</h3>
             <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-8 gap-y-4 w-full md:w-auto">
               {['Home', 'Portfolio', 'Services', 'Shop', 'About', 'Contact'].map((item) => (
                 <li key={item}>
@@ -61,7 +61,7 @@ const Footer = () => {
 
           {/* Column 3: Visit Us */}
           <div className="flex flex-col items-center md:items-start space-y-8">
-            <h4 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Visit Us</h4>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Visit Us</h3>
             <div className="space-y-6 w-full max-w-xs md:max-w-none">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-4 text-gray-400 group">
                 <MapPin size={18} className="text-primary md:mt-1 shrink-0 group-hover:scale-110 transition-transform" />
@@ -82,19 +82,20 @@ const Footer = () => {
 
           {/* Column 4: Follow Us */}
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Follow Us</h4>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Follow Us</h3>
             <div className="flex gap-4 mb-10">
               {[
-                { icon: Instagram, link: settings?.instagram, color: 'hover:text-pink-500' },
-                { icon: Facebook, link: settings?.facebook, color: 'hover:text-blue-600' },
-                { icon: MessageSquare, link: settings?.whatsapp ? `https://wa.me/${settings.whatsapp.replace(/\D/g,'')}` : null, color: 'hover:text-green-500' },
-                { icon: Youtube, link: settings?.youtube, color: 'hover:text-red-600' }
+                { name: 'Instagram', icon: Instagram, link: settings?.instagram, color: 'hover:text-pink-500' },
+                { name: 'Facebook', icon: Facebook, link: settings?.facebook, color: 'hover:text-blue-600' },
+                { name: 'WhatsApp', icon: MessageSquare, link: settings?.whatsapp ? `https://wa.me/${settings.whatsapp.replace(/\D/g,'')}` : null, color: 'hover:text-green-500' },
+                { name: 'YouTube', icon: Youtube, link: settings?.youtube, color: 'hover:text-red-600' }
               ].map((social, idx) => (
                 <a 
                   key={idx}
                   href={social.link || '#'} 
                   target="_blank" 
                   rel="noopener noreferrer"
+                  aria-label={`Follow us on ${social.name}`}
                   className={`p-3 bg-white/5 rounded-sm text-gray-400 ${social.color} hover:bg-white/10 transition-all duration-500 hover:-translate-y-2 shadow-xl`}
                 >
                   <social.icon size={18} />

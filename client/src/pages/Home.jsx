@@ -211,12 +211,12 @@ const Home = () => {
             </p>
             <div className="grid grid-cols-2 gap-10 mb-12">
               <div className="space-y-3">
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-dark">Photography</h4>
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-dark">Photography</h3>
                 <div className="w-10 h-[1px] bg-primary"></div>
                 <p className="text-xs text-text-light leading-relaxed">Weddings, Portraits, Maternity, Events & Cinematography.</p>
               </div>
               <div className="space-y-3">
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-dark">Gifting</h4>
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-dark">Gifting</h3>
                 <div className="w-10 h-[1px] bg-primary"></div>
                 <p className="text-xs text-text-light leading-relaxed">3D Crystals, Custom Frames, Personalized Albums & More.</p>
               </div>
@@ -264,9 +264,9 @@ const Home = () => {
                       "{testimonials[currentTestimonial].comment}"
                     </p>
                     <div className="mt-8">
-                      <h4 className="text-[11px] uppercase tracking-[0.4em] font-bold text-white">
+                      <h3 className="text-[11px] uppercase tracking-[0.4em] font-bold text-white">
                         {testimonials[currentTestimonial].name}
-                      </h4>
+                      </h3>
                       <p className="text-[9px] text-accent uppercase tracking-widest mt-2 font-bold opacity-60">
                         {testimonials[currentTestimonial].profession || 'Happy Client'}
                       </p>
@@ -278,20 +278,29 @@ const Home = () => {
               {/* Navigation Buttons */}
               <div className="flex flex-col md:flex-row justify-center items-center gap-8 mt-24">
                 <div className="flex items-center gap-6">
-                  <button onClick={prevTestimonial} className="p-4 border border-white/10 rounded-full hover:bg-accent hover:border-accent transition-all group">
-                    <ChevronLeft size={20} className="group-hover:scale-110 transition-transform" />
+                  <button 
+                    onClick={prevTestimonial} 
+                    aria-label="Previous testimonial"
+                    className="p-5 border border-white/10 rounded-full hover:bg-accent hover:border-accent transition-all group"
+                  >
+                    <ChevronLeft size={24} className="group-hover:scale-110 transition-transform" />
                   </button>
-                  <div className="flex gap-3">
+                  <div className="flex gap-4">
                     {testimonials.map((_, i) => (
                       <button 
                         key={i} 
                         onClick={() => setCurrentTestimonial(i)}
-                        className={`h-1.5 transition-all duration-500 rounded-full ${currentTestimonial === i ? 'w-10 bg-accent' : 'w-2 bg-white/20 hover:bg-white/40'}`}
+                        aria-label={`Go to testimonial ${i + 1}`}
+                        className={`h-2.5 transition-all duration-500 rounded-full ${currentTestimonial === i ? 'w-12 bg-accent' : 'w-3 bg-white/20 hover:bg-white/40'}`}
                       />
                     ))}
                   </div>
-                  <button onClick={nextTestimonial} className="p-4 border border-white/10 rounded-full hover:bg-accent hover:border-accent transition-all group">
-                    <ChevronRight size={20} className="group-hover:scale-110 transition-transform" />
+                  <button 
+                    onClick={nextTestimonial} 
+                    aria-label="Next testimonial"
+                    className="p-5 border border-white/10 rounded-full hover:bg-accent hover:border-accent transition-all group"
+                  >
+                    <ChevronRight size={24} className="group-hover:scale-110 transition-transform" />
                   </button>
                 </div>
               </div>
