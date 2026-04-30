@@ -109,8 +109,9 @@ const ProductManagement = ({ refreshStats }) => {
       refreshStats();
     } catch (err) { 
       console.error('Product save error:', err);
-      const msg = err.response?.data?.message || err.response?.data || err.message || 'Failed to save product. Please try again.';
-      alert(typeof msg === 'string' ? msg : 'An unexpected error occurred while saving the product.'); 
+      const serverMsg = err.response?.data?.message;
+      const errorMsg = serverMsg || err.message || 'Failed to save product. Please try again.';
+      alert(errorMsg); 
     } finally { 
       setIsSubmitting(false); 
     }
@@ -286,8 +287,9 @@ const PortfolioManagement = ({ refreshStats }) => {
       refreshStats();
     } catch (err) {
       console.error('Album save error:', err);
-      const msg = err.response?.data?.message || err.response?.data || err.message || 'Failed to save album. Please try again.';
-      alert(typeof msg === 'string' ? msg : 'An unexpected error occurred while saving the album.');
+      const serverMsg = err.response?.data?.message;
+      const errorMsg = serverMsg || err.message || 'Failed to save album. Please try again.';
+      alert(errorMsg);
     } finally { 
       setIsSubmitting(false); 
     }
@@ -462,8 +464,9 @@ const TestimonialManagement = ({ refreshStats }) => {
       setModalType(null); fetchData(); refreshStats();
     } catch (err) {
       console.error('Testimonial save error:', err);
-      const msg = err.response?.data?.message || err.response?.data || err.message || 'Failed to save testimonial. Please try again.';
-      alert(typeof msg === 'string' ? msg : 'An unexpected error occurred while saving the testimonial.');
+      const serverMsg = err.response?.data?.message;
+      const errorMsg = serverMsg || err.message || 'Failed to save testimonial. Please try again.';
+      alert(errorMsg);
     } finally { setIsSubmitting(false); }
   };
 
