@@ -247,7 +247,7 @@ const Contact = () => {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Direct Contact</h4>
-                    <p className="text-dark font-serif italic text-base md:text-lg leading-relaxed">{settings?.phone || '+91 79471 29801'}</p>
+                    <p className="text-dark font-serif italic text-base md:text-lg leading-relaxed">{settings?.phone || '+91 98124 11818'}</p>
                     <p className="text-dark font-serif italic text-base md:text-lg leading-relaxed">{settings?.email || 'hello@rimpy.com'}</p>
                   </div>
                 </div>
