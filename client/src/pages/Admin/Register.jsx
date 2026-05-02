@@ -1,36 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { m, AnimatePresence } from 'framer-motion';
-import { Lock, User, Eye, EyeOff, ArrowRight, ArrowLeft, Loader2, HelpCircle } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, ArrowRight, ArrowLeft, Loader2, ShieldCheck, CheckCircle } from 'lucide-react';
 import api from '../../utils/api';
 
-const Login = () => {
+const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '', secretKey: '' });
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
     try {
-      const response = await api.post('/auth/login', credentials);
-      const { accessToken, refreshToken, user } = response.data;
-
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('user', JSON.stringify(user));
-
-      setIsAuthenticating(true);
+      await api.post('/auth/register', formData);
+      setIsSuccess(true);
       setTimeout(() => {
-        navigate('/admin/dashboard');
-      }, 1200);
+        navigate('/admin');
+      }, 2500);
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
       setIsLoading(false);
     }
   };
@@ -38,42 +32,45 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-secondary p-4 md:p-10 relative">
       <AnimatePresence>
-        {isAuthenticating && (
+        {isSuccess && (
           <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[1000] bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8">
-            <div className="relative">
-              <m.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} className="w-32 h-32 border-2 border-primary/20 border-t-primary rounded-full shadow-2xl shadow-primary/20" />
-              <img src="/logo_rdps2.png" className="w-12 absolute inset-0 m-auto brightness-0 invert opacity-60" alt="Logo" />
-            </div>
+            <m.div 
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: 'spring', damping: 15 }}
+              className="w-32 h-32 bg-primary/20 rounded-full flex items-center justify-center border-2 border-primary"
+            >
+              <CheckCircle size={60} className="text-primary" />
+            </m.div>
             <div className="text-center space-y-3">
-              <h4 className="text-2xl font-serif text-white italic">Verifying Credentials</h4>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold animate-pulse">Initializing Studio Workspace...</p>
+              <h4 className="text-3xl font-serif text-white italic">Account Created</h4>
+              <p className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold">Redirecting to Vault Access...</p>
             </div>
           </m.div>
         )}
       </AnimatePresence>
       
-      {/* Back to Website - Floating Button */}
       <Link 
-        to="/" 
+        to="/admin" 
         className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-dark/40 hover:text-primary transition-colors group z-50"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
-        Back to Website
+        Back to Login
       </Link>
 
-      <div className="w-full max-w-[1100px] h-auto lg:h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-white border border-gray-100 relative">
+      <div className="w-full max-w-[1100px] h-auto lg:min-h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-white border border-gray-100 relative">
         
         {/* Left Side: Photo */}
         <div className="hidden lg:block w-1/2 relative overflow-hidden bg-dark">
           <img 
-            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200" 
+            src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1200" 
             alt="Studio" 
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover opacity-50"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
           <div className="absolute bottom-12 left-12 right-12 text-white">
-            <h2 className="text-4xl font-serif leading-tight mb-4">Quality Since <br /><span className="italic text-primary">2004</span></h2>
-            <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Admin Management Portal</p>
+            <h2 className="text-4xl font-serif leading-tight mb-4">Join the <br /><span className="italic text-primary">Artistic Team</span></h2>
+            <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Studio Administrative Onboarding</p>
           </div>
         </div>
 
@@ -82,8 +79,8 @@ const Login = () => {
           <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-10 text-center lg:text-left">
               <img src="/logo_rdps.png" alt="Logo" className="h-10 mb-8 mx-auto lg:mx-0" />
-              <h1 className="text-3xl font-serif text-dark mb-2">Welcome Back</h1>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Please enter your admin credentials</p>
+              <h1 className="text-3xl font-serif text-dark mb-2">Create Admin</h1>
+              <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Join the Rimpy Digital Studio workspace</p>
             </div>
 
             {error && (
@@ -96,7 +93,7 @@ const Login = () => {
               </m.div>
             )}
 
-            <form onSubmit={handleLogin} className="space-y-8">
+            <form onSubmit={handleRegister} className="space-y-6">
               <div className="space-y-2 group">
                 <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Email Address</label>
                 <div className="relative">
@@ -106,18 +103,13 @@ const Login = () => {
                     placeholder="admin@rimpy.com"
                     className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
                     required
-                    onChange={(e) => setCredentials({...credentials, email: e.target.value})}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                   />
                 </div>
               </div>
 
               <div className="space-y-2 group">
-                <div className="flex justify-between items-center">
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Security Code</label>
-                  <Link to="/admin/forgot-password" size={14} className="text-[9px] uppercase tracking-widest font-bold text-gray-400 hover:text-primary transition-colors">
-                    Forgot?
-                  </Link>
-                </div>
+                <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Password</label>
                 <div className="relative">
                   <Lock size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
                   <input 
@@ -125,7 +117,7 @@ const Login = () => {
                     placeholder="••••••••"
                     className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
                     required
-                    onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                    onChange={(e) => setFormData({...formData, password: e.target.value})}
                   />
                   <button 
                     type="button"
@@ -137,23 +129,32 @@ const Login = () => {
                 </div>
               </div>
 
+              <div className="space-y-2 group">
+                <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Admin Secret Key</label>
+                <div className="relative">
+                  <ShieldCheck size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
+                  <input 
+                    type="password" 
+                    placeholder="Enter studio secret"
+                    className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark font-sans"
+                    required
+                    onChange={(e) => setFormData({...formData, secretKey: e.target.value})}
+                  />
+                </div>
+                <p className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">Required for account verification</p>
+              </div>
+
               <button 
                 type="submit"
                 disabled={isLoading}
-                className="group w-full py-5 bg-dark text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-primary transition-all duration-500 flex items-center justify-center gap-3 shadow-xl disabled:opacity-50"
+                className="group w-full py-5 bg-dark text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-primary transition-all duration-500 flex items-center justify-center gap-3 shadow-xl disabled:opacity-50 mt-4"
               >
-                {isLoading ? <Loader2 size={16} className="animate-spin" /> : <>Enter Dashboard <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" /></>}
+                {isLoading ? <Loader2 size={16} className="animate-spin" /> : <>Create Account <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" /></>}
               </button>
 
-              <div className="mt-10 pt-10 border-t border-gray-100 flex flex-col items-center gap-4">
-                <div className="flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
-                  <HelpCircle size={14} /> 
-                  <span>Trouble logging in? Contact support.</span>
-                </div>
-                <div className="flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
-                  <span>New to the team?</span>
-                  <Link to="/admin/register" className="text-primary hover:underline">Create Account</Link>
-                </div>
+              <div className="mt-10 pt-10 border-t border-gray-100 flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
+                <span>Already have access?</span>
+                <Link to="/admin" className="text-primary hover:underline">Login here</Link>
               </div>
             </form>
           </m.div>
@@ -163,5 +164,4 @@ const Login = () => {
   );
 };
 
-export default Login;
-
+export default Register;

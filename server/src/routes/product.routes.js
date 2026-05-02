@@ -47,7 +47,7 @@ const upload = require('../middlewares/upload.middleware');
  *         description: Product created
  */
 router.get('/', productController.getAllProducts);
-router.post('/', authMiddleware, upload.single('image'), productController.createProduct);
+router.post('/', authMiddleware, upload.single('image'), upload.optimize, productController.createProduct);
 
 /**
  * @swagger
@@ -79,7 +79,7 @@ router.delete('/categories/:id', authMiddleware, productController.deleteCategor
  *     security:
  *       - bearerAuth: []
  */
-router.put('/:id', authMiddleware, upload.single('image'), productController.updateProduct);
+router.put('/:id', authMiddleware, upload.single('image'), upload.optimize, productController.updateProduct);
 router.delete('/:id', authMiddleware, productController.deleteProduct);
 
 module.exports = router;

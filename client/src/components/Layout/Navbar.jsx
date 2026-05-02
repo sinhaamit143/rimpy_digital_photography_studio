@@ -61,7 +61,11 @@ const Navbar = () => {
         </ul>
 
         {/* Mobile Toggle */}
-        <button className="lg:hidden text-dark z-[1100] relative p-2" onClick={() => setIsOpen(!isOpen)}>
+        <button 
+          className="lg:hidden text-dark z-[1100] relative p-2" 
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close Menu" : "Open Menu"}
+        >
           {isOpen ? <X size={32} className="text-white" /> : <Menu size={32} />}
         </button>
       </div>

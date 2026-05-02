@@ -43,11 +43,33 @@ const createCategory = async (req, res, next) => {
 // Albums
 const getAllAlbums = async (req, res, next) => {
   try {
-    const albums = await prisma.portfolioAlbum.findMany({
-      include: { category: true, images: true },
-      orderBy: { createdAt: 'desc' }
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 9;
+    const categoryId = req.query.categoryId ? parseInt(req.query.categoryId) : undefined;
+    const skip = (page - 1) * limit;
+
+    const where = categoryId ? { categoryId } : {};
+
+    const [albums, total] = await Promise.all([
+      prisma.portfolioAlbum.findMany({
+        where,
+        skip,
+        take: limit,
+        include: { category: true, images: true },
+        orderBy: { createdAt: 'desc' }
+      }),
+      prisma.portfolioAlbum.count({ where })
+    ]);
+
+    res.json({
+      albums,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
     });
-    res.json(albums);
   } catch (error) {
     next(error);
   }

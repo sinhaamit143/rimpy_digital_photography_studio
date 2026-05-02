@@ -36,7 +36,7 @@ const Footer = () => {
               <p className="text-gray-400 text-sm font-serif italic leading-loose opacity-80">
                 Pioneering visual excellence in Karnal since 2004. We specialize in transforming your most intimate moments into timeless artistic treasures.
               </p>
-              <p className="text-gray-500 text-[10px] uppercase tracking-[0.3em] font-bold leading-relaxed">
+              <p className="text-gray-400 text-[10px] uppercase tracking-[0.3em] font-bold leading-relaxed">
                 Premium Photography & <br className="hidden lg:block" /> Personalized Gifting Studio
               </p>
             </div>
@@ -44,7 +44,7 @@ const Footer = () => {
 
           {/* Column 2: Studio Navigation */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Studio Guide</h3>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-accent">Studio Guide</h3>
             <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-8 gap-y-4 w-full md:w-auto">
               {['Home', 'Portfolio', 'Services', 'Shop', 'About', 'Contact'].map((item) => (
                 <li key={item}>
@@ -61,7 +61,7 @@ const Footer = () => {
 
           {/* Column 3: Visit Us */}
           <div className="flex flex-col items-center md:items-start space-y-8">
-            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Visit Us</h3>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-accent">Visit Us</h3>
             <div className="space-y-6 w-full max-w-xs md:max-w-none">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-4 text-gray-400 group">
                 <MapPin size={18} className="text-primary md:mt-1 shrink-0 group-hover:scale-110 transition-transform" />
@@ -82,7 +82,7 @@ const Footer = () => {
 
           {/* Column 4: Follow Us */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-primary">Follow Us</h3>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-accent">Follow Us</h3>
             <div className="flex gap-4 mb-10">
               {[
                 { name: 'Instagram', icon: Instagram, link: settings?.instagram, color: 'hover:text-pink-500' },
@@ -103,8 +103,8 @@ const Footer = () => {
               ))}
             </div>
             <div className="p-6 bg-white/5 border border-white/10 rounded-sm w-full">
-              <p className="text-[9px] uppercase tracking-[0.3em] text-gray-500 font-bold">Studio Status</p>
-              <p className="text-xs text-primary font-bold mt-2">Available for Bookings</p>
+              <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 font-bold">Studio Status</p>
+              <p className="text-xs text-accent font-bold mt-2">Available for Bookings</p>
             </div>
           </div>
 
@@ -112,10 +112,10 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold text-center md:text-left">
+          <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold text-center md:text-left">
             &copy; {new Date().getFullYear()} Rimpy Digital Studio. <br className="md:hidden" /> All Rights Reserved.
           </p>
-          <div className="flex gap-8 text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold">
+          <div className="flex gap-8 text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">
             <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
           </div>

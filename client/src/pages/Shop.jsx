@@ -3,6 +3,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import { openWhatsApp } from '../utils/whatsapp';
 import { Filter, ShoppingBag, Loader2 } from 'lucide-react';
 import api from '../utils/api';
+import Pagination from '../components/Common/Pagination';
 
 import PageLoader from '../components/PageLoader';
 
@@ -15,16 +16,28 @@ const Shop = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [pagination, setPagination] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchData = async () => {
+  const fetchData = async (page = 1) => {
     setLoading(true);
     try {
+      // Find category ID if not "All"
+      let url = `/products?page=${page}&limit=9`;
+      if (activeCategory !== "All") {
+        const cat = categories.find(c => c.name === activeCategory);
+        if (cat) url += `&categoryId=${cat.id}`;
+      }
+
       const [prodRes, catRes] = await Promise.all([
-        api.get('/products'),
+        api.get(url),
         api.get('/products/categories')
       ]);
-      setProducts(prodRes.data);
+      
+      setProducts(prodRes.data.products);
+      setPagination(prodRes.data.pagination);
       setCategories(catRes.data);
+      setCurrentPage(page);
     } catch (err) {
       console.error('Failed to fetch shop data:', err);
     } finally {
@@ -33,8 +46,8 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(1);
+  }, [activeCategory]);
 
   const filteredProducts = activeCategory === "All" 
     ? products 
@@ -81,7 +94,7 @@ const Shop = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           <AnimatePresence mode='popLayout'>
-            {filteredProducts.map((product) => (
+            {products.map((product) => (
               <m.div
                 layout
                 key={product.id}
@@ -122,8 +135,13 @@ const Shop = () => {
           </AnimatePresence>
         </div>
 
+        <Pagination 
+          pagination={pagination} 
+          onPageChange={(page) => fetchData(page)} 
+        />
+
         {/* Empty State */}
-        {filteredProducts.length === 0 && (
+        {products.length === 0 && (
           <div className="py-24 md:py-32 text-center border-2 border-dashed border-gray-100 rounded-sm">
             <h4 className="text-xl md:text-2xl font-serif text-gray-300 italic mb-2">Collection is currently empty</h4>
             <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">Please check back later or browse other categories</p>

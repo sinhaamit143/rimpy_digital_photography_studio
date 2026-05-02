@@ -15,10 +15,28 @@ const submitInquiry = async (req, res, next) => {
 
 const getAllInquiries = async (req, res, next) => {
   try {
-    const inquiries = await prisma.contactMessage.findMany({
-      orderBy: { createdAt: 'desc' }
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [inquiries, total] = await Promise.all([
+      prisma.contactMessage.findMany({
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' }
+      }),
+      prisma.contactMessage.count()
+    ]);
+
+    res.json({
+      inquiries,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
     });
-    res.json(inquiries);
   } catch (error) {
     next(error);
   }

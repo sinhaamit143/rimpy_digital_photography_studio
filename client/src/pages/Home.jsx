@@ -48,7 +48,8 @@ const Home = () => {
         api.get('/testimonials'),
         api.get('/settings')
       ]);
-      setTestimonials(testRes.data.filter(t => t.status === 'active'));
+      const testimonialData = testRes.data.testimonials || [];
+      setTestimonials(testimonialData.filter(t => t.status === 'active'));
       setSettings(settingsRes.data);
     } catch (err) {
       console.error('Failed to fetch home data:', err);
@@ -111,11 +112,19 @@ const Home = () => {
           transition={{ duration: 1.5 }}
           className="absolute inset-0 z-0"
         >
-          <img 
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=75&w=1600" 
-            alt="Photography Hero"
-            className="w-full h-full object-cover opacity-60"
-          />
+          <picture className="w-full h-full">
+            <source 
+              media="(max-width: 768px)" 
+              srcSet="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=75&w=800" 
+            />
+            <img 
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=75&w=1600" 
+              alt="Photography Hero"
+              className="w-full h-full object-cover opacity-60"
+              fetchpriority="high"
+              loading="eager"
+            />
+          </picture>
         </m.div>
 
         <div className="container relative z-10 text-center text-white">

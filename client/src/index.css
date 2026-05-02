@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #5a604d;
+  --color-primary: #454a3a;
   --color-secondary: #f4f4f2;
   --color-accent: #a68936;
   --color-dark: #1a1a1a;
@@ -26,7 +26,7 @@
   }
   
   .btn-accent {
-    @apply px-8 py-3 bg-accent text-white uppercase tracking-widest text-xs transition-all duration-500 hover:bg-dark;
+    @apply px-8 py-3 bg-accent text-dark uppercase tracking-widest text-xs transition-all duration-500 hover:bg-dark hover:text-white font-bold;
   }
 
   .nav-link {

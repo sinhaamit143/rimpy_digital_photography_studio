@@ -3,5 +3,5 @@ export const openWhatsApp = (productTitle, price) => {
   const message = `Hi! I am interested in purchasing ${productTitle} listed at ${price}.`;
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-  window.open(whatsappUrl, '_blank');
+  window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 };

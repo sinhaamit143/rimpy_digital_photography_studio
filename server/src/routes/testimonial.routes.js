@@ -24,7 +24,7 @@ const upload = require('../middlewares/upload.middleware');
  *       - bearerAuth: []
  */
 router.get('/', testimonialController.getAllTestimonials);
-router.post('/', authMiddleware, upload.single('image'), testimonialController.createTestimonial);
+router.post('/', authMiddleware, upload.single('image'), upload.optimize, testimonialController.createTestimonial);
 
 /**
  * @swagger
@@ -40,7 +40,7 @@ router.post('/', authMiddleware, upload.single('image'), testimonialController.c
  *     security:
  *       - bearerAuth: []
  */
-router.put('/:id', authMiddleware, upload.single('image'), testimonialController.updateTestimonial);
+router.put('/:id', authMiddleware, upload.single('image'), upload.optimize, testimonialController.updateTestimonial);
 router.delete('/:id', authMiddleware, testimonialController.deleteTestimonial);
 
 module.exports = router;

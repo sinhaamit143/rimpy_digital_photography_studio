@@ -43,11 +43,33 @@ const createCategory = async (req, res, next) => {
 // Products
 const getAllProducts = async (req, res, next) => {
   try {
-    const products = await prisma.product.findMany({
-      include: { category: true },
-      orderBy: { createdAt: 'desc' }
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const categoryId = req.query.categoryId ? parseInt(req.query.categoryId) : undefined;
+    const skip = (page - 1) * limit;
+
+    const where = categoryId ? { categoryId } : {};
+
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        skip,
+        take: limit,
+        include: { category: true },
+        orderBy: { createdAt: 'desc' }
+      }),
+      prisma.product.count({ where })
+    ]);
+
+    res.json({
+      products,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
     });
-    res.json(products);
   } catch (error) {
     next(error);
   }

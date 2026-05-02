@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const crypto = require('crypto');
 const { comparePassword, hashPassword } = require('../utils/hash.util');
 const { generateTokens, verifyRefreshToken } = require('../utils/jwt.util');
 
@@ -14,7 +15,6 @@ const login = async (req, res, next) => {
 
     const { accessToken, refreshToken } = generateTokens({ id: user.id, email: user.email });
 
-    // Store refresh token in DB
     await prisma.user.update({
       where: { id: user.id },
       data: { refreshToken }
@@ -26,6 +26,95 @@ const login = async (req, res, next) => {
       refreshToken,
       user: { id: user.id, email: user.email, role: user.role }
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const register = async (req, res, next) => {
+  try {
+    const { email, password, secretKey } = req.body;
+
+    // Security check for Admin creation
+    if (secretKey !== process.env.ADMIN_SECRET_KEY) {
+      return res.status(403).json({ message: 'Unauthorized. Invalid secret key.' });
+    }
+
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    const passwordHash = await hashPassword(password);
+    const user = await prisma.user.create({
+      data: { email, passwordHash, role: 'ADMIN' }
+    });
+
+    res.status(201).json({ success: true, message: 'Admin account created successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      // Don't reveal if user exists or not for security
+      return res.json({ success: true, message: 'If this email exists, a reset link has been generated.' });
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiry = new Date(Date.now() + 3600000); // 1 hour
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        resetToken: token,
+        resetTokenExpiry: expiry
+      }
+    });
+
+    // For now, return token so we can test without real email setup
+    res.json({ 
+      success: true, 
+      message: 'Reset token generated', 
+      debugToken: token // Remove in production
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    const user = await prisma.user.findFirst({
+      where: {
+        resetToken: token,
+        resetTokenExpiry: { gte: new Date() }
+      }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired reset token' });
+    }
+
+    const passwordHash = await hashPassword(newPassword);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        passwordHash,
+        resetToken: null,
+        resetTokenExpiry: null
+      }
+    });
+
+    res.json({ success: true, message: 'Password has been reset successfully' });
   } catch (error) {
     next(error);
   }
@@ -90,4 +179,4 @@ const setup = async (req, res, next) => {
   }
 };
 
-module.exports = { login, refresh, setup, logout };
+module.exports = { login, register, forgotPassword, resetPassword, refresh, setup, logout };

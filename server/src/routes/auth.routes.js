@@ -76,5 +76,8 @@ router.post('/logout', authController.logout);
  *         description: Admin created
  */
 router.post('/setup', authController.setup);
+router.post('/register', authController.register);
+router.post('/forgot-password', authController.forgotPassword);
+router.post('/reset-password', authController.resetPassword);
 
 module.exports = router;

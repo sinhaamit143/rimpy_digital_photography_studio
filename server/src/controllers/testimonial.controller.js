@@ -18,10 +18,28 @@ const deleteFile = (filePath) => {
 
 const getAllTestimonials = async (req, res, next) => {
   try {
-    const testimonials = await prisma.testimonial.findMany({
-      orderBy: { createdAt: 'desc' }
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [testimonials, total] = await Promise.all([
+      prisma.testimonial.findMany({
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' }
+      }),
+      prisma.testimonial.count()
+    ]);
+
+    res.json({
+      testimonials,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
     });
-    res.json(testimonials);
   } catch (error) {
     next(error);
   }

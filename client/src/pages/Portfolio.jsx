@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, Grid, Image as ImageIcon, Loader2, Camera } from 'lucide-react';
 import api from '../utils/api';
+import Pagination from '../components/Common/Pagination';
 
 import PageLoader from '../components/PageLoader';
 
@@ -15,16 +16,27 @@ const Portfolio = () => {
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [pagination, setPagination] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchData = async () => {
+  const fetchData = async (page = 1) => {
     setLoading(true);
     try {
+      let url = `/portfolio/albums?page=${page}&limit=9`;
+      if (activeCategory !== "All") {
+        const cat = categories.find(c => c.name === activeCategory);
+        if (cat) url += `&categoryId=${cat.id}`;
+      }
+
       const [albumRes, catRes] = await Promise.all([
-        api.get('/portfolio/albums'),
+        api.get(url),
         api.get('/portfolio/categories')
       ]);
-      setAlbums(albumRes.data);
+      
+      setAlbums(albumRes.data.albums);
+      setPagination(albumRes.data.pagination);
       setCategories(catRes.data);
+      setCurrentPage(page);
     } catch (err) {
       console.error('Failed to fetch portfolio:', err);
     } finally {
@@ -33,8 +45,8 @@ const Portfolio = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(1);
+  }, [activeCategory]);
 
   const filteredAlbums = activeCategory === "All" 
     ? albums 
@@ -78,7 +90,7 @@ const Portfolio = () => {
         {/* Album Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 md:gap-y-16">
           <AnimatePresence mode='popLayout'>
-            {filteredAlbums.map((album, index) => (
+            {albums.map((album, index) => (
               <m.div
                 layout
                 key={album.id}
@@ -116,8 +128,13 @@ const Portfolio = () => {
           </AnimatePresence>
         </div>
 
+        <Pagination 
+          pagination={pagination} 
+          onPageChange={(page) => fetchData(page)} 
+        />
+
         {/* Empty State */}
-        {filteredAlbums.length === 0 && (
+        {albums.length === 0 && (
           <div className="py-24 md:py-32 text-center border-2 border-dashed border-gray-100 rounded-sm">
             <Camera size={40} className="mx-auto text-gray-200 mb-4" />
             <h4 className="text-xl md:text-2xl font-serif text-gray-300 italic mb-2">No albums found</h4>

@@ -24,7 +24,7 @@ const upload = require('../middlewares/upload.middleware');
  *       - bearerAuth: []
  */
 router.get('/albums', portfolioController.getAllAlbums);
-router.post('/albums', authMiddleware, upload.single('image'), portfolioController.createAlbum);
+router.post('/albums', authMiddleware, upload.single('image'), upload.optimize, portfolioController.createAlbum);
 
 /**
  * @swagger
@@ -39,7 +39,7 @@ router.post('/albums', authMiddleware, upload.single('image'), portfolioControll
  *       - bearerAuth: []
  */
 router.get('/albums/:id', portfolioController.getAlbumById);
-router.put('/albums/:id', authMiddleware, upload.single('image'), portfolioController.updateAlbum);
+router.put('/albums/:id', authMiddleware, upload.single('image'), upload.optimize, portfolioController.updateAlbum);
 router.delete('/albums/:id', authMiddleware, portfolioController.deleteAlbum);
 
 /**
@@ -62,7 +62,7 @@ router.delete('/images/:id', authMiddleware, portfolioController.deleteImage);
  *     security:
  *       - bearerAuth: []
  */
-router.post('/albums/:albumId/images', authMiddleware, upload.array('images', 20), portfolioController.addImagesToAlbum);
+router.post('/albums/:albumId/images', authMiddleware, upload.array('images', 20), upload.optimize, portfolioController.addImagesToAlbum);
 
 /**
  * @swagger

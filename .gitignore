@@ -34,3 +34,6 @@ server/prisma/*.db-journal
 # OS
 .DS_Store
 Thumbs.db
+
+# Uploads
+server/public/uploads/
