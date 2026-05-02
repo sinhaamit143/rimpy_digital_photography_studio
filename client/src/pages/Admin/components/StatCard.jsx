@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion as m } from 'framer-motion';
 
-const StatCard = ({ label, value, icon: Icon, trend }) => (
+const StatCard = ({ label, value, icon: Icon, trend, onClick }) => (
   <m.div 
     whileHover={{ y: -5 }}
-    className="bg-white p-8 border border-gray-100 shadow-sm rounded-sm group relative overflow-hidden"
+    onClick={onClick}
+    className="bg-white p-8 border border-gray-100 shadow-sm rounded-sm group relative overflow-hidden cursor-pointer"
   >
     <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 transition-transform group-hover:scale-150 duration-700" />
     <div className="relative z-10 space-y-4">

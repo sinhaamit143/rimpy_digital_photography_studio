@@ -161,10 +161,10 @@ const AdminDashboard = () => {
              <m.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
                 {activeTab === 'Overview' && (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <StatCard label="Products" value={counts.products} icon={ShoppingBag} />
-                    <StatCard label="Albums" value={counts.albums} icon={ImageIcon} />
-                    <StatCard label="Testimonials" value={counts.testimonials} icon={Star} />
-                    <StatCard label="Total Leads" value={counts.totalLeads} icon={Layers} />
+                    <StatCard label="Products" value={counts.products} icon={ShoppingBag} onClick={() => setActiveTab('Products')} />
+                    <StatCard label="Albums" value={counts.albums} icon={ImageIcon} onClick={() => setActiveTab('Portfolio')} />
+                    <StatCard label="Testimonials" value={counts.testimonials} icon={Star} onClick={() => setActiveTab('Testimonials')} />
+                    <StatCard label="Total Leads" value={counts.totalLeads} icon={Layers} onClick={() => setActiveTab('Inquiries')} />
                   </div>
                 )}
                 {activeTab === 'Products' && <ProductManagement refreshStats={fetchCounts} />}
