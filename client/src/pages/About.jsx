@@ -4,11 +4,6 @@ import { Camera, Zap, Gift, Award, TrendingUp, Users, Heart, ShieldCheck, Sparkl
 import PageLoader from '../components/PageLoader';
 
 const About = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-  // Progressive loading not needed for static content
-  // if (loading) return <PageLoader message="Learning our Story..." visible={true} />;
 
   const timeline = [
     { 
