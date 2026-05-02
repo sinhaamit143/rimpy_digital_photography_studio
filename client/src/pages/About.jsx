@@ -7,10 +7,8 @@ const About = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 800);
-  }, []);
-
-  if (loading) return <PageLoader message="Learning our Story..." visible={true} />;
+  // Progressive loading not needed for static content
+  // if (loading) return <PageLoader message="Learning our Story..." visible={true} />;
 
   const timeline = [
     { 

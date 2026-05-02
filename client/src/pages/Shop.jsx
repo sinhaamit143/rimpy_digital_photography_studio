@@ -58,7 +58,7 @@ const Shop = () => {
   }
 
   return (
-    <div className="pt-32 md:pt-40 pb-20 bg-secondary min-h-screen">
+    <div className="pt-32 md:pt-40 pb-20 bg-secondary min-h-screen section-shop">
       <div className="px-6 md:container">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-20 gap-8 md:gap-10">
@@ -105,13 +105,15 @@ const Shop = () => {
                 className="bg-white group shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-sm overflow-hidden border border-gray-100"
               >
                 <div className="relative aspect-square overflow-hidden bg-zinc-900">
-                  <img 
-                    src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
-                    alt={product.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                    loading="lazy"
-                    onError={(e) => { e.target.src = fallbackImg; }}
-                  />
+                  <div className="aspect-studio w-full h-full">
+                    <img 
+                      src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
+                      alt={product.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                      loading="lazy"
+                      onError={(e) => { e.target.src = fallbackImg; }}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                     <button 
                       onClick={() => openWhatsApp(product.title, `₹${product.price}`)}

@@ -3,6 +3,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import { Star, ArrowRight, Quote, Camera, Gift, Award, Plus, Minus, ChevronLeft, ChevronRight } from 'lucide-react';
 import api from '../utils/api';
 import PageLoader from '../components/PageLoader';
+import Skeleton from '../components/Common/Skeleton';
 
 const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5004' : '';
 
@@ -100,12 +101,12 @@ const Home = () => {
   const nextTestimonial = () => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
   const prevTestimonial = () => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
-  if (loading) return <PageLoader message="Gathering Client Stories..." visible={true} />;
+  // if (loading) return <PageLoader message="Gathering Client Stories..." visible={true} />;
 
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex items-center justify-center bg-dark">
+      <section className="relative h-screen w-full flex items-center justify-center bg-dark section-hero">
         <m.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -237,17 +238,24 @@ const Home = () => {
 
       {/* Testimonials Slider */}
       {testimonials.length > 0 && (
-        <section className="py-32 bg-dark text-white relative overflow-hidden">
+        <section className="py-32 bg-dark text-white relative overflow-hidden section-testimonials">
           <div className="container relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <Quote className="text-accent mx-auto mb-10 opacity-20" size={80} />
               <h2 className="text-4xl md:text-5xl mb-16 italic font-serif">Kind Words from <br className="md:hidden" /> our Clients</h2>
               
               <div className="relative h-auto md:h-[350px] flex items-center justify-center py-10 md:py-0">
-                <AnimatePresence mode='wait'>
-                  <m.div
-                    key={currentTestimonial}
-                    initial={{ opacity: 0, y: 20 }}
+                {loading ? (
+                  <div className="w-full max-w-2xl space-y-6">
+                    <Skeleton className="h-20 w-full opacity-10" />
+                    <Skeleton className="h-4 w-48 mx-auto opacity-10" />
+                    <Skeleton className="h-4 w-32 mx-auto opacity-10" />
+                  </div>
+                ) : (
+                  <AnimatePresence mode='wait'>
+                    <m.div
+                      key={currentTestimonial}
+                      initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
@@ -282,7 +290,8 @@ const Home = () => {
                     </div>
                   </m.div>
                 </AnimatePresence>
-              </div>
+              )}
+            </div>
 
               {/* Navigation Buttons */}
               <div className="flex flex-col md:flex-row justify-center items-center gap-8 mt-24">

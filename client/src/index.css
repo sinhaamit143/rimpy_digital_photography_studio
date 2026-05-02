@@ -13,6 +13,27 @@
   body {
     @apply bg-secondary text-dark font-sans;
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  img {
+    @apply h-auto max-w-full;
+    content-visibility: auto;
+  }
+
+  /* Aspect Ratio for Gifting & Portfolio Images */
+  .aspect-studio {
+    aspect-ratio: 4 / 5;
+  }
+
+  .aspect-landscape {
+    aspect-ratio: 16 / 9;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -35,6 +56,19 @@
 
   .container {
     @apply max-w-[1300px] mx-auto px-6;
+  }
+
+  /* Reserve space for dynamic sections to prevent CLS */
+  .section-hero {
+    min-height: 100vh;
+  }
+
+  .section-testimonials {
+    min-height: 600px;
+  }
+
+  .section-shop {
+    min-height: 800px;
   }
 }
 

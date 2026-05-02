@@ -3,6 +3,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight, Grid, Image as ImageIcon, Loader2, Camera } from 'lucide-react';
 import api from '../utils/api';
 import Pagination from '../components/Common/Pagination';
+import Skeleton from '../components/Common/Skeleton';
 
 import PageLoader from '../components/PageLoader';
 
@@ -52,9 +53,9 @@ const Portfolio = () => {
     ? albums 
     : albums.filter(album => album.category?.name === activeCategory);
 
-  if (loading) {
-    return <PageLoader message="Developing the Rolls..." visible={true} />;
-  }
+  // if (loading) {
+  //   return <PageLoader message="Developing the Rolls..." visible={true} />;
+  // }
 
   return (
     <div className="pt-32 md:pt-40 pb-20 min-h-screen bg-secondary overflow-x-hidden">
@@ -88,8 +89,11 @@ const Portfolio = () => {
         </div>
 
         {/* Album Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 md:gap-y-16">
-          <AnimatePresence mode='popLayout'>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 md:gap-y-16 min-h-[800px]">
+          {loading ? (
+            <Skeleton className="aspect-[4/5] w-full opacity-10" repeat={6} />
+          ) : (
+            <AnimatePresence mode='popLayout'>
             {albums.map((album, index) => (
               <m.div
                 layout
@@ -125,7 +129,8 @@ const Portfolio = () => {
                 </div>
               </m.div>
             ))}
-          </AnimatePresence>
+            </AnimatePresence>
+          )}
         </div>
 
         <Pagination 
