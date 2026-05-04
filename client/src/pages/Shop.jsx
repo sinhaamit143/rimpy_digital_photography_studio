@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { openWhatsApp } from '../utils/whatsapp';
-import { Filter, ShoppingBag, Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Filter, ShoppingBag, Loader2, ChevronDown } from 'lucide-react';
 import api from '../utils/api';
 import Pagination from '../components/Common/Pagination';
 
@@ -18,6 +18,8 @@ const Shop = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [pagination, setPagination] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const fetchData = async (page = 1) => {
     setLoading(true);
@@ -70,24 +72,43 @@ const Shop = () => {
             </p>
           </div>
           
-          <div className="w-full lg:w-auto overflow-x-auto no-scrollbar -mx-6 px-6 lg:mx-0 lg:px-0">
-            <div className="flex flex-nowrap lg:flex-wrap gap-6 lg:gap-10 whitespace-nowrap border-b border-gray-100 lg:border-none pb-4 lg:pb-0">
-              <button
-                onClick={() => setActiveCategory("All")}
-                className={`text-[10px] md:text-xs uppercase tracking-widest transition-all pb-1 border-b-2 ${activeCategory === "All" ? 'text-primary border-primary font-bold' : 'text-text-light border-transparent hover:text-dark'}`}
-              >
-                All
-              </button>
-              {categories.map(cat => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.name)}
-                  className={`text-[10px] md:text-xs uppercase tracking-widest transition-all pb-1 border-b-2 ${activeCategory === cat.name ? 'text-primary border-primary font-bold' : 'text-text-light border-transparent hover:text-dark'}`}
+          <div className="w-full lg:w-64 mt-6 lg:mt-0 relative z-50">
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="w-full flex items-center justify-between bg-dark text-white text-[10px] md:text-xs uppercase tracking-widest font-bold px-6 py-4 rounded-sm border border-white/10 outline-none focus:border-primary transition-all duration-300 shadow-xl hover:shadow-primary/10"
+            >
+              <span className="truncate">{activeCategory === "All" ? "All Categories" : activeCategory}</span>
+              <ChevronDown size={16} className={`text-primary transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+            
+            <AnimatePresence>
+              {isDropdownOpen && (
+                <m.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="absolute top-full left-0 right-0 mt-2 bg-dark border border-white/10 shadow-2xl rounded-sm overflow-hidden z-50"
                 >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
+                  <div className="max-h-60 overflow-y-auto custom-scrollbar">
+                    <button
+                      onClick={() => { setActiveCategory("All"); setIsDropdownOpen(false); }}
+                      className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors ${activeCategory === "All" ? 'bg-primary text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+                    >
+                      All Categories
+                    </button>
+                    {categories.map(cat => (
+                      <button
+                        key={cat.id}
+                        onClick={() => { setActiveCategory(cat.name); setIsDropdownOpen(false); }}
+                        className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors border-t border-white/5 ${activeCategory === cat.name ? 'bg-primary text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+                      >
+                        {cat.name}
+                      </button>
+                    ))}
+                  </div>
+                </m.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
@@ -116,10 +137,10 @@ const Shop = () => {
                   </div>
                   <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                     <button 
-                      onClick={() => openWhatsApp(product.title, `₹${product.price}`)}
+                      onClick={() => navigate(`/shop/${product.id}`)}
                       className="bg-white text-dark px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary hover:text-white transition-all shadow-2xl scale-90 group-hover:scale-100 duration-500 rounded-sm"
                     >
-                      Buy via WhatsApp
+                      View Product
                     </button>
                   </div>
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary border border-primary/10">

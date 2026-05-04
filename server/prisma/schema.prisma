@@ -34,6 +34,7 @@ model Product {
   categoryId  Int
   createdAt   DateTime        @default(now())
   category    ProductCategory @relation(fields: [categoryId], references: [id])
+  orders      Order[]
 }
 
 model PortfolioCategory {
@@ -100,4 +101,25 @@ model n8n_chat_histories {
   id         Int    @id @default(autoincrement())
   session_id String @db.VarChar(255)
   message    Json
+}
+
+model Order {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String
+  phone        String
+  message      String?
+  district     String
+  state        String
+  country      String
+  pinCode      String
+  productId    Int
+  productTitle String
+  price        Decimal  @db.Decimal(10, 2)
+  category     String
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  product      Product  @relation(fields: [productId], references: [id])
 }

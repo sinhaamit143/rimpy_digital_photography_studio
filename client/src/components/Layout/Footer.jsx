@@ -71,7 +71,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Phone size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
-                <p className="text-sm font-bold tracking-widest">{settings?.phone || '+91 98124 11818'}</p>
+                <p className="text-sm italic font-serif truncate w-full">{settings?.phone || '+91 98124 11818'}</p>
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Mail size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
