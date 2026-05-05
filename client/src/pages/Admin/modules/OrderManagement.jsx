@@ -56,13 +56,24 @@ const OrderManagement = ({ refreshStats }) => {
     let finalPhone = phone;
     if (phone.length === 10) finalPhone = `91${phone}`;
 
-    const message = `Hi there! Thank you for reaching out to Rimpy Digital Photography Studio. 📸 We have received your inquiry for the *${order.productTitle}* at *₹${order.price}*.
+    const BACKEND_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:5004' 
+      : window.location.origin;
+
+    let imageUrlStr = '';
+    if (order.product?.imageUrl) {
+      imageUrlStr = order.product.imageUrl.startsWith('http') 
+        ? order.product.imageUrl 
+        : `${BACKEND_URL}${order.product.imageUrl}`;
+    }
+
+    const message = `${imageUrlStr ? imageUrlStr + '\n\n' : ''}Hi there! Thank you for reaching out to Rimpy Digital Photography Studio. 📸 We have received your inquiry for the *${order.productTitle}* at *₹${order.price}*.
 
 We would love to help you get this sorted. To proceed, could you please let us know a few quick details?
 
-Will you be picking this up from our studio on Railway Road, or do you need it delivered within Karnal?
+Please let us know if you will be picking up your order from our studio on Railway Road, or if you require delivery. We offer local delivery within Karnal, alongside comprehensive domestic and worldwide shipping.
 
-Once we finalize the details, how would you prefer to make the advance payment? We accept UPI (Google Pay/PhonePe) or Cash at the studio.`;
+Once we finalize the details, how would you prefer to make the advance payment? For local orders, we accept UPI (Google Pay/PhonePe) or Cash at the studio. If you're ordering internationally, we can easily set up payment via PayPal or a secure payment link!`;
 
     const url = `https://wa.me/${finalPhone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
