@@ -16,10 +16,10 @@ const NotFound = () => {
       >
         <div className="mb-12 relative inline-block">
           <CameraOff size={100} className="text-primary mx-auto opacity-20" />
-          <h1 className="text-[150px] font-serif leading-none text-dark/10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">404</h1>
+          <h1 className="text-[150px] font-serif leading-none text-main/10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">404</h1>
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-serif text-dark mb-6 italic">Picture <span className="text-primary">Incomplete</span></h2>
+        <h2 className="text-4xl md:text-5xl font-serif text-main mb-6 italic">Picture <span className="text-primary">Incomplete</span></h2>
         <p className="text-text-light text-lg mb-12 font-serif leading-relaxed">
           It seems the moment you're looking for was never captured. The page you are looking for has been moved or doesn't exist.
         </p>

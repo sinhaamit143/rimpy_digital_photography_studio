@@ -7,11 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#757b66",      // Sage Green
-        secondary: "#f4f4f2",    // Off-white Cream
-        accent: "#d4af37",       // Muted Gold
-        dark: "#222222",         // Soft Black
-        "text-light": "#666666",
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
+        secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+        accent: "rgb(var(--color-accent) / <alpha-value>)",
+        dark: "rgb(var(--color-dark) / <alpha-value>)",
+        "text-light": "rgb(var(--color-text-light) / <alpha-value>)",
+        surface: "rgb(var(--color-surface) / <alpha-value>)",
+        "surface-hover": "rgb(var(--color-surface-hover) / <alpha-value>)",
+        "border-surface": "rgb(var(--color-border) / <alpha-value>)",
+        main: "rgb(var(--color-text-main) / <alpha-value>)",
       },
       fontFamily: {
         serif: ["'Cormorant Garamond'", "serif"],

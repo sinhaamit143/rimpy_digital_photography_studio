@@ -47,7 +47,7 @@ const OrderManagement = ({ refreshStats }) => {
       case 'shipped': return 'bg-purple-100 text-purple-700 border-purple-200';
       case 'delivered': return 'bg-green-100 text-green-700 border-green-200';
       case 'cancelled': return 'bg-red-100 text-red-700 border-red-200';
-      default: return 'bg-gray-100 text-gray-700 border-gray-200';
+      default: return 'bg-surface-hover text-main/60 border-surface';
     }
   };
 
@@ -93,9 +93,9 @@ Once we finalize the details, how would you prefer to make the advance payment? 
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-end bg-white p-6 border border-gray-100 shadow-sm rounded-sm">
+      <div className="flex justify-between items-end bg-surface p-6 border border-surface shadow-sm rounded-sm">
         <div>
-          <h3 className="text-2xl font-serif text-dark mb-2">Order Management</h3>
+          <h3 className="text-2xl font-serif text-main mb-2">Order Management</h3>
           <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
             {orders.length} Total Orders
           </p>
@@ -103,18 +103,18 @@ Once we finalize the details, how would you prefer to make the advance payment? 
         <button 
           onClick={fetchOrders}
           disabled={refreshing}
-          className="p-3 bg-secondary text-primary rounded-sm hover:bg-primary hover:text-white transition-all border border-gray-100 disabled:opacity-50 flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold"
+          className="p-3 bg-secondary text-primary rounded-sm hover:bg-primary hover:text-white transition-all border border-surface disabled:opacity-50 flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold"
         >
           <RefreshCw size={16} className={refreshing ? 'animate-spin' : ''} />
           <span className="hidden md:inline">Refresh</span>
         </button>
       </div>
 
-      <div className="bg-white border border-gray-100 shadow-sm rounded-sm overflow-hidden">
+      <div className="bg-surface border border-surface shadow-sm rounded-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-secondary/50 border-b border-gray-100">
+              <tr className="bg-secondary/50 border-b border-surface">
                 <th className="p-4 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Order ID</th>
                 <th className="p-4 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Customer</th>
                 <th className="p-4 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Product</th>
@@ -134,12 +134,12 @@ Once we finalize the details, how would you prefer to make the advance payment? 
                 </tr>
               ) : (
                 currentOrders.map((order) => (
-                  <tr key={order.id} className="border-b border-gray-50 hover:bg-secondary/30 transition-colors">
+                  <tr key={order.id} className="border-b border-surface hover:bg-secondary/30 transition-colors">
                     <td className="p-4">
                       <span className="text-[10px] font-mono font-bold text-gray-500">#{order.id.toString().padStart(4, '0')}</span>
                     </td>
                     <td className="p-4">
-                      <p className="text-sm font-bold text-dark">{order.name}</p>
+                      <p className="text-sm font-bold text-main">{order.name}</p>
                       <p className="text-[10px] text-gray-500">{order.phone}</p>
                     </td>
                     <td className="p-4">
@@ -148,10 +148,10 @@ Once we finalize the details, how would you prefer to make the advance payment? 
                           <img src={order.product.imageUrl} alt="Product" className="w-8 h-8 rounded-sm object-cover border border-gray-200" />
                         )}
                         <div>
-                          <p className="text-xs font-bold text-dark line-clamp-1 max-w-[150px]">{order.productTitle}</p>
+                          <p className="text-xs font-bold text-main line-clamp-1 max-w-[150px]">{order.productTitle}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <p className="text-[10px] text-primary">₹{order.price}</p>
-                            <span className="text-[8px] uppercase tracking-widest bg-secondary px-2 py-0.5 rounded-full border border-gray-100 text-gray-500">{order.category}</span>
+                            <span className="text-[8px] uppercase tracking-widest bg-secondary px-2 py-0.5 rounded-full border border-surface text-gray-500">{order.category}</span>
                           </div>
                         </div>
                       </div>
@@ -182,7 +182,7 @@ Once we finalize the details, how would you prefer to make the advance payment? 
                       <div className="flex justify-center gap-3">
                         <button 
                           onClick={() => setSelectedOrder(order)}
-                          className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-dark transition-colors"
+                          className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-main transition-colors"
                         >
                           Details
                         </button>
@@ -205,7 +205,7 @@ Once we finalize the details, how would you prefer to make the advance payment? 
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center bg-white p-4 border border-gray-100 shadow-sm rounded-sm">
+        <div className="flex justify-between items-center bg-surface p-4 border border-surface shadow-sm rounded-sm">
           <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
             Page {currentPage} of {totalPages}
           </p>
@@ -213,14 +213,14 @@ Once we finalize the details, how would you prefer to make the advance payment? 
             <button 
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(p => p - 1)}
-              className="px-4 py-2 bg-secondary text-dark text-[10px] uppercase tracking-widest font-bold disabled:opacity-50 hover:bg-gray-200 transition-colors rounded-sm"
+              className="px-4 py-2 bg-secondary text-main text-[10px] uppercase tracking-widest font-bold disabled:opacity-50 hover:bg-gray-200 transition-colors rounded-sm"
             >
               Previous
             </button>
             <button 
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(p => p + 1)}
-              className="px-4 py-2 bg-secondary text-dark text-[10px] uppercase tracking-widest font-bold disabled:opacity-50 hover:bg-gray-200 transition-colors rounded-sm"
+              className="px-4 py-2 bg-secondary text-main text-[10px] uppercase tracking-widest font-bold disabled:opacity-50 hover:bg-gray-200 transition-colors rounded-sm"
             >
               Next
             </button>
@@ -237,9 +237,9 @@ Once we finalize the details, how would you prefer to make the advance payment? 
           >
             <m.div 
               initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
-              className="bg-white rounded-sm shadow-2xl w-full max-w-2xl overflow-hidden"
+              className="bg-surface rounded-sm shadow-2xl w-full max-w-2xl overflow-hidden"
             >
-              <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-secondary/50">
+              <div className="flex justify-between items-center p-6 border-b border-surface bg-secondary/50">
                 <h3 className="text-xl font-serif">Order Details <span className="text-gray-400 text-sm ml-2 font-mono">#{selectedOrder.id.toString().padStart(4, '0')}</span></h3>
                 <button onClick={() => setSelectedOrder(null)} className="text-gray-400 hover:text-red-500 transition-colors">
                   <X size={24} />
@@ -249,7 +249,7 @@ Once we finalize the details, how would you prefer to make the advance payment? 
                 <div className="space-y-6">
                   <div>
                     <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Customer Info</h4>
-                    <p className="text-sm font-bold text-dark">{selectedOrder.name}</p>
+                    <p className="text-sm font-bold text-main">{selectedOrder.name}</p>
                     <p className="text-sm text-gray-600">{selectedOrder.email}</p>
                     <p className="text-sm text-gray-600">{selectedOrder.phone}</p>
                   </div>
@@ -260,7 +260,7 @@ Once we finalize the details, how would you prefer to make the advance payment? 
                   </div>
                   <div>
                     <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Customer Message</h4>
-                    <p className="text-sm text-gray-600 bg-secondary p-4 rounded-sm border border-gray-100 italic">
+                    <p className="text-sm text-gray-600 bg-secondary p-4 rounded-sm border border-surface italic">
                       {selectedOrder.message || "No additional message provided."}
                     </p>
                   </div>
@@ -269,11 +269,11 @@ Once we finalize the details, how would you prefer to make the advance payment? 
                   <div>
                     <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Product Info</h4>
                     {selectedOrder.product?.imageUrl && (
-                      <img src={selectedOrder.product.imageUrl} alt="Product" className="w-full aspect-video object-cover rounded-sm mb-4 border border-gray-100" />
+                      <img src={selectedOrder.product.imageUrl} alt="Product" className="w-full aspect-video object-cover rounded-sm mb-4 border border-surface" />
                     )}
-                    <p className="text-lg font-serif font-bold text-dark">{selectedOrder.productTitle}</p>
+                    <p className="text-lg font-serif font-bold text-main">{selectedOrder.productTitle}</p>
                     <p className="text-xs uppercase tracking-widest text-primary mb-2">{selectedOrder.category}</p>
-                    <p className="text-xl font-bold text-dark">₹{selectedOrder.price}</p>
+                    <p className="text-xl font-bold text-main">₹{selectedOrder.price}</p>
                   </div>
                   <div>
                     <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Current Status</h4>

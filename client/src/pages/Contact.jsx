@@ -75,7 +75,7 @@ const Contact = () => {
   if (loading) return <PageLoader message="Opening our Doors..." visible={true} />;
 
   return (
-    <div className="pt-28 md:pt-48 pb-20 md:pb-32 bg-white min-h-screen selection:bg-primary selection:text-white">
+    <div className="pt-28 md:pt-48 pb-20 md:pb-32 bg-surface min-h-screen selection:bg-primary selection:text-white">
       <div className="container px-6 md:px-8">
         
         {/* Header Section */}
@@ -85,7 +85,7 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
           >
             <span className="text-primary uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block italic text-center md:text-left">Let's Connect</span>
-            <h1 className="text-4xl md:text-8xl font-serif leading-none text-dark italic mb-6 md:mb-8 text-center md:text-left">Get In <span className="not-italic text-primary">Touch</span></h1>
+            <h1 className="text-4xl md:text-8xl font-serif leading-none text-main italic mb-6 md:mb-8 text-center md:text-left">Get In <span className="not-italic text-primary">Touch</span></h1>
             <p className="text-gray-500 font-serif italic text-base md:text-xl max-w-xl leading-relaxed text-center md:text-left mx-auto md:mx-0">
               Whether it's a grand wedding or a personalized gift, we are here to turn your vision into a masterpiece.
             </p>
@@ -100,7 +100,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-secondary/10 p-6 md:p-16 rounded-sm border border-gray-50 shadow-sm"
+              className="bg-secondary/10 p-6 md:p-16 rounded-sm border border-surface shadow-sm"
             >
               {submitted ? (
                 <div className="text-center py-10 md:py-20">
@@ -160,7 +160,7 @@ const Contact = () => {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: 10 }}
-                              className="absolute left-0 top-full mt-2 w-full bg-white shadow-2xl border border-gray-100 rounded-sm z-50 overflow-hidden backdrop-blur-xl"
+                              className="absolute left-0 top-full mt-2 w-full bg-surface shadow-2xl border border-surface rounded-sm z-50 overflow-hidden backdrop-blur-xl"
                             >
                               <div className="max-h-60 overflow-y-auto no-scrollbar">
                                 {countryCodes.map((c) => (
@@ -237,7 +237,7 @@ const Contact = () => {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Visit Our Studio</h4>
-                    <p className="text-dark font-serif italic text-base md:text-lg leading-relaxed">{settings?.address || 'Railway Road, Opp. Gupta Palace, Karnal, Haryana'}</p>
+                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.address || 'Railway Road, Opp. Gupta Palace, Karnal, Haryana'}</p>
                   </div>
                 </div>
 
@@ -247,8 +247,8 @@ const Contact = () => {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Direct Contact</h4>
-                    <p className="text-dark font-serif italic text-base md:text-lg leading-relaxed">{settings?.phone || '+91 98124 11818'}</p>
-                    <p className="text-dark font-serif italic text-base md:text-lg leading-relaxed">{settings?.email || 'hello@rimpy.com'}</p>
+                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.phone || '+91 98124 11818'}</p>
+                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.email || 'hello@rimpy.com'}</p>
                   </div>
                 </div>
 
@@ -258,18 +258,18 @@ const Contact = () => {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Studio Hours</h4>
-                    <p className="text-dark font-serif italic text-base md:text-lg leading-relaxed">{settings?.workingHours || 'Mon - Sat: 09:30 AM - 09:00 PM'}</p>
+                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.workingHours || 'Mon - Sat: 09:30 AM - 09:00 PM'}</p>
                   </div>
                 </div>
               </div>
 
               {/* Social Links */}
-              <div className="pt-8 border-t border-gray-100">
+              <div className="pt-8 border-t border-surface">
                 <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-6">Connect Digitally</h4>
                 <div className="flex gap-5">
-                  <a href={settings?.instagram} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-gray-100 flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Instagram size={18} /></a>
-                  <a href={settings?.facebook} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-gray-100 flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Facebook size={18} /></a>
-                  <a href={settings?.youtube} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-gray-100 flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Youtube size={18} /></a>
+                  <a href={settings?.instagram} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-surface flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Instagram size={18} /></a>
+                  <a href={settings?.facebook} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-surface flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Facebook size={18} /></a>
+                  <a href={settings?.youtube} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-surface flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Youtube size={18} /></a>
                 </div>
               </div>
 

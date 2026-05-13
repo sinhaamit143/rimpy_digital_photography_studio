@@ -6,16 +6,22 @@ const API_URL = window.location.hostname === 'localhost'
 
 const api = axios.create({
   baseURL: API_URL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
+let inMemoryToken = null;
+
+export const setAccessToken = (token) => {
+  inMemoryToken = token;
+};
+
 // Request Interceptor: Attach Access Token
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (inMemoryToken) {
+    config.headers.Authorization = `Bearer ${inMemoryToken}`;
   }
   return config;
 });
@@ -28,22 +34,18 @@ api.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = localStorage.getItem('refreshToken');
+      try {
+        const res = await axios.post(`${API_URL}/auth/refresh`, {}, { withCredentials: true });
+        const { accessToken } = res.data;
 
-      if (refreshToken) {
-        try {
-          const res = await axios.post(`${API_URL}/auth/refresh`, { token: refreshToken });
-          const { accessToken, refreshToken: newRefreshToken } = res.data;
+        setAccessToken(accessToken);
 
-          localStorage.setItem('accessToken', accessToken);
-          localStorage.setItem('refreshToken', newRefreshToken);
-
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-          return api(originalRequest);
-        } catch (refreshError) {
-          localStorage.clear();
-          window.location.href = '/admin';
-        }
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        return api(originalRequest);
+      } catch (refreshError) {
+        setAccessToken(null);
+        localStorage.removeItem('user');
+        window.location.href = '/admin';
       }
     }
     return Promise.reject(error);

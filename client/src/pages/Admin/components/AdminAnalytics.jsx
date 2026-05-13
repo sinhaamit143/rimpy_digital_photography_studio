@@ -42,14 +42,14 @@ const AdminAnalytics = ({ orders }) => {
 
   return (
     <div className="space-y-8 mt-12">
-      <h3 className="text-2xl font-serif text-dark italic border-b border-gray-100 pb-4">Real-Time Sales Analytics</h3>
+      <h3 className="text-2xl font-serif text-main italic border-b border-surface pb-4">Real-Time Sales Analytics</h3>
       
       <div className="grid lg:grid-cols-2 gap-8">
         
         {/* Top Products Bar Chart */}
         <m.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          className="bg-white p-6 border border-gray-100 shadow-sm rounded-sm"
+          className="bg-surface p-6 border border-surface shadow-sm rounded-sm"
         >
           <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Top Selling Products</h4>
           <div className="h-64">
@@ -67,7 +67,7 @@ const AdminAnalytics = ({ orders }) => {
         {/* Categories Pie Chart */}
         <m.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          className="bg-white p-6 border border-gray-100 shadow-sm rounded-sm"
+          className="bg-surface p-6 border border-surface shadow-sm rounded-sm"
         >
           <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Sales by Category</h4>
           <div className="h-64">
@@ -88,7 +88,7 @@ const AdminAnalytics = ({ orders }) => {
         {/* Price Range Bar Chart */}
         <m.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-          className="bg-white p-6 border border-gray-100 shadow-sm rounded-sm lg:col-span-2"
+          className="bg-surface p-6 border border-surface shadow-sm rounded-sm lg:col-span-2"
         >
           <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Best Selling Price Ranges</h4>
           <div className="h-64">

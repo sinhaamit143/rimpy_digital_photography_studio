@@ -40,7 +40,7 @@ const InquiryManagement = ({ refreshStats }) => {
   return (
     <div className="space-y-8 pb-20">
       <div className="flex justify-between items-center">
-        <div><h3 className="text-3xl font-serif text-dark mb-2 italic">Client Inquiries</h3><p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Incoming leads and shoot requests</p></div>
+        <div><h3 className="text-3xl font-serif text-main mb-2 italic">Client Inquiries</h3><p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Incoming leads and shoot requests</p></div>
         <button 
           onClick={() => fetchData(1)} 
           className="flex items-center gap-3 px-6 py-4 bg-secondary text-primary uppercase tracking-widest text-[10px] font-bold hover:bg-primary hover:text-white transition-all shadow-sm rounded-sm"
@@ -50,24 +50,24 @@ const InquiryManagement = ({ refreshStats }) => {
         </button>
       </div>
 
-      <div className="bg-white border border-gray-100 shadow-sm overflow-hidden rounded-sm">
+      <div className="bg-surface border border-surface shadow-sm overflow-hidden rounded-sm">
         {loading ? (
           <div className="py-24 flex flex-col items-center justify-center text-primary"><Loader2 size={40} className="animate-spin mb-4 opacity-20" /><p className="text-[10px] uppercase tracking-widest font-bold">Fetching leads...</p></div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[1000px]">
               <thead>
-                <tr className="bg-secondary/50 border-b border-gray-100 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
+                <tr className="bg-secondary/50 border-b border-surface text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
                   <th className="px-8 py-6 w-20">Sr No</th><th className="px-8 py-6">Client Info</th><th className="px-8 py-6">Message</th><th className="px-8 py-6">Status</th><th className="px-8 py-6">Received</th><th className="px-8 py-6 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {inquiries.map((inq, index) => (
                   <tr key={inq.id} className={`transition-colors group ${!inq.isRead ? 'bg-primary/[0.02] border-l-4 border-l-primary' : 'hover:bg-secondary/20 border-l-4 border-l-transparent'}`}>
-                    <td className="px-8 py-6 font-bold text-dark text-xs opacity-50">{((pagination?.page - 1) * pagination?.limit) + index + 1}</td>
+                    <td className="px-8 py-6 font-bold text-main text-xs opacity-50">{((pagination?.page - 1) * pagination?.limit) + index + 1}</td>
                     <td className="px-8 py-6">
                       <div className="flex flex-col gap-1">
-                        <span className="font-serif text-dark font-bold flex items-center gap-2">{inq.name} {!inq.isRead && <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />}</span>
+                        <span className="font-serif text-main font-bold flex items-center gap-2">{inq.name} {!inq.isRead && <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />}</span>
                         <div className="flex items-center gap-4 text-[9px] font-bold text-gray-400 uppercase tracking-widest">
                           <a href={`mailto:${inq.email}`} className="flex items-center gap-1 hover:text-primary transition-colors"><Mail size={10} /> {inq.email}</a>
                           <a href={`tel:${inq.phone}`} className="flex items-center gap-1 hover:text-primary transition-colors"><Phone size={10} /> {inq.phone}</a>
@@ -75,7 +75,7 @@ const InquiryManagement = ({ refreshStats }) => {
                       </div>
                     </td>
                     <td className="px-8 py-6">
-                      <div className="p-4 bg-secondary/30 rounded-sm text-xs text-dark font-serif italic max-w-xs line-clamp-2 hover:line-clamp-none transition-all cursor-help border border-transparent hover:border-primary/10">
+                      <div className="p-4 bg-secondary/30 rounded-sm text-xs text-main font-serif italic max-w-xs line-clamp-2 hover:line-clamp-none transition-all cursor-help border border-transparent hover:border-primary/10">
                         {inq.message}
                       </div>
                     </td>

@@ -69,10 +69,10 @@ const Portfolio = () => {
 
         {/* Categories (Horizontal Scroll on Mobile) */}
         <div className="w-full overflow-x-auto no-scrollbar -mx-6 px-6 md:mx-0 md:px-0 mb-12 md:mb-20">
-          <div className="flex flex-nowrap md:flex-wrap md:justify-center gap-8 md:gap-12 whitespace-nowrap border-b border-gray-100 md:border-none pb-4 md:pb-0">
+          <div className="flex flex-nowrap md:flex-wrap md:justify-center gap-8 md:gap-12 whitespace-nowrap border-b border-surface md:border-none pb-4 md:pb-0">
             <button
               onClick={() => setActiveCategory("All")}
-              className={`text-[10px] uppercase tracking-[0.25em] font-bold transition-all duration-500 pb-2 border-b-2 ${activeCategory === "All" ? 'text-primary border-primary' : 'text-text-light border-transparent hover:text-dark'}`}
+              className={`text-[10px] uppercase tracking-[0.25em] font-bold transition-all duration-500 pb-2 border-b-2 ${activeCategory === "All" ? 'text-primary border-primary' : 'text-text-light border-transparent hover:text-main'}`}
             >
               All
             </button>
@@ -80,7 +80,7 @@ const Portfolio = () => {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.name)}
-                className={`text-[10px] uppercase tracking-[0.25em] font-bold transition-all duration-500 pb-2 border-b-2 ${activeCategory === cat.name ? 'text-primary border-primary' : 'text-text-light border-transparent hover:text-dark'}`}
+                className={`text-[10px] uppercase tracking-[0.25em] font-bold transition-all duration-500 pb-2 border-b-2 ${activeCategory === cat.name ? 'text-primary border-primary' : 'text-text-light border-transparent hover:text-main'}`}
               >
                 {cat.name}
               </button>
@@ -140,7 +140,7 @@ const Portfolio = () => {
 
         {/* Empty State */}
         {albums.length === 0 && (
-          <div className="py-24 md:py-32 text-center border-2 border-dashed border-gray-100 rounded-sm">
+          <div className="py-24 md:py-32 text-center border-2 border-dashed border-surface rounded-sm">
             <Camera size={40} className="mx-auto text-gray-200 mb-4" />
             <h4 className="text-xl md:text-2xl font-serif text-gray-300 italic mb-2">No albums found</h4>
             <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">Try exploring another genre</p>
@@ -156,20 +156,20 @@ const Portfolio = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
             transition={{ type: 'spring', damping: 30, stiffness: 200 }}
-            className="fixed inset-0 z-[2000] bg-white overflow-y-auto custom-scrollbar"
+            className="fixed inset-0 z-[2000] bg-surface overflow-y-auto custom-scrollbar"
           >
             {/* Lightbox Controls */}
-            <div className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-[2100] h-20 md:h-24 flex items-center justify-between px-6 md:px-20 border-b border-gray-100">
+            <div className="fixed top-0 left-0 w-full bg-surface/90 backdrop-blur-md z-[2100] h-20 md:h-24 flex items-center justify-between px-6 md:px-20 border-b border-surface">
               <div className="flex items-center gap-3 md:gap-4">
                 <Grid size={16} className="text-primary hidden md:block" />
                 <div className="flex flex-col">
-                   <span className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-dark">{selectedAlbum.title}</span>
+                   <span className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-main">{selectedAlbum.title}</span>
                    <span className="text-[8px] uppercase tracking-widest text-gray-400 font-bold">{selectedAlbum.images?.length || 0} Captures</span>
                 </div>
               </div>
               <button 
                 onClick={() => setSelectedAlbum(null)}
-                className="flex items-center gap-3 text-[9px] md:text-[10px] uppercase tracking-widest font-bold hover:text-primary transition-all bg-dark text-white md:bg-transparent md:text-dark px-4 py-2 md:p-0 rounded-full"
+                className="flex items-center gap-3 text-[9px] md:text-[10px] uppercase tracking-widest font-bold hover:text-primary transition-all bg-dark text-white md:bg-transparent md:text-main px-4 py-2 md:p-0 rounded-full"
               >
                 <span className="hidden md:inline">Close Album</span> <X size={18} />
               </button>
@@ -183,7 +183,7 @@ const Portfolio = () => {
                 <div className="w-16 md:w-24 h-[1px] bg-primary mx-auto mb-8 opacity-30"></div>
                 {selectedAlbum.clientName && (
                   <p className="text-text-light font-serif italic text-base md:text-xl max-w-2xl mx-auto">
-                    A personalized visual narrative captured for <span className="text-dark font-bold not-italic font-sans text-sm md:text-base ml-1">{selectedAlbum.clientName}</span>.
+                    A personalized visual narrative captured for <span className="text-main font-bold not-italic font-sans text-sm md:text-base ml-1">{selectedAlbum.clientName}</span>.
                   </p>
                 )}
               </div>
@@ -211,7 +211,7 @@ const Portfolio = () => {
               </div>
 
               {/* End of Album Call to Action */}
-              <div className="mt-24 md:mt-40 text-center border-t border-gray-100 pt-16 md:pt-20">
+              <div className="mt-24 md:mt-40 text-center border-t border-surface pt-16 md:pt-20">
                 <h4 className="text-xl md:text-3xl font-serif mb-8 md:mb-10 italic">Love our style? Let's talk about your project.</h4>
                 <a href="/contact" className="inline-block bg-dark text-white px-10 md:px-14 py-4 md:py-6 uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-primary transition-all shadow-2xl rounded-sm">Book a Session Now</a>
               </div>

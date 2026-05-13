@@ -9,6 +9,16 @@ const authController = require('../controllers/auth.controller');
  *   description: Admin Authentication and Session Management
  */
 
+const rateLimit = require('express-rate-limit');
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 login requests per `window` (here, per 15 minutes)
+  message: { message: 'Too many login attempts, please try again after 15 minutes' },
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
 /**
  * @swagger
  * /api/auth/login:
@@ -32,8 +42,10 @@ const authController = require('../controllers/auth.controller');
  *     responses:
  *       200:
  *         description: Login successful
+ *       429:
+ *         description: Too many requests
  */
-router.post('/login', authController.login);
+router.post('/login', loginLimiter, authController.login);
 
 /**
  * @swagger

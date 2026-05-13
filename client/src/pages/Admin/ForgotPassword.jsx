@@ -74,13 +74,13 @@ const ForgotPassword = () => {
       
       <Link 
         to="/admin" 
-        className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-dark/40 hover:text-primary transition-colors group z-50"
+        className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-main/40 hover:text-primary transition-colors group z-50"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
         Back to Login
       </Link>
 
-      <div className="w-full max-w-[1100px] h-auto lg:min-h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-white border border-gray-100 relative">
+      <div className="w-full max-w-[1100px] h-auto lg:min-h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-surface border border-surface relative">
         
         {/* Left Side: Photo */}
         <div className="hidden lg:block w-1/2 relative overflow-hidden bg-dark">
@@ -100,8 +100,8 @@ const ForgotPassword = () => {
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-20 py-16">
           <m.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <div className="mb-10 text-center lg:text-left">
-              <img src="/logo_rdps.png" alt="Logo" className="h-10 mb-8 mx-auto lg:mx-0" />
-              <h1 className="text-3xl font-serif text-dark mb-2">
+              <img src="/rimpylogo.png" alt="Logo" className="h-16 md:h-20 mb-8 mx-auto lg:mx-0 w-auto object-contain" />
+              <h1 className="text-3xl font-serif text-main mb-2">
                 {step === 1 ? 'Recover Password' : 'Reset Password'}
               </h1>
               <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">
@@ -128,7 +128,7 @@ const ForgotPassword = () => {
                     <input 
                       type="email" 
                       placeholder="admin@rimpy.com"
-                      className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
+                      className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -153,7 +153,7 @@ const ForgotPassword = () => {
                     <input 
                       type="text" 
                       placeholder="Enter the 64-char token"
-                      className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark font-sans text-xs"
+                      className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main font-sans text-xs"
                       required
                       value={resetData.token}
                       onChange={(e) => setResetData({...resetData, token: e.target.value})}
@@ -169,7 +169,7 @@ const ForgotPassword = () => {
                     <input 
                       type={showPassword ? "text" : "password"} 
                       placeholder="••••••••"
-                      className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
+                      className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                       required
                       onChange={(e) => setResetData({...resetData, newPassword: e.target.value})}
                     />
@@ -197,7 +197,7 @@ const ForgotPassword = () => {
               </form>
             )}
 
-            <div className="mt-10 pt-10 border-t border-gray-100 flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
+            <div className="mt-10 pt-10 border-t border-surface flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
               <span>Remembered your password?</span>
               <Link to="/admin" className="text-primary hover:underline">Go back to login</Link>
             </div>

@@ -52,13 +52,13 @@ const Register = () => {
       
       <Link 
         to="/admin" 
-        className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-dark/40 hover:text-primary transition-colors group z-50"
+        className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-main/40 hover:text-primary transition-colors group z-50"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
         Back to Login
       </Link>
 
-      <div className="w-full max-w-[1100px] h-auto lg:min-h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-white border border-gray-100 relative">
+      <div className="w-full max-w-[1100px] h-auto lg:min-h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-surface border border-surface relative">
         
         {/* Left Side: Photo */}
         <div className="hidden lg:block w-1/2 relative overflow-hidden bg-dark">
@@ -78,8 +78,8 @@ const Register = () => {
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-20 py-16">
           <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-10 text-center lg:text-left">
-              <img src="/logo_rdps.png" alt="Logo" className="h-10 mb-8 mx-auto lg:mx-0" />
-              <h1 className="text-3xl font-serif text-dark mb-2">Create Admin</h1>
+              <img src="/rimpylogo.png" alt="Logo" className="h-16 md:h-20 mb-8 mx-auto lg:mx-0 w-auto object-contain" />
+              <h1 className="text-3xl font-serif text-main mb-2">Create Admin</h1>
               <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Join the Rimpy Digital Studio workspace</p>
             </div>
 
@@ -101,7 +101,7 @@ const Register = () => {
                   <input 
                     type="email" 
                     placeholder="admin@rimpy.com"
-                    className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
+                    className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                   />
@@ -115,7 +115,7 @@ const Register = () => {
                   <input 
                     type={showPassword ? "text" : "password"} 
                     placeholder="••••••••"
-                    className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
+                    className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
                   />
@@ -136,7 +136,7 @@ const Register = () => {
                   <input 
                     type="password" 
                     placeholder="Enter studio secret"
-                    className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark font-sans"
+                    className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main font-sans"
                     required
                     onChange={(e) => setFormData({...formData, secretKey: e.target.value})}
                   />
@@ -152,7 +152,7 @@ const Register = () => {
                 {isLoading ? <Loader2 size={16} className="animate-spin" /> : <>Create Account <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" /></>}
               </button>
 
-              <div className="mt-10 pt-10 border-t border-gray-100 flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
+              <div className="mt-10 pt-10 border-t border-surface flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
                 <span>Already have access?</span>
                 <Link to="/admin" className="text-primary hover:underline">Login here</Link>
               </div>

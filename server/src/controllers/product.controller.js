@@ -31,10 +31,37 @@ const getAllCategories = async (req, res, next) => {
 const createCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
     const category = await prisma.productCategory.create({
-      data: { name }
+      data: { name, imageUrl }
     });
     res.status(201).json(category);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateCategory = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+    
+    const oldCategory = await prisma.productCategory.findUnique({ where: { id: parseInt(id) } });
+    if (!oldCategory) return res.status(404).json({ message: 'Category not found' });
+
+    let updateData = { name };
+
+    if (req.file) {
+      deleteFile(oldCategory.imageUrl);
+      updateData.imageUrl = `/uploads/${req.file.filename}`;
+    }
+
+    const category = await prisma.productCategory.update({
+      where: { id: parseInt(id) },
+      data: updateData
+    });
+
+    res.json(category);
   } catch (error) {
     next(error);
   }
@@ -70,6 +97,20 @@ const getAllProducts = async (req, res, next) => {
         totalPages: Math.ceil(total / limit)
       }
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getProductById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await prisma.product.findUnique({
+      where: { id: parseInt(id) },
+      include: { category: true }
+    });
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+    res.json(product);
   } catch (error) {
     next(error);
   }
@@ -161,6 +202,7 @@ const deleteCategory = async (req, res, next) => {
       return res.status(400).json({ message: 'Cannot delete category that has products. Please remove products first.' });
     }
 
+    deleteFile(category.imageUrl);
     await prisma.productCategory.delete({
       where: { id: parseInt(id) }
     });
@@ -174,9 +216,11 @@ const deleteCategory = async (req, res, next) => {
 module.exports = {
   getAllCategories,
   createCategory,
+  updateCategory,
   deleteCategory,
   getAllProducts,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getProductById
 };

@@ -5,7 +5,7 @@ const StatCard = ({ label, value, icon: Icon, trend, onClick }) => (
   <m.div 
     whileHover={{ y: -5 }}
     onClick={onClick}
-    className="bg-white p-8 border border-gray-100 shadow-sm rounded-sm group relative overflow-hidden cursor-pointer"
+    className="bg-surface p-8 border border-surface shadow-sm rounded-sm group relative overflow-hidden cursor-pointer"
   >
     <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 transition-transform group-hover:scale-150 duration-700" />
     <div className="relative z-10 space-y-4">
@@ -22,7 +22,7 @@ const StatCard = ({ label, value, icon: Icon, trend, onClick }) => (
       <div>
         <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 mb-1">{label}</h4>
         <div className="flex items-baseline gap-2">
-          <span className="text-4xl font-serif text-dark italic">{value}</span>
+          <span className="text-4xl font-serif text-main italic">{value}</span>
           <span className="text-[9px] uppercase tracking-widest text-gray-300 font-bold">Current</span>
         </div>
       </div>

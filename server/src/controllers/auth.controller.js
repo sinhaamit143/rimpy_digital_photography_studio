@@ -20,10 +20,16 @@ const login = async (req, res, next) => {
       data: { refreshToken }
     });
 
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
     res.json({
       success: true,
       accessToken,
-      refreshToken,
       user: { id: user.id, email: user.email, role: user.role }
     });
   } catch (error) {
@@ -122,7 +128,7 @@ const resetPassword = async (req, res, next) => {
 
 const refresh = async (req, res, next) => {
   try {
-    const { token } = req.body;
+    const token = req.cookies.refreshToken;
     if (!token) return res.status(401).json({ message: 'Refresh token required' });
 
     const decoded = verifyRefreshToken(token);
@@ -140,7 +146,14 @@ const refresh = async (req, res, next) => {
       data: { refreshToken: tokens.refreshToken }
     });
 
-    res.json({ ...tokens });
+    res.cookie('refreshToken', tokens.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
+    res.json({ accessToken: tokens.accessToken });
   } catch (error) {
     next(error);
   }
@@ -155,7 +168,12 @@ const logout = async (req, res, next) => {
         data: { refreshToken: null }
       });
     }
-    res.json({ success: true, message: 'Session cleared from database' });
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict'
+    });
+    res.json({ success: true, message: 'Session cleared from database and cookies' });
   } catch (error) {
     next(error);
   }

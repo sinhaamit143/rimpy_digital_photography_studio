@@ -18,22 +18,22 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, title, loading }) => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }} 
             animate={{ opacity: 1, scale: 1, y: 0 }} 
             exit={{ opacity: 0, scale: 0.9, y: 20 }} 
-            className="bg-white w-full max-w-md rounded-sm shadow-2xl relative z-10 overflow-hidden"
+            className="bg-surface w-full max-w-md rounded-sm shadow-2xl relative z-10 overflow-hidden"
           >
             <div className="p-8 text-center space-y-6">
               <div className="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg">
                 <AlertTriangle size={32} />
               </div>
               <div>
-                <h4 className="text-xl font-serif text-dark italic mb-2">Confirm Deletion</h4>
+                <h4 className="text-xl font-serif text-main italic mb-2">Confirm Deletion</h4>
                 <p className="text-xs text-gray-400 font-bold uppercase tracking-widest leading-relaxed px-4">
-                  Are you sure you want to remove <span className="text-dark">"{title}"</span>? This action cannot be undone.
+                  Are you sure you want to remove <span className="text-main">"{title}"</span>? This action cannot be undone.
                 </p>
               </div>
               <div className="flex gap-4 pt-4">
                 <button 
                   onClick={onClose} 
-                  className="flex-1 py-4 bg-secondary text-dark uppercase tracking-widest text-[10px] font-bold hover:bg-gray-200 transition-all rounded-sm"
+                  className="flex-1 py-4 bg-secondary text-main uppercase tracking-widest text-[10px] font-bold hover:bg-gray-200 transition-all rounded-sm"
                 >
                   Cancel
                 </button>
@@ -49,7 +49,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, title, loading }) => {
             </div>
             <button 
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-300 hover:text-dark transition-colors"
+              className="absolute top-4 right-4 text-gray-300 hover:text-main transition-colors"
             >
               <X size={20} />
             </button>

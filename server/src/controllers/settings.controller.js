@@ -34,19 +34,19 @@ const updateSettings = async (req, res, next) => {
   try {
     const { 
       address, workingHours, phone, email, 
-      instagram, facebook, whatsapp, youtube 
+      instagram, facebook, whatsapp, youtube, themeColors 
     } = req.body;
 
     const settings = await prisma.studioSettings.upsert({
       where: { id: 1 },
       update: {
         address, workingHours, phone, email,
-        instagram, facebook, whatsapp, youtube
+        instagram, facebook, whatsapp, youtube, themeColors
       },
       create: {
         id: 1,
         address, workingHours, phone, email,
-        instagram, facebook, whatsapp, youtube
+        instagram, facebook, whatsapp, youtube, themeColors
       }
     });
 

@@ -26,24 +26,23 @@ const ShopDetail = () => {
     pinCode: ''
   });
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await api.get(`/products`);
-        const foundProduct = res.data.products.find(p => p.id === parseInt(id));
-        if (foundProduct) {
-          setProduct(foundProduct);
-        } else {
-          navigate('/shop');
-        }
+        const res = await api.get(`/products/${id}`);
+        setProduct(res.data);
       } catch (err) {
         console.error('Failed to fetch product:', err);
-        navigate('/shop');
+        setError('Product not found or invalid ID. Please return to the shop.');
       } finally {
         setLoading(false);
       }
     };
-    fetchProduct();
+    if (id) {
+      fetchProduct();
+    }
   }, [id, navigate]);
 
   const handleChange = (e) => {
@@ -72,13 +71,21 @@ const ShopDetail = () => {
   };
 
   if (loading) return <PageLoader message="Loading Product Details..." visible={true} />;
+  if (error) return (
+    <div className="pt-32 pb-24 px-4 min-h-screen flex flex-col items-center justify-center bg-secondary">
+      <div className="text-center">
+        <h2 className="text-2xl text-accent mb-4">{error}</h2>
+        <button onClick={() => navigate('/shop/products')} className="text-primary hover:text-white underline">Back to Shop</button>
+      </div>
+    </div>
+  );
   if (!product) return null;
 
   return (
     <div className="pt-32 md:pt-40 pb-20 bg-secondary min-h-screen">
       <div className="px-6 md:container max-w-7xl mx-auto">
         <button 
-          onClick={() => navigate('/shop')}
+          onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-primary transition-colors mb-12"
         >
           <ArrowLeft size={16} /> Back to Shop
@@ -91,7 +98,7 @@ const ShopDetail = () => {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-8 min-w-0"
           >
-            <div className="bg-white p-4 shadow-sm border border-gray-100 rounded-sm">
+            <div className="bg-surface p-4 shadow-sm border border-surface rounded-sm">
               <div className="aspect-square bg-zinc-900 relative overflow-hidden rounded-sm">
                 <img 
                   src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
@@ -106,7 +113,7 @@ const ShopDetail = () => {
                 {product.category?.name || 'Premium Gifting'}
               </span>
               <h1 className="text-4xl md:text-5xl font-serif leading-tight mb-4 break-words break-all">{product.title}</h1>
-              <div className="text-2xl font-bold text-dark mb-6">₹{product.price.toLocaleString('en-IN')}</div>
+              <div className="text-2xl font-bold text-main mb-6">₹{product.price.toLocaleString('en-IN')}</div>
               
               <div className="h-[1px] w-full bg-gray-200 mb-6"></div>
               
@@ -124,7 +131,7 @@ const ShopDetail = () => {
           <m.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-white p-8 md:p-12 shadow-xl border border-gray-100 rounded-sm relative overflow-hidden lg:sticky lg:top-32 min-w-0"
+            className="bg-surface p-8 md:p-12 shadow-xl border border-surface rounded-sm relative overflow-hidden lg:sticky lg:top-32 min-w-0"
           >
             <div className="absolute top-0 left-0 w-full h-2 bg-primary"></div>
             
@@ -156,11 +163,11 @@ const ShopDetail = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Pre-filled Product Details */}
-                <div className="bg-secondary p-5 border border-gray-100 rounded-sm mb-8 relative overflow-hidden">
+                <div className="bg-secondary p-5 border border-surface rounded-sm mb-8 relative overflow-hidden">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary/20"></div>
                   <h4 className="text-[9px] uppercase tracking-[0.3em] font-bold text-gray-400 mb-3">Selected Product Details</h4>
                   <div className="flex justify-between items-start mb-1 gap-4">
-                    <p className="font-serif text-dark text-lg font-bold break-words break-all">{product.title}</p>
+                    <p className="font-serif text-main text-lg font-bold break-words break-all">{product.title}</p>
                     <p className="font-bold text-primary whitespace-nowrap mt-1">₹{product.price.toLocaleString('en-IN')}</p>
                   </div>
                   <p className="text-[10px] text-gray-500 uppercase tracking-widest">{product.category?.name || 'Premium Gifting'}</p>

@@ -62,7 +62,8 @@ router.post('/', authMiddleware, upload.single('image'), upload.optimize, produc
  *       - bearerAuth: []
  */
 router.get('/categories', productController.getAllCategories);
-router.post('/categories', authMiddleware, productController.createCategory);
+router.post('/categories', authMiddleware, upload.single('image'), upload.optimize, productController.createCategory);
+router.put('/categories/:id', authMiddleware, upload.single('image'), upload.optimize, productController.updateCategory);
 router.delete('/categories/:id', authMiddleware, productController.deleteCategory);
 
 /**
@@ -79,6 +80,7 @@ router.delete('/categories/:id', authMiddleware, productController.deleteCategor
  *     security:
  *       - bearerAuth: []
  */
+router.get('/:id', productController.getProductById);
 router.put('/:id', authMiddleware, upload.single('image'), upload.optimize, productController.updateProduct);
 router.delete('/:id', authMiddleware, productController.deleteProduct);
 

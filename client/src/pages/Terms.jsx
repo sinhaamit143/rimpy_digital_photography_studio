@@ -22,11 +22,11 @@ const Terms = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-24"
         >
-          <div className="w-16 h-16 bg-white shadow-xl rounded-full flex items-center justify-center mx-auto mb-8 text-primary border border-gray-100">
+          <div className="w-16 h-16 bg-surface shadow-xl rounded-full flex items-center justify-center mx-auto mb-8 text-primary border border-surface">
             <Gavel size={32} />
           </div>
           <span className="text-primary uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block italic">Studio Agreement</span>
-          <h1 className="text-4xl md:text-7xl font-serif leading-tight text-dark italic">Terms & <span className="not-italic font-sans text-primary">Conditions</span></h1>
+          <h1 className="text-4xl md:text-7xl font-serif leading-tight text-main italic">Terms & <span className="not-italic font-sans text-primary">Conditions</span></h1>
           <div className="w-24 h-[2px] bg-primary mx-auto mt-8"></div>
         </m.div>
 
@@ -35,12 +35,12 @@ const Terms = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="bg-white p-8 md:p-20 shadow-2xl border border-gray-100 rounded-sm max-w-none"
+          className="bg-surface p-8 md:p-20 shadow-2xl border border-surface rounded-sm max-w-none"
         >
           <div className="space-y-16">
             
             <section className="space-y-6">
-              <h3 className="text-2xl font-serif text-dark flex items-center gap-4 italic">
+              <h3 className="text-2xl font-serif text-main flex items-center gap-4 italic">
                 <div className="w-10 h-[1px] bg-primary"></div> Professional Relationship
               </h3>
               <p className="text-gray-600 font-serif italic text-lg leading-relaxed">
@@ -70,7 +70,7 @@ const Terms = () => {
             </section>
 
             <section className="space-y-6">
-              <h3 className="text-2xl font-serif text-dark flex items-center gap-4 italic">
+              <h3 className="text-2xl font-serif text-main flex items-center gap-4 italic">
                 <div className="w-10 h-[1px] bg-primary"></div> Delivery Timelines
               </h3>
               <p className="text-gray-600 text-sm leading-loose">
@@ -79,7 +79,7 @@ const Terms = () => {
             </section>
 
             <section className="space-y-6">
-              <h3 className="text-2xl font-serif text-dark flex items-center gap-4 italic">
+              <h3 className="text-2xl font-serif text-main flex items-center gap-4 italic">
                 <div className="w-10 h-[1px] bg-primary"></div> Cancellation & Rescheduling
               </h3>
               <p className="text-gray-600 text-sm leading-loose">
@@ -87,7 +87,7 @@ const Terms = () => {
               </p>
             </section>
 
-            <section className="pt-10 border-t border-gray-100 text-center">
+            <section className="pt-10 border-t border-surface text-center">
               <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 mb-6">Need Clarification?</p>
               <div className="flex flex-col md:flex-row justify-center gap-4">
                 <a href="/contact" className="px-8 py-4 bg-dark text-white uppercase tracking-widest text-[10px] font-bold hover:bg-primary transition-all">Contact Studio</a>

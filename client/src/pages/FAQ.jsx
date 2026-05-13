@@ -26,12 +26,12 @@ const faqs = [
 ];
 
 const FAQItem = ({ faq, isOpen, toggle }) => (
-  <div className="border-b border-gray-100 last:border-0">
+  <div className="border-b border-surface last:border-0">
     <button 
       onClick={toggle}
       className="w-full py-8 flex justify-between items-center text-left group"
     >
-      <span className={`text-sm md:text-base uppercase tracking-widest font-bold transition-colors ${isOpen ? 'text-primary' : 'text-dark group-hover:text-primary'}`}>
+      <span className={`text-sm md:text-base uppercase tracking-widest font-bold transition-colors ${isOpen ? 'text-primary' : 'text-main group-hover:text-primary'}`}>
         {faq.q}
       </span>
       {isOpen ? <Minus size={20} className="text-primary" /> : <Plus size={20} className="text-text-light" />}
@@ -68,8 +68,8 @@ const FAQ = () => {
             Everything you need to know about our services, orders, and studio policies.
           </p>
         </div>
-
-        <div className="bg-white p-8 md:p-20 shadow-xl rounded-sm">
+ 
+        <div className="glass-panel p-8 md:p-20">
           {faqs.map((faq, idx) => (
             <FAQItem 
               key={idx} 

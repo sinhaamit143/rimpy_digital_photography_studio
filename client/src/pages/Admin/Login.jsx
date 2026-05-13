@@ -19,10 +19,12 @@ const Login = () => {
 
     try {
       const response = await api.post('/auth/login', credentials);
-      const { accessToken, refreshToken, user } = response.data;
+      const { accessToken, user } = response.data;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      // Import setAccessToken to save it in memory
+      const { setAccessToken } = await import('../../utils/api');
+      setAccessToken(accessToken);
+      
       localStorage.setItem('user', JSON.stringify(user));
 
       setIsAuthenticating(true);
@@ -54,23 +56,23 @@ const Login = () => {
       
       {/* Back to Website - Floating Button */}
       <Link 
-        to="/" 
-        className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-dark/40 hover:text-primary transition-colors group z-50"
+        to="/home" 
+        className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] font-bold text-white hover:text-primary transition-all group z-50 bg-dark/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
         Back to Website
       </Link>
 
-      <div className="w-full max-w-[1100px] h-auto lg:h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-white border border-gray-100 relative">
+      <div className="w-full max-w-[1100px] h-auto lg:h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-surface border border-surface relative">
         
         {/* Left Side: Photo */}
         <div className="hidden lg:block w-1/2 relative overflow-hidden bg-dark">
           <img 
-            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1200" 
+            src="/rimpyshop.webp" 
             alt="Studio" 
             className="w-full h-full object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent"></div>
           <div className="absolute bottom-12 left-12 right-12 text-white">
             <h2 className="text-4xl font-serif leading-tight mb-4">Quality Since <br /><span className="italic text-primary">2004</span></h2>
             <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Admin Management Portal</p>
@@ -80,10 +82,12 @@ const Login = () => {
         {/* Right Side: Form */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-20 py-16">
           <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="mb-10 text-center lg:text-left">
-              <img src="/logo_rdps.png" alt="Logo" className="h-10 mb-8 mx-auto lg:mx-0" />
-              <h1 className="text-3xl font-serif text-dark mb-2">Welcome Back</h1>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Please enter your admin credentials</p>
+            <div className="mb-12 text-center lg:text-left">
+              <div className="inline-block p-4 bg-white/5 rounded-xl border border-white/10 mb-8 mx-auto lg:mx-0">
+                <img src="/rimpylogo.png" alt="Logo" className="h-14 md:h-16 w-auto object-contain" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-serif text-main mb-3 leading-tight">Welcome <span className="italic text-primary">Back</span></h1>
+              <p className="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Authorized Personnel Only</p>
             </div>
 
             {error && (
@@ -104,7 +108,7 @@ const Login = () => {
                   <input 
                     type="email" 
                     placeholder="admin@rimpy.com"
-                    className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
+                    className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
                     onChange={(e) => setCredentials({...credentials, email: e.target.value})}
                   />
@@ -123,7 +127,7 @@ const Login = () => {
                   <input 
                     type={showPassword ? "text" : "password"} 
                     placeholder="••••••••"
-                    className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-dark"
+                    className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
                     onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                   />
@@ -145,7 +149,7 @@ const Login = () => {
                 {isLoading ? <Loader2 size={16} className="animate-spin" /> : <>Enter Dashboard <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" /></>}
               </button>
 
-              <div className="mt-10 pt-10 border-t border-gray-100 flex flex-col items-center gap-4">
+              <div className="mt-10 pt-10 border-t border-surface flex flex-col items-center gap-4">
                 <div className="flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
                   <HelpCircle size={14} /> 
                   <span>Trouble logging in? Contact support.</span>

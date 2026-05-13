@@ -58,7 +58,7 @@ const Services = () => {
             animate={{ opacity: 1, y: 0 }}
           >
             <span className="text-primary uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block italic">Our Expertise</span>
-            <h2 className="text-4xl md:text-7xl mb-8 font-serif italic text-dark leading-tight">Artistic <span className="not-italic text-primary">Services</span></h2>
+            <h2 className="text-4xl md:text-7xl mb-8 font-serif italic text-main leading-tight">Artistic <span className="not-italic text-primary">Services</span></h2>
             <div className="w-24 h-[2px] bg-primary mx-auto mb-8"></div>
             <p className="text-gray-500 max-w-2xl mx-auto font-serif italic text-base md:text-lg leading-relaxed">
               From the lens to the final gift, Rimpy Digital Studio offers a complete ecosystem of visual storytelling in Karnal.
@@ -82,6 +82,8 @@ const Services = () => {
                   <img 
                     src={service.image} 
                     alt={service.title} 
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchpriority={index === 0 ? "high" : "auto"}
                     className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 opacity-90 group-hover:opacity-100"
                     onError={(e) => { e.target.src = fallbackImg; }}
                   />
@@ -103,7 +105,7 @@ const Services = () => {
               <div className="w-full lg:flex-1 text-center lg:text-left space-y-8">
                 <div className="space-y-4">
                   <span className="text-primary font-serif italic text-xl">Service 0{index + 1}</span>
-                  <h3 className="text-3xl md:text-6xl font-serif tracking-tight leading-tight text-dark">{service.title}</h3>
+                  <h3 className="text-3xl md:text-6xl font-serif tracking-tight leading-tight text-main">{service.title}</h3>
                 </div>
                 <p className="text-gray-500 text-base md:text-lg leading-loose font-serif italic">
                   "{service.description}"

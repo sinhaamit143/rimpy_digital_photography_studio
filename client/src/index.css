@@ -3,15 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #454a3a;
-  --color-secondary: #f4f4f2;
-  --color-accent: #a68936;
-  --color-dark: #1a1a1a;
+  --color-primary: 227 27 35;
+  --color-secondary: 249 250 251;
+  --color-accent: 204 0 0;
+  --color-dark: 17 17 17;
+  --color-text-main: 17 17 17;
+  --color-text-light: 85 85 85;
+  --color-surface: 255 255 255;
+  --color-surface-hover: 249 250 251;
+  --color-border: 243 244 246;
 }
 
 @layer base {
   body {
-    @apply bg-secondary text-dark font-sans;
+    @apply bg-secondary text-main font-sans relative;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
     display: flex;
@@ -42,12 +47,17 @@
 }
 
 @layer components {
+  /* Glassmorphism for a premium look */
+  .glass-panel {
+    @apply bg-surface/80 backdrop-blur-md border border-white/10 shadow-xl;
+  }
+
   .btn-primary {
     @apply px-8 py-3 border border-primary text-primary uppercase tracking-widest text-xs transition-all duration-500 hover:bg-primary hover:text-white;
   }
   
   .btn-accent {
-    @apply px-8 py-3 bg-accent text-dark uppercase tracking-widest text-xs transition-all duration-500 hover:bg-dark hover:text-white font-bold;
+    @apply px-8 py-3 bg-accent text-white uppercase tracking-widest text-xs transition-all duration-500 hover:bg-dark hover:text-white font-bold !text-white;
   }
 
   .nav-link {
@@ -68,7 +78,15 @@
   }
 
   .section-shop {
-    min-height: 800px;
+    @apply min-h-[800px];
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 

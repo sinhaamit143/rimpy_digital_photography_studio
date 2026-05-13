@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion as m, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, ShoppingBag, ImageIcon, Star, 
   MessageSquare, Settings, LogOut, Menu, Bell, Layers,
-  ShoppingCart, Clock, CheckCircle
+  ShoppingCart, Clock, CheckCircle, XCircle, Globe, Loader2
 } from 'lucide-react';
-import api from '../../utils/api';
+import api, { setAccessToken } from '../../utils/api';
 
 // Shared Components
 import StatCard from './components/StatCard';
-
-// Management Modules (Lazy Loaded or Direct)
-import ProductManagement from './modules/ProductManagement';
-import PortfolioManagement from './modules/PortfolioManagement';
-import TestimonialManagement from './modules/TestimonialManagement';
-import InquiryManagement from './modules/InquiryManagement';
-import SettingsManagement from './modules/SettingsManagement';
-import OrderManagement from './modules/OrderManagement';
 import AdminAnalytics from './components/AdminAnalytics';
+
+// Management Modules (Lazy Loaded)
+const ProductManagement = lazy(() => import('./modules/ProductManagement'));
+const PortfolioManagement = lazy(() => import('./modules/PortfolioManagement'));
+const TestimonialManagement = lazy(() => import('./modules/TestimonialManagement'));
+const InquiryManagement = lazy(() => import('./modules/InquiryManagement'));
+const SettingsManagement = lazy(() => import('./modules/SettingsManagement'));
+const OrderManagement = lazy(() => import('./modules/OrderManagement'));
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState('Overview');
   const [counts, setCounts] = useState({ 
     products: 0, albums: 0, testimonials: 0, unreadLeads: 0, totalLeads: 0,
-    totalOrders: 0, pendingOrders: 0, completedOrders: 0 
+    totalOrders: 0, pendingOrders: 0, completedOrders: 0, cancelledOrders: 0
   });
   const [ordersData, setOrdersData] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -61,6 +61,7 @@ const AdminDashboard = () => {
       const unreadCount = inquiryList.filter(msg => !msg.isRead).length;
       const pendingCount = orderList.filter(ord => ord.status === 'pending').length;
       const completedCount = orderList.filter(ord => ord.status === 'delivered').length;
+      const cancelledCount = orderList.filter(ord => ord.status === 'cancelled').length;
 
       setOrdersData(orderList);
 
@@ -72,7 +73,8 @@ const AdminDashboard = () => {
         totalLeads: inquiryList.length,
         totalOrders: orderList.length,
         pendingOrders: pendingCount,
-        completedOrders: completedCount
+        completedOrders: completedCount,
+        cancelledOrders: cancelledCount
       });
     } catch (err) { console.error('Stats error:', err); }
   };
@@ -93,7 +95,8 @@ const AdminDashboard = () => {
     } catch (err) {
       console.error('Logout sync failed:', err);
     } finally {
-      localStorage.clear();
+      localStorage.removeItem('user');
+      setAccessToken(null); // Clear memory token
       setTimeout(() => {
         navigate('/admin');
       }, 800);
@@ -121,7 +124,7 @@ const AdminDashboard = () => {
         <div className="p-6 flex items-center justify-between border-b border-white/5 h-20">
           <AnimatePresence mode='wait'>
             {sidebarOpen ? (
-              <m.img key="logo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} src="/logo_rdps.png" alt="Logo" className="h-10 brightness-0 invert" />
+              <m.img key="logo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} src="/inverselogo.png" alt="Logo" className="h-14 w-auto object-contain" />
             ) : (
               <m.img key="icon" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} src="/logo_rdps2.png" alt="Icon" className="h-8 brightness-0 invert mx-auto" />
             )}
@@ -129,7 +132,7 @@ const AdminDashboard = () => {
         </div>
         <nav className="flex-1 py-8 px-4 space-y-2 overflow-y-auto custom-scrollbar">
           {menuItems.map((item) => (
-            <button key={item.name} onClick={() => setActiveTab(item.name)} className={`w-full flex items-center gap-4 p-3 rounded-sm transition-all group ${activeTab === item.name ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'hover:bg-white/5 text-gray-400'}`}>
+            <button key={item.name} onClick={() => setActiveTab(item.name)} className={`w-full flex items-center gap-4 p-3 rounded-sm transition-all group ${activeTab === item.name ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'hover:bg-surface/5 text-gray-400'}`}>
               <item.icon size={20} className="flex-shrink-0" />
               {sidebarOpen && <span className="text-[10px] uppercase tracking-widest font-bold whitespace-nowrap">{item.name}</span>}
               {sidebarOpen && item.name === 'Inquiries' && counts.unreadLeads > 0 && (
@@ -150,16 +153,16 @@ const AdminDashboard = () => {
       </m.aside>
 
       <main className="flex-1 flex flex-col h-full relative overflow-hidden">
-        <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 z-30">
+        <header className="h-20 bg-surface border-b border-surface flex items-center justify-between px-8 z-30">
           <div className="flex items-center gap-6">
             <button 
               onClick={() => setSidebarOpen(!sidebarOpen)} 
-              className="p-2 hover:bg-secondary rounded-sm transition-colors text-dark"
+              className="p-2 hover:bg-secondary rounded-sm transition-colors text-main"
               aria-label="Toggle Sidebar"
             >
               <Menu size={24} />
             </button>
-            <h2 className="text-xl font-serif text-dark italic">{activeTab}</h2>
+            <h2 className="text-xl font-serif text-main italic">{activeTab}</h2>
           </div>
           <div className="flex items-center gap-6 relative">
             <button 
@@ -174,15 +177,24 @@ const AdminDashboard = () => {
               )}
             </button>
 
+            <button 
+              onClick={() => window.open('/', '_blank')}
+              className="flex items-center gap-2 px-4 py-2 bg-secondary hover:bg-primary hover:text-white transition-all text-main rounded-sm text-[10px] uppercase tracking-widest font-bold shadow-sm"
+              title="Visit Public Website"
+            >
+              <Globe size={16} />
+              <span className="hidden md:inline">Visit Site</span>
+            </button>
+
             <AnimatePresence>
               {showNotifications && (
                 <m.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-full right-12 mt-4 w-72 md:w-80 bg-white border border-gray-100 shadow-2xl rounded-sm overflow-hidden z-50"
+                  className="absolute top-full right-12 mt-4 w-72 md:w-80 bg-surface border border-surface shadow-2xl rounded-sm overflow-hidden z-50"
                 >
-                  <div className="p-4 bg-secondary/80 border-b border-gray-100 flex justify-between items-center">
+                  <div className="p-4 bg-secondary/80 border-b border-surface flex justify-between items-center">
                     <span className="text-[10px] uppercase tracking-widest font-bold text-gray-500">Notifications</span>
                     <span className="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full font-bold">{counts.unreadLeads + counts.pendingOrders} New</span>
                   </div>
@@ -190,13 +202,13 @@ const AdminDashboard = () => {
                     {counts.pendingOrders > 0 && (
                       <button 
                         onClick={() => { setActiveTab('Orders'); setShowNotifications(false); }}
-                        className="w-full text-left p-4 hover:bg-secondary/50 border-b border-gray-50 transition-colors flex items-start gap-4 group"
+                        className="w-full text-left p-4 hover:bg-secondary/50 border-b border-surface transition-colors flex items-start gap-4 group"
                       >
                         <div className="p-2.5 bg-yellow-100 text-yellow-600 rounded-full group-hover:scale-110 transition-transform">
                           <ShoppingCart size={18} />
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-dark mb-0.5">Pending Orders</p>
+                          <p className="text-sm font-bold text-main mb-0.5">Pending Orders</p>
                           <p className="text-xs text-gray-500">You have {counts.pendingOrders} orders waiting.</p>
                         </div>
                       </button>
@@ -204,13 +216,13 @@ const AdminDashboard = () => {
                     {counts.unreadLeads > 0 && (
                       <button 
                         onClick={() => { setActiveTab('Inquiries'); setShowNotifications(false); }}
-                        className="w-full text-left p-4 hover:bg-secondary/50 border-b border-gray-50 transition-colors flex items-start gap-4 group"
+                        className="w-full text-left p-4 hover:bg-secondary/50 border-b border-surface transition-colors flex items-start gap-4 group"
                       >
                         <div className="p-2.5 bg-blue-100 text-blue-600 rounded-full group-hover:scale-110 transition-transform">
                           <MessageSquare size={18} />
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-dark mb-0.5">New Inquiries</p>
+                          <p className="text-sm font-bold text-main mb-0.5">New Inquiries</p>
                           <p className="text-xs text-gray-500">You have {counts.unreadLeads} unread messages.</p>
                         </div>
                       </button>
@@ -239,9 +251,10 @@ const AdminDashboard = () => {
                       <StatCard label="Total Orders" value={counts.totalOrders} icon={ShoppingCart} onClick={() => setActiveTab('Orders')} />
                       <StatCard label="Pending Orders" value={counts.pendingOrders} icon={Clock} onClick={() => setActiveTab('Orders')} />
                       <StatCard label="Delivered Orders" value={counts.completedOrders} icon={CheckCircle} onClick={() => setActiveTab('Orders')} />
-                      <StatCard label="Total Leads" value={counts.totalLeads} icon={Layers} onClick={() => setActiveTab('Inquiries')} />
+                      <StatCard label="Cancelled Orders" value={counts.cancelledOrders} icon={XCircle} onClick={() => setActiveTab('Orders')} />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                      <StatCard label="Total Leads" value={counts.totalLeads} icon={Layers} onClick={() => setActiveTab('Inquiries')} />
                       <StatCard label="Products" value={counts.products} icon={ShoppingBag} onClick={() => setActiveTab('Products')} />
                       <StatCard label="Albums" value={counts.albums} icon={ImageIcon} onClick={() => setActiveTab('Portfolio')} />
                       <StatCard label="Testimonials" value={counts.testimonials} icon={Star} onClick={() => setActiveTab('Testimonials')} />
@@ -249,12 +262,19 @@ const AdminDashboard = () => {
                     <AdminAnalytics orders={ordersData} />
                   </div>
                 )}
-                {activeTab === 'Products' && <ProductManagement refreshStats={fetchCounts} />}
-                {activeTab === 'Portfolio' && <PortfolioManagement refreshStats={fetchCounts} />}
-                {activeTab === 'Testimonials' && <TestimonialManagement refreshStats={fetchCounts} />}
-                {activeTab === 'Inquiries' && <InquiryManagement refreshStats={fetchCounts} />}
-                {activeTab === 'Orders' && <OrderManagement refreshStats={fetchCounts} />}
-                {activeTab === 'Settings' && <SettingsManagement />}
+                <Suspense fallback={
+                  <div className="h-[400px] flex flex-col items-center justify-center text-primary">
+                    <Loader2 size={40} className="animate-spin mb-4 opacity-20" />
+                    <p className="text-[10px] uppercase tracking-widest font-bold">Loading Module...</p>
+                  </div>
+                }>
+                  {activeTab === 'Products' && <ProductManagement refreshStats={fetchCounts} />}
+                  {activeTab === 'Portfolio' && <PortfolioManagement refreshStats={fetchCounts} />}
+                  {activeTab === 'Testimonials' && <TestimonialManagement refreshStats={fetchCounts} />}
+                  {activeTab === 'Inquiries' && <InquiryManagement refreshStats={fetchCounts} />}
+                  {activeTab === 'Orders' && <OrderManagement refreshStats={fetchCounts} />}
+                  {activeTab === 'Settings' && <SettingsManagement />}
+                </Suspense>
              </m.div>
            </AnimatePresence>
         </div>

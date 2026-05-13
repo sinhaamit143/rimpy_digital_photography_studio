@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Filter, ShoppingBag, Loader2, ChevronDown } from 'lucide-react';
 import api from '../utils/api';
 import Pagination from '../components/Common/Pagination';
@@ -12,10 +12,11 @@ const fallbackImg = "https://images.unsplash.com/photo-1542038784456-1ea8e935640
 const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5004' : '';
 
 const Shop = () => {
+  const location = useLocation();
+  const [activeCategory, setActiveCategory] = useState(location.state?.selectedCategory || "All");
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState("All");
   const [pagination, setPagination] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -24,21 +25,24 @@ const Shop = () => {
   const fetchData = async (page = 1) => {
     setLoading(true);
     try {
-      // Find category ID if not "All"
+      // Get categories first to handle state-based selection
+      const catRes = await api.get('/products/categories');
+      const cats = catRes.data;
+      setCategories(cats);
+
       let url = `/products?page=${page}&limit=9`;
+      
       if (activeCategory !== "All") {
-        const cat = categories.find(c => c.name === activeCategory);
-        if (cat) url += `&categoryId=${cat.id}`;
+        const cat = cats.find(c => c.name === activeCategory);
+        if (cat) {
+          url += `&categoryId=${cat.id}`;
+        }
       }
 
-      const [prodRes, catRes] = await Promise.all([
-        api.get(url),
-        api.get('/products/categories')
-      ]);
+      const prodRes = await api.get(url);
       
       setProducts(prodRes.data.products);
       setPagination(prodRes.data.pagination);
-      setCategories(catRes.data);
       setCurrentPage(page);
     } catch (err) {
       console.error('Failed to fetch shop data:', err);
@@ -50,6 +54,13 @@ const Shop = () => {
   useEffect(() => {
     fetchData(1);
   }, [activeCategory]);
+
+  useEffect(() => {
+    // Only clear location state once on mount to allow free filtering
+    if (location.state?.selectedCategory) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state?.selectedCategory, location.pathname, navigate]);
 
   const filteredProducts = activeCategory === "All" 
     ? products 
@@ -92,7 +103,7 @@ const Shop = () => {
                   <div className="max-h-60 overflow-y-auto custom-scrollbar">
                     <button
                       onClick={() => { setActiveCategory("All"); setIsDropdownOpen(false); }}
-                      className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors ${activeCategory === "All" ? 'bg-primary text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+                      className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors ${activeCategory === "All" ? 'bg-primary text-white' : 'text-gray-400 hover:bg-surface/5 hover:text-white'}`}
                     >
                       All Categories
                     </button>
@@ -100,7 +111,7 @@ const Shop = () => {
                       <button
                         key={cat.id}
                         onClick={() => { setActiveCategory(cat.name); setIsDropdownOpen(false); }}
-                        className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors border-t border-white/5 ${activeCategory === cat.name ? 'bg-primary text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+                        className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors border-t border-white/5 ${activeCategory === cat.name ? 'bg-primary text-white' : 'text-gray-400 hover:bg-surface/5 hover:text-white'}`}
                       >
                         {cat.name}
                       </button>
@@ -123,7 +134,7 @@ const Shop = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white group shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-sm overflow-hidden border border-gray-100"
+                className="bg-surface group shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-sm overflow-hidden border border-surface"
               >
                 <div className="relative aspect-square overflow-hidden bg-zinc-900">
                   <div className="aspect-studio w-full h-full">
@@ -138,12 +149,12 @@ const Shop = () => {
                   <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                     <button 
                       onClick={() => navigate(`/shop/${product.id}`)}
-                      className="bg-white text-dark px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary hover:text-white transition-all shadow-2xl scale-90 group-hover:scale-100 duration-500 rounded-sm"
+                      className="bg-surface text-main px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary hover:text-white transition-all shadow-2xl scale-90 group-hover:scale-100 duration-500 rounded-sm"
                     >
                       View Product
                     </button>
                   </div>
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary border border-primary/10">
+                  <div className="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary border border-primary/10">
                     ₹{product.price.toLocaleString('en-IN')}
                   </div>
                 </div>
@@ -165,7 +176,7 @@ const Shop = () => {
 
         {/* Empty State */}
         {products.length === 0 && (
-          <div className="py-24 md:py-32 text-center border-2 border-dashed border-gray-100 rounded-sm">
+          <div className="py-24 md:py-32 text-center border-2 border-dashed border-surface rounded-sm">
             <h4 className="text-xl md:text-2xl font-serif text-gray-300 italic mb-2">Collection is currently empty</h4>
             <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">Please check back later or browse other categories</p>
           </div>
@@ -176,7 +187,8 @@ const Shop = () => {
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=2000" 
-              alt="Gifting Workshop" 
+              alt="Gifting Workshop"
+              loading="lazy"
               className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3s] ease-out"
             />
             <div className="absolute inset-0 bg-dark/90 backdrop-blur-[2px]"></div>
@@ -184,7 +196,7 @@ const Shop = () => {
 
           <div className="relative z-10 p-10 md:p-24 flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-8">
-              <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center border border-white/10 backdrop-blur-md group-hover:border-primary/50 transition-all duration-500">
+              <div className="w-20 h-20 bg-surface/5 rounded-full flex items-center justify-center border border-white/10 backdrop-blur-md group-hover:border-primary/50 transition-all duration-500">
                 <ShoppingBag className="text-primary" size={32} />
               </div>
               <div className="space-y-4">
@@ -197,7 +209,7 @@ const Shop = () => {
             
             <a 
               href="/contact" 
-              className="w-full lg:w-auto text-center px-12 py-5 bg-primary text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-white hover:text-dark transition-all duration-500 shadow-2xl rounded-sm"
+              className="w-full lg:w-auto text-center px-12 py-5 bg-primary text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-surface hover:text-main transition-all duration-500 shadow-2xl rounded-sm"
             >
               Enquire Now
             </a>

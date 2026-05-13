@@ -26,9 +26,9 @@ const Footer = () => {
           {/* Column 1: Branding */}
           <div className="flex flex-col items-center md:items-start space-y-8">
             <img 
-              src="/logo_rdps.png" 
+              src="/inverselogo.png" 
               alt="Rimpy Digital Studio" 
-              className="h-10 md:h-12 w-auto aspect-[2.5/1] brightness-0 invert transition-transform hover:scale-105 duration-500" 
+              className="h-16 md:h-20 w-auto object-contain transition-transform hover:scale-105 duration-500" 
               width="120"
               height="48"
             />
@@ -96,13 +96,13 @@ const Footer = () => {
                   target="_blank" 
                   rel="noopener noreferrer"
                   aria-label={`Follow us on ${social.name}`}
-                  className={`p-3 bg-white/5 rounded-sm text-gray-400 ${social.color} hover:bg-white/10 transition-all duration-500 hover:-translate-y-2 shadow-xl`}
+                  className={`p-3 bg-surface/5 rounded-sm text-gray-400 ${social.color} hover:bg-surface/10 transition-all duration-500 hover:-translate-y-2 shadow-xl`}
                 >
                   <social.icon size={18} />
                 </a>
               ))}
             </div>
-            <div className="p-6 bg-white/5 border border-white/10 rounded-sm w-full">
+            <div className="p-6 bg-surface/5 border border-white/10 rounded-sm w-full">
               <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 font-bold">Studio Status</p>
               <p className="text-xs text-accent font-bold mt-2">Available for Bookings</p>
             </div>
