@@ -118,9 +118,6 @@ const Login = () => {
               <div className="space-y-2 group">
                 <div className="flex justify-between items-center">
                   <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Security Code</label>
-                  <Link to="/admin/forgot-password" size={14} className="text-[9px] uppercase tracking-widest font-bold text-gray-400 hover:text-primary transition-colors">
-                    Forgot?
-                  </Link>
                 </div>
                 <div className="relative">
                   <Lock size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
@@ -149,15 +146,9 @@ const Login = () => {
                 {isLoading ? <Loader2 size={16} className="animate-spin" /> : <>Enter Dashboard <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" /></>}
               </button>
 
-              <div className="mt-10 pt-10 border-t border-surface flex flex-col items-center gap-4">
-                <div className="flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
-                  <HelpCircle size={14} /> 
-                  <span>Trouble logging in? Contact support.</span>
-                </div>
-                <div className="flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
-                  <span>New to the team?</span>
-                  <Link to="/admin/register" className="text-primary hover:underline">Create Account</Link>
-                </div>
+              <div className="mt-10 pt-10 border-t border-surface flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
+                <HelpCircle size={14} /> 
+                <span>Authorized Personnel Only. Contact admin for access.</span>
               </div>
             </form>
           </m.div>

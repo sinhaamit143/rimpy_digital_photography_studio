@@ -83,11 +83,10 @@ const forgotPassword = async (req, res, next) => {
       }
     });
 
-    // For now, return token so we can test without real email setup
+    // Token is stored in DB. In production, this should be sent via email.
     res.json({ 
       success: true, 
-      message: 'Reset token generated', 
-      debugToken: token // Remove in production
+      message: 'If this email is registered, a password reset link has been sent.'
     });
   } catch (error) {
     next(error);

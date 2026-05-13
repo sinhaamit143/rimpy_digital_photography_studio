@@ -44,9 +44,9 @@ const About = () => {
   ];
 
   return (
-    <div className="pt-40 pb-20 overflow-hidden bg-surface">
+    <div className="pt-36 pb-0 overflow-hidden bg-surface">
       {/* Intro Section */}
-      <section className="container mb-32">
+      <section className="container mb-16">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <m.div
             initial={{ opacity: 0, x: -50 }}
@@ -94,9 +94,9 @@ const About = () => {
       </section>
 
       {/* Core Values Section */}
-      <section className="py-32 bg-secondary/30">
+      <section className="py-16 bg-secondary/30">
         <div className="container">
-          <div className="text-center mb-24">
+          <div className="text-center mb-14">
             <span className="text-primary uppercase tracking-[0.3em] text-xs font-bold mb-4 block">Our Philosophy</span>
             <h2 className="text-4xl md:text-5xl font-serif">What We Stand For</h2>
             <div className="w-24 h-[1px] bg-primary mx-auto mt-6"></div>
@@ -122,10 +122,42 @@ const About = () => {
         </div>
       </section>
 
+      {/* Expertise & Equipment Section */}
+      <section className="py-16 container">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="order-2 lg:order-1">
+            <img 
+              src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000" 
+              alt="High-end Equipment"
+              loading="lazy"
+              className="w-full aspect-video object-cover shadow-2xl"
+            />
+          </div>
+          <div className="order-1 lg:order-2">
+            <span className="text-accent uppercase tracking-widest text-xs font-bold mb-6 block">The Tech Behind the Art</span>
+            <h2 className="text-4xl md:text-5xl mb-8 font-serif">Crafted with Precision</h2>
+            <p className="text-text-light leading-loose mb-8">
+              We believe that great art requires the best tools. Our studio is equipped with Sony & Canon professional full-frame cameras, high-end Profoto lighting, and a dedicated post-production suite where our editors bring your vision to life.
+            </p>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
+                <div className="w-2 h-2 bg-primary"></div> High-Resolution Cinematic Video Editing
+              </li>
+              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
+                <div className="w-2 h-2 bg-primary"></div> Specialized 3D Crystal Laser Technology
+              </li>
+              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
+                <div className="w-2 h-2 bg-primary"></div> Professional Post-Processing & Retouching
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Timeline Section */}
-      <section className="bg-secondary py-32">
+      <section className="bg-secondary py-16">
         <div className="container">
-          <div className="text-center mb-24">
+          <div className="text-center mb-14">
             <span className="text-primary uppercase tracking-[0.3em] text-xs font-bold mb-4 block">Timeline</span>
             <h2 className="text-4xl md:text-6xl font-serif">Our Journey</h2>
             <div className="w-24 h-[1px] bg-primary mx-auto mt-6"></div>
@@ -165,40 +197,8 @@ const About = () => {
         </div>
       </section>
 
-      {/* Expertise & Equipment Section */}
-      <section className="py-32 container">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
-          <div className="order-2 lg:order-1">
-            <img 
-              src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000" 
-              alt="High-end Equipment"
-              loading="lazy"
-              className="w-full aspect-video object-cover shadow-2xl"
-            />
-          </div>
-          <div className="order-1 lg:order-2">
-            <span className="text-accent uppercase tracking-widest text-xs font-bold mb-6 block">The Tech Behind the Art</span>
-            <h2 className="text-4xl md:text-5xl mb-8 font-serif">Crafted with Precision</h2>
-            <p className="text-text-light leading-loose mb-8">
-              We believe that great art requires the best tools. Our studio is equipped with Sony & Canon professional full-frame cameras, high-end Profoto lighting, and a dedicated post-production suite where our editors bring your vision to life.
-            </p>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
-                <div className="w-2 h-2 bg-primary"></div> High-Resolution Cinematic Video Editing
-              </li>
-              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
-                <div className="w-2 h-2 bg-primary"></div> Specialized 3D Crystal Laser Technology
-              </li>
-              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
-                <div className="w-2 h-2 bg-primary"></div> Professional Post-Processing & Retouching
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
       {/* Team/Vision Section */}
-      <section className="py-40 relative overflow-hidden group">
+      <section className="py-24 relative overflow-hidden group">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1581591524425-c7e0978865fc?q=80&w=2000" 
@@ -216,12 +216,12 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <TrendingUp className="text-primary mx-auto mb-10 opacity-40" size={60} />
-              <h2 className="text-4xl md:text-7xl mb-12 font-serif text-white italic">Looking <span className="not-italic text-primary">Ahead</span></h2>
+              <TrendingUp className="text-primary mx-auto mb-6 opacity-40" size={60} />
+              <h2 className="text-4xl md:text-7xl mb-8 font-serif text-white italic">Looking <span className="not-italic text-primary">Ahead</span></h2>
               <p className="text-xl md:text-2xl font-serif italic text-gray-300 leading-relaxed md:leading-loose">
                 "At Rimpy Digital Studio, we aim to expand our line of products and services and cater to a larger client base in the near future. Our dedication to quality and customer satisfaction remains the same as it was on our first day in 2004."
               </p>
-              <div className="mt-16 flex flex-col sm:flex-row justify-center gap-6">
+              <div className="mt-10 flex flex-col sm:flex-row justify-center gap-6">
                 <a href="/contact" className="px-12 py-5 bg-primary text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-surface hover:text-main transition-all duration-500 shadow-2xl rounded-sm">Book a Session</a>
                 <a href="/shop" className="px-12 py-5 bg-transparent border border-white/30 text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-surface hover:text-main transition-all duration-500 rounded-sm">Visit Gift Shop</a>
               </div>
