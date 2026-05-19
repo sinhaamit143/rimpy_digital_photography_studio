@@ -45,7 +45,7 @@ const Privacy = () => {
                 <div className="w-10 h-[1px] bg-primary"></div> Our Commitment
               </h3>
               <p className="text-gray-600 font-serif italic text-lg leading-relaxed">
-                At Rimpy Digital Studio, your trust is our most valuable asset. We are committed to protecting the personal information and precious memories you share with us, ensuring a secure and transparent experience across our studio and digital shop.
+                At Rimpy Gifts Studio, your trust is our most valuable asset. We are committed to protecting the personal information and precious memories you share with us, ensuring a secure and transparent experience across our studio and digital shop.
               </p>
             </section>
 

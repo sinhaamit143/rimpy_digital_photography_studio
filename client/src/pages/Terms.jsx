@@ -44,7 +44,7 @@ const Terms = () => {
                 <div className="w-10 h-[1px] bg-primary"></div> Professional Relationship
               </h3>
               <p className="text-gray-600 font-serif italic text-lg leading-relaxed">
-                By accessing our services or purchasing from our shop, you agree to the following protocols that ensure a high standard of creative collaboration and customer satisfaction at Rimpy Digital Studio.
+                By accessing our services or purchasing from our shop, you agree to the following protocols that ensure a high standard of creative collaboration and customer satisfaction at Rimpy Gifts Studio.
               </p>
             </section>
 
@@ -56,7 +56,7 @@ const Terms = () => {
                 </div>
                 <div className="space-y-4">
                   <h4 className="text-[10px] uppercase tracking-widest font-bold text-primary flex items-center gap-2"><Copyright size={14} /> Copyright & Usage</h4>
-                  <p className="text-sm text-gray-600 leading-relaxed">Rimpy Digital Studio retains copyright to all images. Clients receive usage rights for personal sharing. Commercial usage requires a separate agreement.</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">Rimpy Gifts Studio retains copyright to all images. Clients receive usage rights for personal sharing. Commercial usage requires a separate agreement.</p>
                 </div>
                 <div className="space-y-4">
                   <h4 className="text-[10px] uppercase tracking-widest font-bold text-primary flex items-center gap-2"><ShoppingBag size={14} /> Personalized Gifts</h4>

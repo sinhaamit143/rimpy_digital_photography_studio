@@ -27,7 +27,7 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start space-y-8">
             <img 
               src="/inverselogo.png" 
-              alt="Rimpy Digital Studio" 
+              alt="Rimpy Gifts Studio" 
               className="h-16 md:h-20 w-auto object-contain transition-transform hover:scale-105 duration-500" 
               width="120"
               height="48"
@@ -71,7 +71,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Phone size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
-                <p className="text-sm italic font-serif truncate w-full">{settings?.phone || '+91 98124 11818'}</p>
+                <p className="text-sm font-sans font-medium tracking-wide truncate w-full">{settings?.phone || '+91 98124 11818'}</p>
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Mail size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
@@ -113,7 +113,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold text-center md:text-left">
-            &copy; {new Date().getFullYear()} Rimpy Digital Studio. <br className="md:hidden" /> All Rights Reserved.
+            &copy; {new Date().getFullYear()} Rimpy Gifts Studio. <br className="md:hidden" /> All Rights Reserved.
           </p>
           <div className="flex gap-8 text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">
             <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>

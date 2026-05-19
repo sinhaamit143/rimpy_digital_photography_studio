@@ -4,23 +4,23 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
-    q: "Can I place an online order at Rimpy Digital Studio in Karnal?",
+    q: "Can I place an online order at Rimpy Gifts Studio in Karnal?",
     a: "Yes, most gift shops allow customers to place an online order. However, we suggest you get in touch with us directly for more details on specific items."
   },
   {
-    q: "Does Rimpy Digital Studio offer a warranty on gifts?",
+    q: "Does Rimpy Gifts Studio offer a warranty on gifts?",
     a: "Yes, most gifting companies offer a warranty on gifts. Please contact us for more information on the specific product you are interested in."
   },
   {
-    q: "How can I contact Rimpy Digital Studio?",
+    q: "How can I contact Rimpy Gifts Studio?",
     a: "You can call us during our working hours. Mon-Sat: 9:30 AM - 9:00 PM and Sun: 12:00 PM - 4:00 PM."
   },
   {
-    q: "What is the rating received by Rimpy Digital Studio?",
-    a: "Rimpy Digital Studio has successfully acquired a rating of 5.0 for its wide variety of gifting options and quality services."
+    q: "What is the rating received by Rimpy Gifts Studio?",
+    a: "Rimpy Gifts Studio has successfully acquired a rating of 5.0 for its wide variety of gifting options and quality services."
   },
   {
-    q: "Does Rimpy Digital Studio offer discounts and offers?",
+    q: "Does Rimpy Gifts Studio offer discounts and offers?",
     a: "Yes, we often have discounts and offers planned for our customers. Feel free to contact us or visit the shop for the latest deals."
   }
 ];

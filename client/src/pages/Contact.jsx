@@ -237,7 +237,7 @@ const Contact = () => {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Visit Our Studio</h4>
-                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.address || 'Railway Road, Opp. Gupta Palace, Karnal, Haryana'}</p>
+                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.address || 'Shop No 18, Near Dav Women College, Railway Road, Karnal-132001, Haryana'}</p>
                   </div>
                 </div>
 
@@ -247,8 +247,8 @@ const Contact = () => {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Direct Contact</h4>
-                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.phone || '+91 98124 11818'}</p>
-                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.email || 'hello@rimpy.com'}</p>
+                    <p className="text-main font-sans font-medium tracking-wide text-sm md:text-base leading-relaxed">{settings?.phone || '+91 98124 11818'}</p>
+                    <p className="text-main font-sans font-medium tracking-wide text-sm md:text-base leading-relaxed">{settings?.email || 'hello@rimpy.com'}</p>
                   </div>
                 </div>
 
@@ -277,7 +277,7 @@ const Contact = () => {
               <div className="p-6 md:p-8 bg-dark text-white rounded-sm relative overflow-hidden group shadow-xl border border-white/5">
                 <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-700"></div>
                 <p className="text-xs md:text-sm font-serif italic text-gray-400 leading-relaxed relative z-10">
-                  "At Rimpy Digital Studio, we don't just take photos; we capture the soul of your most precious moments. Let's create a legacy together."
+                  "At Rimpy Gifts Studio, we don't just take photos; we capture the soul of your most precious moments. Let's create a legacy together."
                 </p>
               </div>
             </m.div>

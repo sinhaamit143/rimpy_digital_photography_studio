@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { m } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Image, 
-  Lightbulb, 
-  Heart, 
-  Gift, 
-  Baby, 
-  Book, 
-  Briefcase, 
+import {
+  Image,
+  Lightbulb,
+  Heart,
+  Gift,
+  Baby,
+  Book,
+  Briefcase,
   PartyPopper,
   ArrowRight,
   MessageCircle,
@@ -32,7 +32,7 @@ const ShopCategory = () => {
   const [settings, setSettings] = useState(null);
   const [bestSellers, setBestSellers] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // Category Pagination
   const [catPage, setCatPage] = useState(1);
   const itemsPerPage = 12;
@@ -90,25 +90,25 @@ const ShopCategory = () => {
       {/* Hero Section */}
       <section className="relative h-[80vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/shop.webp" 
-            alt="Hero" 
+          <img
+            src="/shop.webp"
+            alt="Hero"
             loading="eager"
             fetchpriority="high"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
-        
+
         <div className="container relative z-10 text-center text-white px-6">
-          <m.span 
+          <m.span
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className="block text-xs uppercase tracking-[0.4em] mb-4 text-primary"
           >
-            Since 2004 • Karnal's Premier Studio
+            Since 2004 • Karnal's Premium Studio
           </m.span>
-          <m.h1 
+          <m.h1
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -116,7 +116,7 @@ const ShopCategory = () => {
           >
             Crafting <span className="italic">Timeless</span> <br /> Memories
           </m.h1>
-          <m.p 
+          <m.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -124,23 +124,23 @@ const ShopCategory = () => {
           >
             Personalized gifts that turn moments into memories.
           </m.p>
-          
-          <m.div 
+
+          <m.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row justify-center gap-4"
           >
-            <button 
+            <button
               onClick={() => navigate('/shop/products')}
               className="bg-primary text-white px-8 py-4 uppercase tracking-widest text-xs font-bold flex items-center justify-center gap-2 hover:bg-white hover:text-dark transition-all"
             >
               <ShoppingBag size={16} />
               Shop Now
             </button>
-            <a 
-              href={`https://wa.me/${whatsappNumber}`} 
-              target="_blank" 
+            <a
+              href={`https://wa.me/${whatsappNumber}`}
+              target="_blank"
               rel="noopener noreferrer"
               className="border border-white text-white px-8 py-4 uppercase tracking-widest text-xs font-bold flex items-center justify-center gap-2 hover:bg-white hover:text-dark transition-all"
             >
@@ -200,7 +200,7 @@ const ShopCategory = () => {
               const config = categoryMap[cat.name] || { icon: Gift, img: "https://images.unsplash.com/photo-1549465220-1d8c95ad76e0?q=80&w=800" };
               const Icon = config.icon;
               const catImage = cat.imageUrl ? (cat.imageUrl.startsWith('http') ? cat.imageUrl : `${BASE_URL}${cat.imageUrl}`) : config.img;
-              
+
               return (
                 <m.div
                   key={cat.id}
@@ -209,15 +209,15 @@ const ShopCategory = () => {
                   className="group cursor-pointer"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface shadow-sm border border-surface">
-                    <img 
-                      src={catImage} 
-                      alt={cat.name} 
+                    <img
+                      src={catImage}
+                      alt={cat.name}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=800"; }}
                     />
                     <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors"></div>
-                    
+
                     <div className="absolute bottom-4 left-4 right-4 bg-white/70 backdrop-blur-md rounded-lg p-4 flex flex-col items-center justify-center shadow-lg border border-white/20 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                       <Icon size={24} className="text-primary mb-2" />
                       <h3 className="text-sm md:text-base font-bold text-main uppercase tracking-widest group-hover:text-primary transition-colors text-center">
@@ -233,7 +233,7 @@ const ShopCategory = () => {
           <div className="text-center mt-20 space-y-8">
             {categories.length > itemsPerPage && (
               <div className="flex justify-center items-center gap-4">
-                <button 
+                <button
                   disabled={catPage === 1}
                   onClick={() => setCatPage(p => p - 1)}
                   className="p-3 border border-primary/20 rounded-full text-primary disabled:opacity-30 hover:bg-primary hover:text-white transition-all"
@@ -241,7 +241,7 @@ const ShopCategory = () => {
                   <ChevronLeft size={20} />
                 </button>
                 <span className="text-xs font-bold uppercase tracking-widest text-main">Page {catPage} of {Math.ceil(categories.length / itemsPerPage)}</span>
-                <button 
+                <button
                   disabled={catPage === Math.ceil(categories.length / itemsPerPage)}
                   onClick={() => setCatPage(p => p + 1)}
                   className="p-3 border border-primary/20 rounded-full text-primary disabled:opacity-30 hover:bg-primary hover:text-white transition-all"
@@ -250,8 +250,8 @@ const ShopCategory = () => {
                 </button>
               </div>
             )}
-            
-            <button 
+
+            <button
               onClick={() => navigate('/shop/products')}
               className="inline-flex items-center gap-3 border border-primary text-primary px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary hover:text-white transition-all rounded-sm"
             >
@@ -272,52 +272,52 @@ const ShopCategory = () => {
 
           <div className="relative group/slider">
             {/* Overlay Navigation Arrows */}
-            <button 
+            <button
               onClick={() => scroll('left')}
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-12 h-12 rounded-full bg-surface text-main border border-primary/10 shadow-2xl flex items-center justify-center opacity-0 group-hover/slider:opacity-100 group-hover/slider:translate-x-0 transition-all duration-300 hidden md:flex"
             >
               <ChevronLeft size={24} />
             </button>
-            
-            <button 
+
+            <button
               onClick={() => scroll('right')}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 w-12 h-12 rounded-full bg-surface text-main border border-primary/10 shadow-2xl flex items-center justify-center opacity-0 group-hover/slider:opacity-100 group-hover/slider:translate-x-0 transition-all duration-300 hidden md:flex"
             >
               <ChevronRight size={24} />
             </button>
 
-            <div 
+            <div
               ref={scrollRef}
               className="flex overflow-x-auto gap-6 pb-10 scrollbar-hide scroll-smooth"
             >
-            {bestSellers.map((product) => (
-              <m.div 
-                key={product.id} 
-                onClick={() => navigate(`/shop/${product.id}`)}
-                className="min-w-[280px] md:min-w-[320px] bg-white/5 rounded-xl overflow-hidden border border-white/5 group relative cursor-pointer"
-              >
-                <div className="aspect-square relative">
-                  <img 
-                    src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
-                    alt={product.title} 
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=800"; }}
-                  />
-                  <div className="absolute top-4 right-4 w-8 h-8 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10">
-                    <Heart size={14} className="text-white" />
+              {bestSellers.map((product) => (
+                <m.div
+                  key={product.id}
+                  onClick={() => navigate(`/shop/${product.id}`)}
+                  className="min-w-[280px] md:min-w-[320px] bg-white/5 rounded-xl overflow-hidden border border-white/5 group relative cursor-pointer"
+                >
+                  <div className="aspect-square relative">
+                    <img
+                      src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`}
+                      alt={product.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=800"; }}
+                    />
+                    <div className="absolute top-4 right-4 w-8 h-8 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10">
+                      <Heart size={14} className="text-white" />
+                    </div>
                   </div>
-                </div>
-                <div className="p-6 text-center">
-                  <h4 className="font-serif italic text-lg mb-2 line-clamp-1">{product.title}</h4>
-                  <p className="text-primary font-bold">₹{parseFloat(product.price).toLocaleString('en-IN')}</p>
-                </div>
-              </m.div>
-            ))}
+                  <div className="p-6 text-center">
+                    <h4 className="font-serif italic text-lg mb-2 line-clamp-1">{product.title}</h4>
+                    <p className="text-primary font-bold">₹{parseFloat(product.price).toLocaleString('en-IN')}</p>
+                  </div>
+                </m.div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
 
     </div>

@@ -94,7 +94,7 @@ const Navbar = () => {
         </ul>
 
         <div className="absolute bottom-12 text-center w-full px-8">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold mb-6">Rimpy Digital Studio</p>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold mb-6">Rimpy Gifts Studio</p>
           <div className="flex justify-center gap-8 text-white/40">
             <div className="w-10 h-[1px] bg-surface/10"></div>
             <div className="w-1 h-1 rounded-full bg-primary"></div>

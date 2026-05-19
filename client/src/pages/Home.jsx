@@ -65,20 +65,20 @@ const Home = () => {
 
   const faqs = [
     {
-      q: "Can I place an online order at Rimpy Digital Studio in Karnal?",
+      q: "Can I place an online order at Rimpy Gifts Studio in Karnal?",
       a: "Yes, our integrated gift shop allows you to browse and enquire via WhatsApp directly from the website."
     },
     {
-      q: "Does Rimpy Digital Studio offer a warranty on gifts?",
+      q: "Does Rimpy Gifts Studio offer a warranty on gifts?",
       a: "Yes, we prioritize quality and offer a standard studio warranty on our premium 3D crystals and frames."
     },
     {
-      q: "How can I contact Rimpy Digital Studio?",
+      q: "How can I contact Rimpy Gifts Studio?",
       a: `You can call us at ${settings?.phone || 'our studio number'} during working hours: ${settings?.workingHours || 'Mon-Sat: 10 AM - 8 PM'}.`
     },
     {
-      q: "What is the rating received by Rimpy Digital Studio?",
-      a: "Rimpy Digital Studio maintains a 5.0 rating for its dedication to photographic excellence and premium gift crafting."
+      q: "What is the rating received by Rimpy Gifts Studio?",
+      a: "Rimpy Gifts Studio maintains a 5.0 rating for its dedication to photographic excellence and premium gift crafting."
     }
   ];
 
@@ -136,7 +136,7 @@ const Home = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="block text-[10px] md:text-sm uppercase tracking-[0.4em] mb-6 font-medium text-secondary"
           >
-            Since 2004 • Karnal's Premier Studio
+            Since 2004 • Karnal's Premium Studio
           </m.span>
           <m.h1
             initial={{ y: 30, opacity: 0 }}
@@ -210,7 +210,7 @@ const Home = () => {
               className="w-full aspect-[4/5] object-cover rounded-sm shadow-2xl"
             />
             <div className="absolute bottom-6 right-6 bg-dark/90 backdrop-blur-md text-white p-6 border-r-4 border-primary shadow-2xl">
-              <span className="text-3xl font-serif block text-primary mb-1">20+</span>
+              <span className="text-3xl font-serif block text-primary mb-1">22+</span>
               <span className="text-[9px] uppercase tracking-[0.3em] font-bold">Years of Trust</span>
             </div>
           </m.div>
@@ -220,20 +220,20 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <span className="text-primary uppercase tracking-[0.4em] text-xs font-bold mb-6 block">Premium Quality</span>
-            <h2 className="text-4xl md:text-5xl mb-8 leading-tight">One Stop Destination for All Your <span className="italic text-primary">Visual Needs</span></h2>
+            <h2 className="text-4xl md:text-5xl mb-8 leading-tight">One Stop Destination for <span className="italic text-primary">Custom Gifts & Photo Services</span></h2>
             <p className="text-text-light mb-10 leading-loose text-lg font-serif italic">
-              Established in 2004, Rimpy Digital Studio has been a cornerstone of creativity in Karnal. Whether it's capturing the first smile of a newborn or creating a personalized 3D crystal gift, we handle every project with unmatched dedication.
+              Established in Karnal with over 22 years of experience, Rimpy Gifts Studio is a trusted, long-standing business specializing in resin preservation, custom collages, premium framing, and quick custom gifting close to DAV Women College.
             </p>
             <div className="grid grid-cols-2 gap-10 mb-12">
               <div className="space-y-3">
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-main">Photography</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-main">Gifting & Specialties</h3>
                 <div className="w-10 h-[1px] bg-primary"></div>
-                <p className="text-xs text-text-light leading-relaxed">Weddings, Portraits, Maternity, Events & Cinematography.</p>
+                <p className="text-xs text-text-light leading-relaxed">Resin Preservation (Varmala), Premium Photo Frames, Bespoke Hampers & Collages.</p>
               </div>
               <div className="space-y-3">
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-main">Gifting</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-main">Photo Services</h3>
                 <div className="w-10 h-[1px] bg-primary"></div>
-                <p className="text-xs text-text-light leading-relaxed">3D Crystals, Custom Frames, Personalized Albums & More.</p>
+                <p className="text-xs text-text-light leading-relaxed">Event Photography, Professional Portraits & Passport-size Pictures.</p>
               </div>
             </div>
             <a href="/about" className="px-10 py-5 bg-dark text-white uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary transition-all shadow-xl inline-block">Read Our Story</a>

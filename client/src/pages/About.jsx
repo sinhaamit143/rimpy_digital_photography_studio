@@ -9,38 +9,54 @@ const About = () => {
     { 
       year: "2004", 
       title: "The Beginning", 
-      desc: "Rimpy Digital Studio opens its doors on Railway Road, Karnal, with a vision to redefine local photography.",
+      desc: "Rimpy Gifts Studio opens its doors near DAV Women College on Railway Road, Karnal, focusing on superior photo framing.",
       icon: Camera,
       color: "text-primary"
     },
     { 
       year: "2010", 
-      title: "Digital Expansion", 
-      desc: "Major investment in high-end digital printing and professional video editing suites to meet growing demand.",
+      title: "Service Expansion", 
+      desc: "Introduced advanced custom photo collages, event photography services, and professional passport-size pictures.",
       icon: Zap,
       color: "text-accent"
     },
     { 
       year: "2018", 
-      title: "Personalized Gifting", 
-      desc: "Launched a boutique gift shop featuring 3D Crystals, Designer Greeting cards, and custom framing.",
+      title: "Resin & Hampers", 
+      desc: "Pioneered specialized resin preservation techniques (varmala preservation) and bespoke gift hampers in Karnal.",
       icon: Gift,
       color: "text-primary"
     },
     { 
       year: "Today", 
-      title: "Market Leader", 
-      desc: "Successfully serving over 50,000+ happy clients with a 5.0 star rating and a legacy of trust.",
+      title: "22 Years Legacy", 
+      desc: "Recognized as the premier destination for high-quality, durable custom gifts and professional studio services.",
       icon: Award,
       color: "text-accent"
     }
   ];
 
   const values = [
-    { title: "Unmatched Quality", desc: "We use industry-leading camera gear and premium printing materials to ensure every frame is a masterpiece.", icon: ShieldCheck },
-    { title: "Emotional Storytelling", desc: "We don't just take photos; we capture the laughter, the tears, and the quiet moments that matter.", icon: Heart },
-    { title: "Constant Innovation", desc: "From 3D keychains to cinematic video editing, we stay ahead of industry trends to offer you the best.", icon: Sparkles },
-    { title: "Client Comfort", desc: "Our studio is designed to be a warm, welcoming space, especially for our newborn and maternity clients.", icon: Coffee }
+    { 
+      title: "Resin Preservation", 
+      desc: "Specializing in bespoke resin preservation, such as capturing and preserving your wedding Varmala and flowers forever.", 
+      icon: Sparkles 
+    },
+    { 
+      title: "Frames & Collages", 
+      desc: "Creating high-end photo frames and bespoke picture collages designed with premium materials to stand the test of time.", 
+      icon: Gift 
+    },
+    { 
+      title: "Bespoke Hampers", 
+      desc: "Tailoring custom gift hampers and unique, quick custom products that add a special touch to every celebration.", 
+      icon: Award 
+    },
+    { 
+      title: "Photo Services", 
+      desc: "Providing professional photography services ranging from capturing memorable events to quick passport-size pictures.", 
+      icon: Camera 
+    }
   ];
 
   return (
@@ -54,12 +70,12 @@ const About = () => {
             viewport={{ once: true }}
           >
             <span className="text-primary uppercase tracking-[0.3em] text-xs font-bold mb-6 block">Legacy Since 2004</span>
-            <h1 className="text-5xl md:text-7xl mb-10 font-serif leading-tight text-main">20 Years of <br /><span className="italic">Excellence</span></h1>
+            <h1 className="text-5xl md:text-7xl mb-10 font-serif leading-tight text-main">22 Years of <br /><span className="italic">Excellence</span></h1>
             <p className="text-text-light text-lg leading-relaxed mb-8 font-serif italic">
-              Located in the heart of Karnal, Rimpy Digital Studio has been more than just a photography shop—it's a place where memories are preserved for a lifetime. 
+              Rimpy Gifts Studio, located in Karnal, is a trusted and long-standing gift business and studio that specializes in resin preservation, personalized gifts, custom collages, and superior photo frames.
             </p>
             <p className="text-text-light text-base leading-loose mb-10">
-              For two decades, we have been the trusted choice for families in Haryana. Our journey began with a simple camera and a passion for art. Today, we are a multi-service studio specializing in everything from high-end wedding cinematography to personalized 3D crystal gifting.
+              Established in Karnal with over 22 years of experience, our studio is widely recognized for its premium craftsmanship, creativity, and quick custom services. Conveniently located near DAV Women College, we are well-known for producing distinctive, quick custom products that capture life's special moments.
             </p>
             <div className="grid grid-cols-3 gap-8 border-t border-surface pt-10">
               <div>
@@ -67,7 +83,7 @@ const About = () => {
                 <p className="text-[10px] uppercase tracking-widest text-gray-400">Happy Clients</p>
               </div>
               <div>
-                <h4 className="text-3xl font-serif text-main">20+</h4>
+                <h4 className="text-3xl font-serif text-main">22+</h4>
                 <p className="text-[10px] uppercase tracking-widest text-gray-400">Years Experience</p>
               </div>
               <div>
@@ -97,8 +113,8 @@ const About = () => {
       <section className="py-16 bg-secondary/30">
         <div className="container">
           <div className="text-center mb-14">
-            <span className="text-primary uppercase tracking-[0.3em] text-xs font-bold mb-4 block">Our Philosophy</span>
-            <h2 className="text-4xl md:text-5xl font-serif">What We Stand For</h2>
+            <span className="text-primary uppercase tracking-[0.3em] text-xs font-bold mb-4 block">Bespoke Services</span>
+            <h2 className="text-4xl md:text-5xl font-serif">Key Offerings & Specialties</h2>
             <div className="w-24 h-[1px] bg-primary mx-auto mt-6"></div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -134,20 +150,20 @@ const About = () => {
             />
           </div>
           <div className="order-1 lg:order-2">
-            <span className="text-accent uppercase tracking-widest text-xs font-bold mb-6 block">The Tech Behind the Art</span>
+            <span className="text-accent uppercase tracking-widest text-xs font-bold mb-6 block">Premium Craftsmanship</span>
             <h2 className="text-4xl md:text-5xl mb-8 font-serif">Crafted with Precision</h2>
             <p className="text-text-light leading-loose mb-8">
-              We believe that great art requires the best tools. Our studio is equipped with Sony & Canon professional full-frame cameras, high-end Profoto lighting, and a dedicated post-production suite where our editors bring your vision to life.
+              We combine more than two decades of custom gifting experience with premium materials. Every product, from a personalized collage to a preserved resin varmala, is built to be a durable, high-quality masterpiece.
             </p>
             <ul className="space-y-4">
               <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
-                <div className="w-2 h-2 bg-primary"></div> High-Resolution Cinematic Video Editing
+                <div className="w-2 h-2 bg-primary"></div> Renowned for Providing Durable, High-Quality Products
               </li>
               <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
-                <div className="w-2 h-2 bg-primary"></div> Specialized 3D Crystal Laser Technology
+                <div className="w-2 h-2 bg-primary"></div> Over 22 Years of Custom Creative Expertise in Haryana
               </li>
               <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-main">
-                <div className="w-2 h-2 bg-primary"></div> Professional Post-Processing & Retouching
+                <div className="w-2 h-2 bg-primary"></div> Fast & Reliable Custom Gifting near DAV Women College
               </li>
             </ul>
           </div>
@@ -219,7 +235,7 @@ const About = () => {
               <TrendingUp className="text-primary mx-auto mb-6 opacity-40" size={60} />
               <h2 className="text-4xl md:text-7xl mb-8 font-serif text-white italic">Looking <span className="not-italic text-primary">Ahead</span></h2>
               <p className="text-xl md:text-2xl font-serif italic text-gray-300 leading-relaxed md:leading-loose">
-                "At Rimpy Digital Studio, we aim to expand our line of products and services and cater to a larger client base in the near future. Our dedication to quality and customer satisfaction remains the same as it was on our first day in 2004."
+                "At Rimpy Gifts Studio, we aim to expand our line of products and services and cater to a larger client base in the near future. Our dedication to quality and customer satisfaction remains the same as it was on our first day in 2004."
               </p>
               <div className="mt-10 flex flex-col sm:flex-row justify-center gap-6">
                 <a href="/contact" className="px-12 py-5 bg-primary text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-surface hover:text-main transition-all duration-500 shadow-2xl rounded-sm">Book a Session</a>

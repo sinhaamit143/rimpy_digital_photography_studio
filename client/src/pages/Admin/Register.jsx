@@ -80,7 +80,7 @@ const Register = () => {
             <div className="mb-10 text-center lg:text-left">
               <img src="/rimpylogo.png" alt="Logo" className="h-16 md:h-20 mb-8 mx-auto lg:mx-0 w-auto object-contain" />
               <h1 className="text-3xl font-serif text-main mb-2">Create Admin</h1>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Join the Rimpy Digital Studio workspace</p>
+              <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Join the Rimpy Gifts Studio workspace</p>
             </div>
 
             {error && (

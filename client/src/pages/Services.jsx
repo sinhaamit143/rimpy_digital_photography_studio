@@ -61,7 +61,7 @@ const Services = () => {
             <h2 className="text-4xl md:text-7xl mb-8 font-serif italic text-main leading-tight">Artistic <span className="not-italic text-primary">Services</span></h2>
             <div className="w-24 h-[2px] bg-primary mx-auto mb-8"></div>
             <p className="text-gray-500 max-w-2xl mx-auto font-serif italic text-base md:text-lg leading-relaxed">
-              From the lens to the final gift, Rimpy Digital Studio offers a complete ecosystem of visual storytelling in Karnal.
+              From the lens to the final gift, Rimpy Gifts Studio offers a complete ecosystem of visual storytelling in Karnal.
             </p>
           </m.div>
         </div>

@@ -19,7 +19,7 @@ const swaggerOptions = {
     info: {
       title: 'Rimpy Digital Photography API',
       version: '1.0.0',
-      description: 'API Documentation for Rimpy Digital Studio Management System',
+      description: 'API Documentation for Rimpy Gifts Studio Management System',
     },
     servers: [
       {
