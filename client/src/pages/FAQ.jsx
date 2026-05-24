@@ -4,24 +4,28 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
-    q: "Can I place an online order at Rimpy Gifts Studio in Karnal?",
-    a: "Yes, most gift shops allow customers to place an online order. However, we suggest you get in touch with us directly for more details on specific items."
+    q: "Where is Rimpy Gifts Studio located and what are the working hours?",
+    a: "Rimpy Gifts Studio is located at Shop No 18, Near DAV Women College, Railway Road, Karnal - 132001, Haryana. We are open Monday through Saturday from 09:30 AM to 09:00 PM."
   },
   {
-    q: "Does Rimpy Gifts Studio offer a warranty on gifts?",
-    a: "Yes, most gifting companies offer a warranty on gifts. Please contact us for more information on the specific product you are interested in."
+    q: "What specialties and custom gifting options do you offer in Karnal?",
+    a: "We specialize in bespoke resin preservation (including wedding varmala preservation and flower casting), premium custom photo frames, bespoke picture collages, and personalized gift hampers for all occasions."
   },
   {
-    q: "How can I contact Rimpy Gifts Studio?",
-    a: "You can call us during our working hours. Mon-Sat: 9:30 AM - 9:00 PM and Sun: 12:00 PM - 4:00 PM."
+    q: "How does the wedding varmala resin preservation process work?",
+    a: "Our flower preservation process involves carefully drying your wedding varmala or flowers, arranging them in a custom mold (such as a clock, hexagon, letter, or block), and casting them in high-quality, UV-resistant epoxy resin to create a durable, crystal-clear keepsake that lasts a lifetime."
   },
   {
-    q: "What is the rating received by Rimpy Gifts Studio?",
-    a: "Rimpy Gifts Studio has successfully acquired a rating of 5.0 for its wide variety of gifting options and quality services."
+    q: "Can I place an online order at Rimpy Gifts Studio?",
+    a: "Yes! You can browse our products online and contact us directly at +91 98124 11818 or via our online inquiry form to place customized orders for delivery or in-store pickup."
   },
   {
-    q: "Does Rimpy Gifts Studio offer discounts and offers?",
-    a: "Yes, we often have discounts and offers planned for our customers. Feel free to contact us or visit the shop for the latest deals."
+    q: "Do you offer professional photo services like event photography or passport photos?",
+    a: "Yes, we provide instant high-quality passport-size pictures at our Railway Road studio, along with professional event photography, family portraits, and cinematography services."
+  },
+  {
+    q: "Are the custom collages and photo frames durable and high quality?",
+    a: "Absolutely. We are renowned in Karnal for using premium materials, high-quality printing, and durable framing techniques that prevent fading and protect your memories for over 22 years and beyond."
   }
 ];
 
