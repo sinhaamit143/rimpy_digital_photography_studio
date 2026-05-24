@@ -284,6 +284,36 @@ const Contact = () => {
           </div>
 
         </div>
+
+        {/* Geolocation Map Section */}
+        <m.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-20 md:mt-32 pt-16 border-t border-surface"
+        >
+          <div className="text-center mb-10">
+            <span className="text-primary uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">Find Us on the Map</span>
+            <h3 className="text-2xl md:text-4xl font-serif italic text-main">Our Physical Location</h3>
+            <div className="w-16 h-[1px] bg-primary mx-auto mt-4"></div>
+          </div>
+          
+          <div className="w-full h-[350px] md:h-[450px] rounded-sm overflow-hidden shadow-2xl border border-surface relative group">
+            <iframe
+              title="Google Maps Location for Rimpy Gifts Studio"
+              src="https://maps.google.com/maps?q=Shop%20No%2018,%20Railway%20Road,%20Near%20DAV%20Women%20College,%20Karnal,%20Haryana%20132001&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale opacity-85 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+            ></iframe>
+          </div>
+        </m.div>
+
       </div>
     </div>
   );

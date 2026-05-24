@@ -86,6 +86,48 @@ function App() {
     fetchTheme();
   }, []);
 
+  // Dynamic Title & SEO tags update on route change
+  useEffect(() => {
+    const titles = {
+      '/home': 'Rimpy Gifts Studio | Custom Gifts & Photo Services in Karnal',
+      '/about': 'About Us | Rimpy Gifts Studio Karnal',
+      '/services': 'Services & Photography | Rimpy Gifts Studio',
+      '/portfolio': 'Portfolio & Gallery | Rimpy Gifts Studio',
+      '/shop': 'Shop Custom Gifts | Rimpy Gifts Studio',
+      '/shop/products': 'Bespoke Products | Rimpy Gifts Studio',
+      '/contact': 'Contact & Visit Us | Rimpy Gifts Studio Karnal',
+      '/privacy': 'Privacy Policy | Rimpy Gifts Studio',
+      '/terms': 'Terms & Conditions | Rimpy Gifts Studio',
+      '/admin': 'Admin Portal | Rimpy Gifts Studio'
+    };
+
+    const descriptions = {
+      '/home': 'Rimpy Gifts Studio - Karnal\'s trusted gift shop and studio with 22+ years of experience. Specializing in resin preservation, custom photo frames, bespoke hampers, and professional photography near DAV Women College.',
+      '/about': 'Learn about Rimpy Gifts Studio, our 22+ year history of excellence in Karnal, and our commitment to premium custom gifting and photo services.',
+      '/services': 'Explore our wide range of services including weddings, maternity, event photography, passport photos, and bespoke custom framing.',
+      '/portfolio': 'Browse our portfolio of beautiful memories, custom resin preservation projects, personalized albums, and photography showcases.',
+      '/shop': 'Discover premium personalized gifts, custom collages, high-end frames, and custom hampers at Rimpy Gifts Studio in Karnal.',
+      '/shop/products': 'Order bespoke custom gifts, photo frames, resin preservation art, and custom hampers online.',
+      '/contact': 'Find our address (Shop No 18, Railway Road, Karnal), phone number, email, and business hours to visit Rimpy Gifts Studio.',
+    };
+
+    const currentPath = location.pathname;
+    let title = titles[currentPath] || 'Rimpy Gifts Studio | Custom Gifts & Photo Services';
+    let description = descriptions[currentPath] || 'Karnal\'s trusted gift shop and studio with 22+ years of experience.';
+
+    if (currentPath.startsWith('/shop/')) {
+      title = 'Product Details | Rimpy Gifts Studio';
+      description = 'View premium custom gift details and customization options at Rimpy Gifts Studio.';
+    }
+
+    document.title = title;
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    }
+  }, [location.pathname]);
+
   return (
     <div className="app bg-secondary min-h-screen selection:bg-primary selection:text-white pb-[72px] md:pb-0 relative">
       <ScrollToTop />
