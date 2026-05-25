@@ -302,7 +302,7 @@ const Contact = () => {
           <div className="w-full h-[350px] md:h-[450px] rounded-sm overflow-hidden shadow-2xl border border-surface relative group">
             <iframe
               title="Google Maps Location for Rimpy Gifts Studio"
-              src="https://maps.google.com/maps?q=Shop%20No%2018,%20Railway%20Road,%20Near%20DAV%20Women%20College,%20Karnal,%20Haryana%20132001&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3467.284000305886!2d76.981998!3d29.6892701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e71380fb35f15%3A0x8886775a88307e8e!2sRimpy%20Gifts%20Studio!5e0!3m2!1sen!2sin!4v1716612000000!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0 }}
