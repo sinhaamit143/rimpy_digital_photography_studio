@@ -6,6 +6,7 @@ import ProtectedRoute from './components/Auth/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 import PageLoader from './components/PageLoader';
 import Footer from './components/Layout/Footer';
+import CookieConsent from './components/Layout/CookieConsent';
 import api from './utils/api';
 
 import Home from './pages/Home';
@@ -168,6 +169,7 @@ function App() {
 
       {!isSpecialPage && <Footer />}
       {!isAdminPage && <MobileNav />}
+      <CookieConsent />
     </div>
   );
 }
