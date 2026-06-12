@@ -56,7 +56,7 @@ const ForgotPassword = () => {
       <AnimatePresence>
         {isSuccess && (
           <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[1000] bg-dark/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8">
-            <m.div 
+            <m.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', damping: 15 }}
@@ -71,22 +71,22 @@ const ForgotPassword = () => {
           </m.div>
         )}
       </AnimatePresence>
-      
-      <Link 
-        to="/admin" 
+
+      <Link
+        to="/admin"
         className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-main/40 hover:text-primary transition-colors group z-50"
       >
-        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
+        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
         Back to Login
       </Link>
 
       <div className="w-full max-w-[1100px] h-auto lg:min-h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-surface border border-surface relative">
-        
+
         {/* Left Side: Photo */}
         <div className="hidden lg:block w-1/2 relative overflow-hidden bg-dark">
-          <img 
-            src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200" 
-            alt="Studio" 
+          <img
+            src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200"
+            alt="Studio"
             className="w-full h-full object-cover opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
@@ -100,7 +100,7 @@ const ForgotPassword = () => {
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-20 py-16">
           <m.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <div className="mb-10 text-center lg:text-left">
-              <img src="/rimpylogo.png" alt="Logo" className="h-16 md:h-20 mb-8 mx-auto lg:mx-0 w-auto object-contain" />
+              <img src="/inverselogo.png" alt="Logo" className="h-16 md:h-20 mb-8 mx-auto lg:mx-0 w-auto object-contain" />
               <h1 className="text-3xl font-serif text-main mb-2">
                 {step === 1 ? 'Recover Password' : 'Reset Password'}
               </h1>
@@ -110,8 +110,8 @@ const ForgotPassword = () => {
             </div>
 
             {error && (
-              <m.div 
-                initial={{ opacity: 0, x: -10 }} 
+              <m.div
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-600 text-[10px] font-bold uppercase tracking-widest"
               >
@@ -125,8 +125,8 @@ const ForgotPassword = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Email Address</label>
                   <div className="relative">
                     <Mail size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       placeholder="admin@rimpy.com"
                       className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                       required
@@ -136,7 +136,7 @@ const ForgotPassword = () => {
                   </div>
                 </div>
 
-                <button 
+                <button
                   type="submit"
                   disabled={isLoading}
                   className="group w-full py-5 bg-dark text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-primary transition-all duration-500 flex items-center justify-center gap-3 shadow-xl disabled:opacity-50"
@@ -150,13 +150,13 @@ const ForgotPassword = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Reset Token</label>
                   <div className="relative">
                     <Hash size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       placeholder="Enter the 64-char token"
                       className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main font-sans text-xs"
                       required
                       value={resetData.token}
-                      onChange={(e) => setResetData({...resetData, token: e.target.value})}
+                      onChange={(e) => setResetData({ ...resetData, token: e.target.value })}
                     />
                   </div>
                   {debugToken && <p className="text-[8px] text-green-500 font-bold uppercase tracking-widest animate-pulse">Debug: Token auto-filled from server response</p>}
@@ -166,14 +166,14 @@ const ForgotPassword = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold text-primary">New Password</label>
                   <div className="relative">
                     <Lock size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
-                    <input 
-                      type={showPassword ? "text" : "password"} 
+                    <input
+                      type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
                       className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                       required
-                      onChange={(e) => setResetData({...resetData, newPassword: e.target.value})}
+                      onChange={(e) => setResetData({ ...resetData, newPassword: e.target.value })}
                     />
-                    <button 
+                    <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-300 hover:text-primary"
@@ -183,14 +183,14 @@ const ForgotPassword = () => {
                   </div>
                 </div>
 
-                <button 
+                <button
                   type="submit"
                   disabled={isLoading}
                   className="group w-full py-5 bg-dark text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-primary transition-all duration-500 flex items-center justify-center gap-3 shadow-xl disabled:opacity-50"
                 >
                   {isLoading ? <Loader2 size={16} className="animate-spin" /> : <>Update Password <ArrowRight size={14} /></>}
                 </button>
-                
+
                 <button type="button" onClick={() => setStep(1)} className="w-full text-[9px] uppercase tracking-widest font-bold text-gray-400 hover:text-primary transition-colors">
                   Didn't get a token? Try again
                 </button>
