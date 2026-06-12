@@ -103,8 +103,26 @@ const Home = () => {
 
   // if (loading) return <PageLoader message="Gathering Client Stories..." visible={true} />;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Rimpy Gifts Studio",
+    "image": `${window.location.origin}/rimpyshop.webp`,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Shop No 18, Railway Road",
+      "addressLocality": "Karnal",
+      "addressRegion": "Haryana",
+      "postalCode": "132001",
+      "addressCountry": "IN"
+    },
+    "telephone": settings?.phone || "+919876543210",
+    "openingHours": settings?.workingHours || "Mo-Sa 10:00-20:00"
+  };
+
   return (
     <div className="overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center bg-dark section-hero">
         <m.div

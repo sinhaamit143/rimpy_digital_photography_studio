@@ -18,7 +18,8 @@ const Contact = () => {
     countryCode: '+91',
     countryFlag: '🇮🇳',
     phone: '',
-    message: ''
+    message: '',
+    consentGiven: false
   });
 
   const countryCodes = [
@@ -64,7 +65,7 @@ const Contact = () => {
       };
       await api.post('/contact', payload);
       setSubmitted(true);
-      setFormData({ name: '', email: '', countryCode: '+91', countryFlag: '🇮🇳', phone: '', message: '' });
+      setFormData({ name: '', email: '', countryCode: '+91', countryFlag: '🇮🇳', phone: '', message: '', consentGiven: false });
     } catch (err) {
       alert('Failed to send message. Please try again.');
     } finally {
@@ -204,6 +205,20 @@ const Contact = () => {
                       placeholder="Tell us about your project or gift requirement..."
                       required 
                     />
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <input 
+                      type="checkbox" 
+                      id="contact-consent"
+                      checked={formData.consentGiven}
+                      onChange={e => setFormData({...formData, consentGiven: e.target.checked})}
+                      className="mt-1 w-4 h-4 accent-primary border-gray-300 rounded cursor-pointer"
+                      required
+                    />
+                    <label htmlFor="contact-consent" className="text-xs text-gray-500 leading-relaxed cursor-pointer selection:bg-transparent">
+                      I agree to the <a href="/terms" target="_blank" className="text-primary hover:underline">Terms &amp; Conditions</a> and consent to the collection and processing of my contact details in accordance with the <a href="/privacy" target="_blank" className="text-primary hover:underline">Privacy Policy</a>. *
+                    </label>
                   </div>
 
                   <button 

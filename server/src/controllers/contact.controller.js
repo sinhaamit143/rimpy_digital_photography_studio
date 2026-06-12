@@ -3,9 +3,16 @@ const prisma = new PrismaClient();
 
 const submitInquiry = async (req, res, next) => {
   try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, message, consentGiven } = req.body;
     const inquiry = await prisma.contactMessage.create({
-      data: { name, email, phone, message }
+      data: { 
+        name, 
+        email, 
+        phone, 
+        message,
+        consentGiven: !!consentGiven,
+        consentTimestamp: consentGiven ? new Date() : null
+      }
     });
     res.status(201).json({ success: true, inquiry });
   } catch (error) {

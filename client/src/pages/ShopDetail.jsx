@@ -23,7 +23,8 @@ const ShopDetail = () => {
     district: '',
     state: '',
     country: 'India',
-    pinCode: ''
+    pinCode: '',
+    consentGiven: false
   });
 
   const [error, setError] = useState(null);
@@ -46,8 +47,8 @@ const ShopDetail = () => {
   }, [id, navigate]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
@@ -214,6 +215,21 @@ const ShopDetail = () => {
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase tracking-widest font-bold text-gray-500">Additional Message (Optional)</label>
                   <textarea name="message" value={formData.message} onChange={handleChange} rows="3" className="w-full bg-secondary border border-gray-200 px-4 py-3 outline-none focus:border-primary transition-colors text-sm resize-none" placeholder="Any special requests or questions?"></textarea>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <input 
+                    required 
+                    type="checkbox" 
+                    id="order-consent" 
+                    name="consentGiven" 
+                    checked={formData.consentGiven} 
+                    onChange={handleChange} 
+                    className="mt-1 w-4 h-4 accent-primary border-gray-300 rounded cursor-pointer" 
+                  />
+                  <label htmlFor="order-consent" className="text-xs text-gray-500 leading-relaxed cursor-pointer selection:bg-transparent">
+                    I agree to the <a href="/terms" target="_blank" className="text-primary hover:underline">Terms &amp; Conditions</a> and consent to the collection and processing of my contact and delivery details in accordance with the <a href="/privacy" target="_blank" className="text-primary hover:underline">Privacy Policy</a>. *
+                  </label>
                 </div>
 
                 <button 

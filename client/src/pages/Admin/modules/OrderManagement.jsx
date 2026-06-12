@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, RefreshCw, Loader2, MessageCircle, MapPin, PackageOpen, X } from 'lucide-react';
+import { ShoppingCart, RefreshCw, Loader2, MessageCircle, MapPin, PackageOpen, X, Trash2 } from 'lucide-react';
 import api from '../../../utils/api';
+import DeleteConfirmModal from '../../../components/Common/DeleteConfirmModal';
 
 const OrderManagement = ({ refreshStats }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [deleteData, setDeleteData] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -193,6 +196,13 @@ Once we finalize the details, how would you prefer to make the advance payment? 
                         >
                           <MessageCircle size={14} />
                         </button>
+                        <button 
+                          onClick={() => setDeleteData(order)}
+                          className="bg-red-50 text-red-500 p-2 rounded-full hover:bg-red-100 transition-colors shadow-sm"
+                          title="Delete Order"
+                        >
+                          <Trash2 size={14} />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -287,6 +297,26 @@ Once we finalize the details, how would you prefer to make the advance payment? 
           </m.div>
         )}
       </AnimatePresence>
+
+      <DeleteConfirmModal 
+        isOpen={!!deleteData} 
+        onClose={() => setDeleteData(null)} 
+        onConfirm={async () => { 
+          setIsDeleting(true); 
+          try { 
+            await api.delete(`/orders/${deleteData.id}`); 
+            setDeleteData(null); 
+            fetchOrders(); 
+          } catch(err) { 
+            alert(err.response?.data?.message || 'Failed to delete order.'); 
+            setDeleteData(null); 
+          } finally { 
+            setIsDeleting(false); 
+          } 
+        }} 
+        title={deleteData ? `Order #${deleteData.id.toString().padStart(4, '0')} from ${deleteData.name}` : ''} 
+        loading={isDeleting} 
+      />
     </div>
   );
 };

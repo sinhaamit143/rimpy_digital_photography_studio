@@ -282,7 +282,7 @@ const ProductManagement = ({ refreshStats }) => {
         </AnimatePresence>
       </AnimatePresence>
 
-      <DeleteConfirmModal isOpen={!!deleteData} onClose={() => setDeleteData(null)} onConfirm={async () => { setIsSubmitting(true); try { await api.delete(`/products/${deleteData.id}`); setDeleteData(null); fetchData(); refreshStats(); } finally { setIsSubmitting(false); } }} title={deleteData?.title} loading={isSubmitting} />
+      <DeleteConfirmModal isOpen={!!deleteData} onClose={() => setDeleteData(null)} onConfirm={async () => { setIsSubmitting(true); try { await api.delete(`/products/${deleteData.id}`); setDeleteData(null); fetchData(); refreshStats(); } catch(err) { alert(err.response?.data?.message || 'Failed to delete product.'); setDeleteData(null); } finally { setIsSubmitting(false); } }} title={deleteData?.title} loading={isSubmitting} />
     </div>
   );
 };

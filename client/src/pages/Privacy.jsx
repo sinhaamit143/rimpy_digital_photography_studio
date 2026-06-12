@@ -102,9 +102,50 @@ const Privacy = () => {
               </p>
             </section>
 
+            <section className="space-y-6">
+              <h3 className="text-2xl font-serif text-main flex items-center gap-4 italic">
+                <div className="w-10 h-[1px] bg-primary"></div> Your Rights (Data Principals)
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Under the Digital Personal Data Protection Act (DPDPA), 2023, you hold the following rights regarding your personal data:
+              </p>
+              <ul className="space-y-3 text-gray-600 text-sm list-none p-0">
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                  <span><strong>Right to Information:</strong> Access details about what data we hold and how we process it.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                  <span><strong>Right to Correction & Erasure:</strong> Ask us to update incorrect details or permanently delete your data when no longer needed.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                  <span><strong>Right to Withdraw Consent:</strong> Withdraw your consent for data processing at any time. Simply email us at <strong>privacy@rimpy.com</strong>.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                  <span><strong>Right to Grievance Redressal:</strong> Submit any complaints regarding data misuse directly to our Grievance Officer.</span>
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-6">
+              <h3 className="text-2xl font-serif text-main flex items-center gap-4 italic">
+                <div className="w-10 h-[1px] bg-primary"></div> Children's Data & Portraits
+              </h3>
+              <p className="text-gray-600 text-sm leading-loose">
+                We require verifiable parental or guardian consent before conducting photography sessions or creating custom gifts for minors under the age of 18. We do not engage in behavioral tracking or targeted advertising directed at children.
+              </p>
+            </section>
+
             <section className="pt-10 border-t border-surface text-center">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 mb-4">Contact our Compliance Team</p>
-              <a href="/contact" className="text-primary font-bold hover:tracking-widest transition-all">hello@rimpy.com</a>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400 mb-2">Grievance Redressal Officer</p>
+              <p className="text-xs text-gray-500 mb-4">
+                For complaints or questions regarding your data under the DPDP Act 2023, please contact:<br />
+                <strong>Grievance Officer:</strong> Amarjit Singh<br />
+                <strong>Address:</strong> Shop No 18, Railway Road, Karnal - 132001, Haryana<br />
+                <strong>Email:</strong> privacy@rimpy.com | <strong>Phone:</strong> +91 98124 11818
+              </p>
             </section>
 
           </div>

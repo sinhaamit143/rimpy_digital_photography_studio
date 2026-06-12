@@ -173,6 +173,13 @@ const updateProduct = async (req, res, next) => {
 const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
+
+    // Prevent deletion if orders exist to maintain order history
+    const orderCount = await prisma.order.count({ where: { productId: parseInt(id) } });
+    if (orderCount > 0) {
+      return res.status(400).json({ message: 'Cannot delete product: It is linked to existing orders.' });
+    }
+
     const product = await prisma.product.findUnique({ where: { id: parseInt(id) } });
     
     if (product) {

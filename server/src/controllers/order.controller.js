@@ -7,7 +7,8 @@ exports.createOrder = async (req, res) => {
     const { 
       name, email, phone, message, 
       district, state, country, pinCode, 
-      productId, productTitle, price, category 
+      productId, productTitle, price, category,
+      consentGiven
     } = req.body;
 
     const order = await prisma.order.create({
@@ -25,6 +26,8 @@ exports.createOrder = async (req, res) => {
         price,
         category,
         status: 'pending',
+        consentGiven: !!consentGiven,
+        consentTimestamp: consentGiven ? new Date() : null
       },
     });
 
@@ -73,5 +76,19 @@ exports.updateOrderStatus = async (req, res) => {
   } catch (error) {
     console.error('Update order status error:', error);
     res.status(500).json({ message: 'Failed to update status' });
+  }
+};
+
+// Admin: Delete order
+exports.deleteOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await prisma.order.delete({
+      where: { id: parseInt(id) }
+    });
+    res.status(200).json({ message: 'Order deleted successfully' });
+  } catch (error) {
+    console.error('Delete order error:', error);
+    res.status(500).json({ message: 'Failed to delete order' });
   }
 };

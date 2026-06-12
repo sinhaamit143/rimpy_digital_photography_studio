@@ -68,8 +68,10 @@ model ContactMessage {
   email     String
   phone     String?
   message   String
-  isRead    Boolean  @default(false)
-  createdAt DateTime @default(now())
+  isRead           Boolean   @default(false)
+  consentGiven     Boolean   @default(false)
+  consentTimestamp DateTime? @default(now())
+  createdAt        DateTime  @default(now())
 }
 
 model Testimonial {
@@ -119,9 +121,11 @@ model Order {
   productTitle String
   price        Decimal  @db.Decimal(10, 2)
   category     String
-  status       String   @default("pending")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  status           String    @default("pending")
+  consentGiven     Boolean   @default(false)
+  consentTimestamp DateTime? @default(now())
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  product      Product  @relation(fields: [productId], references: [id])
+  product          Product   @relation(fields: [productId], references: [id])
 }

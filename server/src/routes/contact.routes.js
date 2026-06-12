@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const contactController = require('../controllers/contact.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
+const { formLimiter } = require('../middlewares/rateLimiter.middleware');
 
 /**
  * @swagger
@@ -41,7 +42,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
  *               message:
  *                 type: string
  */
-router.post('/', contactController.submitInquiry);
+router.post('/', formLimiter, contactController.submitInquiry);
 router.get('/', authMiddleware, contactController.getAllInquiries);
 
 /**
