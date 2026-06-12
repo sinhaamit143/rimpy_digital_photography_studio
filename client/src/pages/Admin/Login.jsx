@@ -24,7 +24,7 @@ const Login = () => {
       // Import setAccessToken to save it in memory
       const { setAccessToken } = await import('../../utils/api');
       setAccessToken(accessToken);
-      
+
       localStorage.setItem('user', JSON.stringify(user));
 
       setIsAuthenticating(true);
@@ -53,23 +53,23 @@ const Login = () => {
           </m.div>
         )}
       </AnimatePresence>
-      
+
       {/* Back to Website - Floating Button */}
-      <Link 
-        to="/home" 
+      <Link
+        to="/home"
         className="absolute top-8 left-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] font-bold text-white hover:text-primary transition-all group z-50 bg-dark/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
       >
-        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
+        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
         Back to Website
       </Link>
 
       <div className="w-full max-w-[1100px] h-auto lg:h-[700px] flex shadow-2xl rounded-sm overflow-hidden bg-surface border border-surface relative">
-        
+
         {/* Left Side: Photo */}
         <div className="hidden lg:block w-1/2 relative overflow-hidden bg-dark">
-          <img 
-            src="/rimpyshop.webp" 
-            alt="Studio" 
+          <img
+            src="/rimpyshop.webp"
+            alt="Studio"
             className="w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent"></div>
@@ -84,15 +84,15 @@ const Login = () => {
           <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-12 text-center lg:text-left">
               <div className="inline-block p-4 bg-white/5 rounded-xl border border-white/10 mb-8 mx-auto lg:mx-0">
-                <img src="/rimpylogo.png" alt="Logo" className="h-14 md:h-16 w-auto object-contain" />
+                <img src="/inverselogo.png" alt="Logo" className="h-14 md:h-16 w-auto object-contain" />
               </div>
               <h1 className="text-3xl md:text-4xl font-serif text-main mb-3 leading-tight">Welcome <span className="italic text-primary">Back</span></h1>
               <p className="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Authorized Personnel Only</p>
             </div>
 
             {error && (
-              <m.div 
-                initial={{ opacity: 0, x: -10 }} 
+              <m.div
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-600 text-[10px] font-bold uppercase tracking-widest"
               >
@@ -105,12 +105,12 @@ const Login = () => {
                 <label className="text-[10px] uppercase tracking-widest font-bold text-primary">Email Address</label>
                 <div className="relative">
                   <User size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     placeholder="admin@rimpy.com"
                     className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
-                    onChange={(e) => setCredentials({...credentials, email: e.target.value})}
+                    onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
                   />
                 </div>
               </div>
@@ -121,14 +121,14 @@ const Login = () => {
                 </div>
                 <div className="relative">
                   <Lock size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
-                  <input 
-                    type={showPassword ? "text" : "password"} 
+                  <input
+                    type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
-                    onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                    onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                   />
-                  <button 
+                  <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-300 hover:text-primary"
@@ -138,7 +138,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <button 
+              <button
                 type="submit"
                 disabled={isLoading}
                 className="group w-full py-5 bg-dark text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-primary transition-all duration-500 flex items-center justify-center gap-3 shadow-xl disabled:opacity-50"
@@ -147,7 +147,7 @@ const Login = () => {
               </button>
 
               <div className="mt-10 pt-10 border-t border-surface flex items-center justify-center gap-2 text-[9px] uppercase tracking-widest font-bold text-gray-400">
-                <HelpCircle size={14} /> 
+                <HelpCircle size={14} />
                 <span>Authorized Personnel Only. Contact admin for access.</span>
               </div>
             </form>
