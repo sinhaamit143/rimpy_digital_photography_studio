@@ -9,31 +9,31 @@ const allServices = [
   {
     title: "Wedding & Events",
     description: "Capturing the grand gestures and quiet intimacies of your special day. Our full-day coverage includes luxury wedding albums and high-resolution digital galleries, perfectly edited to preserve your memories.",
-    price: "Premium Packages",
+    badge: "Full-Day Coverage",
     image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1000"
   },
   {
     title: "Maternity & Newborn",
     description: "The journey of a new life is precious. We specialize in gentle, artistic photography for expectant mothers and newborns, creating timeless portraits that you will cherish for generations.",
-    price: "Starting at ₹5,999",
+    badge: "Gentle & Safe Environment",
     image: "https://images.unsplash.com/photo-1519225495810-75178319a11b?auto=format&fit=crop&q=80&w=1000"
   },
   {
     title: "Personalized Gifting",
     description: "From 3D Keychains to Designer Greeting Cards, we turn your photos into unique gifts. Our gifting shop is a top destination in Karnal for high-quality, customized items for every occasion.",
-    price: "Starting at ₹299",
+    badge: "Bestseller & Express Delivery",
     image: "https://images.unsplash.com/photo-1549465220-1d8c95ad76e0?auto=format&fit=crop&q=80&w=1000"
   },
   {
     title: "Photo Frame Dealing",
     description: "As leading photo frame dealers, we offer an extensive collection of premium frames. Whether it's a vintage wall frame or a modern panoramic canvas, we provide the perfect display for your art.",
-    price: "Custom Sizes Available",
+    badge: "Premium Wood & Custom Sizes",
     image: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?auto=format&fit=crop&q=80&w=1000"
   },
   {
     title: "Video Editing Services",
     description: "Professional video editing for weddings, corporate events, and social media. We use industry-standard suites to ensure your stories are told with cinematic flair and precision.",
-    price: "Starting at ₹1,999",
+    badge: "Industry-Standard Editing",
     image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000"
   }
 ];
@@ -91,13 +91,13 @@ const Services = () => {
                 {/* Mobile Price Tag */}
                 <div className="mt-4 lg:hidden">
                   <span className="text-[10px] uppercase tracking-widest font-bold text-primary px-4 py-2 bg-primary/10 rounded-full border border-primary/20">
-                    {service.price}
+                    {service.badge}
                   </span>
                 </div>
                 {/* Desktop Price Tag */}
                 <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} bg-dark text-white px-8 py-5 hidden lg:block shadow-2xl border-l-4 border-primary`}>
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-primary block mb-1">Pricing Guide</span>
-                  <span className="text-sm font-serif italic text-white">{service.price}</span>
+                  <span className="text-[10px] uppercase tracking-widest font-bold text-primary block mb-1">Feature Highlight</span>
+                  <span className="text-sm font-serif italic text-white">{service.badge}</span>
                 </div>
               </div>
               

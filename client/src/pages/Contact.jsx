@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Send, Instagram, Facebook, Youtube, ChevronDown, Globe } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, Instagram, Facebook, Youtube, ChevronDown, Globe, MessageSquare } from 'lucide-react';
 import api from '../utils/api';
 import PageLoader from '../components/PageLoader';
 
@@ -284,6 +284,7 @@ const Contact = () => {
                 <div className="flex gap-5">
                   <a href={settings?.instagram} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-surface flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Instagram size={18} /></a>
                   <a href={settings?.facebook} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-surface flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Facebook size={18} /></a>
+                  <a href={settings?.whatsapp?.includes('http') ? settings.whatsapp : (settings?.whatsapp ? `https://wa.me/${settings.whatsapp.replace(/\\D/g, '')}` : '#')} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-surface flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><MessageSquare size={18} /></a>
                   <a href={settings?.youtube} target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 border border-surface flex items-center justify-center rounded-full hover:bg-primary hover:border-primary hover:text-white transition-all duration-500 shadow-sm"><Youtube size={18} /></a>
                 </div>
               </div>

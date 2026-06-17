@@ -24,6 +24,7 @@ const getSettings = async (req, res, next) => {
       });
     }
 
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.json(settings);
   } catch (error) {
     next(error);

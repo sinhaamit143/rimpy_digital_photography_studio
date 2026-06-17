@@ -87,7 +87,7 @@ const Footer = () => {
               {[
                 { name: 'Instagram', icon: Instagram, link: settings?.instagram, color: 'hover:text-pink-500' },
                 { name: 'Facebook', icon: Facebook, link: settings?.facebook, color: 'hover:text-blue-600' },
-                { name: 'WhatsApp', icon: MessageSquare, link: settings?.whatsapp ? `https://wa.me/${settings.whatsapp.replace(/\D/g,'')}` : null, color: 'hover:text-green-500' },
+                { name: 'WhatsApp', icon: MessageSquare, link: settings?.whatsapp?.includes('http') ? settings.whatsapp : (settings?.whatsapp ? `https://wa.me/${settings.whatsapp.replace(/\D/g, '')}` : null), color: 'hover:text-green-500' },
                 { name: 'YouTube', icon: Youtube, link: settings?.youtube, color: 'hover:text-red-600' }
               ].map((social, idx) => (
                 <a 
