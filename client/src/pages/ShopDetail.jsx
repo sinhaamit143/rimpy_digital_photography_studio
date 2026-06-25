@@ -111,7 +111,7 @@ const ShopDetail = () => {
 
               <button 
                 onClick={handleWhatsAppOrder}
-                className="w-full bg-[#25D366] text-white py-4 px-6 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-[#128C7E] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
+                className="w-full bg-primary text-white py-5 px-6 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-dark transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
               >
                 <MessageSquare size={18} />
                 Order via WhatsApp
