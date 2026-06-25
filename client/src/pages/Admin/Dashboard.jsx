@@ -35,7 +35,7 @@ const AdminDashboard = () => {
   const menuItems = [
     { name: 'Overview', icon: LayoutDashboard },
     { name: 'Products', icon: ShoppingBag },
-    { name: 'Orders', icon: ShoppingCart },
+    // { name: 'Orders', icon: ShoppingCart }, // Hidden for now
     { name: 'Portfolio', icon: ImageIcon },
     { name: 'Testimonials', icon: Star },
     { name: 'Inquiries', icon: MessageSquare },
@@ -44,26 +44,26 @@ const AdminDashboard = () => {
 
   const fetchCounts = async () => {
     try {
-      const [p, a, t, i, o] = await Promise.all([
+      const [p, a, t, i] = await Promise.all([
         api.get('/products'),
         api.get('/portfolio/albums'),
         api.get('/testimonials'),
         api.get('/contact'),
-        api.get('/orders').catch(() => ({ data: { orders: [] } }))
+        // api.get('/orders').catch(() => ({ data: { orders: [] } }))
       ]);
 
       const productList = p.data.products || [];
       const albumList = a.data.albums || [];
       const testimonialList = t.data.testimonials || [];
       const inquiryList = i.data.inquiries || [];
-      const orderList = o.data.orders || [];
+      // const orderList = o.data.orders || [];
 
       const unreadCount = inquiryList.filter(msg => !msg.isRead).length;
-      const pendingCount = orderList.filter(ord => ord.status === 'pending').length;
-      const completedCount = orderList.filter(ord => ord.status === 'delivered').length;
-      const cancelledCount = orderList.filter(ord => ord.status === 'cancelled').length;
+      // const pendingCount = orderList.filter(ord => ord.status === 'pending').length;
+      // const completedCount = orderList.filter(ord => ord.status === 'delivered').length;
+      // const cancelledCount = orderList.filter(ord => ord.status === 'cancelled').length;
 
-      setOrdersData(orderList);
+      // setOrdersData(orderList);
 
       setCounts({ 
         products: productList.length, 
@@ -71,10 +71,10 @@ const AdminDashboard = () => {
         testimonials: testimonialList.length, 
         unreadLeads: unreadCount,
         totalLeads: inquiryList.length,
-        totalOrders: orderList.length,
-        pendingOrders: pendingCount,
-        completedOrders: completedCount,
-        cancelledOrders: cancelledCount
+        totalOrders: 0, // orderList.length
+        pendingOrders: 0, // pendingCount
+        completedOrders: 0, // completedCount
+        cancelledOrders: 0 // cancelledCount
       });
     } catch (err) { console.error('Stats error:', err); }
   };
@@ -138,9 +138,9 @@ const AdminDashboard = () => {
               {sidebarOpen && item.name === 'Inquiries' && counts.unreadLeads > 0 && (
                 <span className="ml-auto bg-red-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full animate-bounce shadow-lg">NEW</span>
               )}
-              {sidebarOpen && item.name === 'Orders' && counts.pendingOrders > 0 && (
+              {/* {sidebarOpen && item.name === 'Orders' && counts.pendingOrders > 0 && (
                 <span className="ml-auto bg-red-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full animate-bounce shadow-lg">NEW</span>
-              )}
+              )} */}
             </button>
           ))}
         </nav>
@@ -170,9 +170,9 @@ const AdminDashboard = () => {
               className="relative p-2 text-gray-400 hover:text-primary transition-all hover:bg-secondary rounded-full"
             >
               <Bell size={22} />
-              {(counts.unreadLeads + counts.pendingOrders) > 0 && (
+              {(counts.unreadLeads) > 0 && (
                 <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-red-500 text-white text-[8px] font-bold flex items-center justify-center rounded-full border-2 border-white animate-bounce">
-                  {counts.unreadLeads + counts.pendingOrders}
+                  {counts.unreadLeads}
                 </span>
               )}
             </button>
@@ -196,10 +196,10 @@ const AdminDashboard = () => {
                 >
                   <div className="p-4 bg-secondary/80 border-b border-surface flex justify-between items-center">
                     <span className="text-[10px] uppercase tracking-widest font-bold text-gray-500">Notifications</span>
-                    <span className="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full font-bold">{counts.unreadLeads + counts.pendingOrders} New</span>
+                    <span className="text-[10px] bg-primary text-white px-2 py-0.5 rounded-full font-bold">{counts.unreadLeads} New</span>
                   </div>
                   <div className="max-h-80 overflow-y-auto custom-scrollbar">
-                    {counts.pendingOrders > 0 && (
+                    {/* {counts.pendingOrders > 0 && (
                       <button 
                         onClick={() => { setActiveTab('Orders'); setShowNotifications(false); }}
                         className="w-full text-left p-4 hover:bg-secondary/50 border-b border-surface transition-colors flex items-start gap-4 group"
@@ -212,7 +212,7 @@ const AdminDashboard = () => {
                           <p className="text-xs text-gray-500">You have {counts.pendingOrders} orders waiting.</p>
                         </div>
                       </button>
-                    )}
+                    )} */}
                     {counts.unreadLeads > 0 && (
                       <button 
                         onClick={() => { setActiveTab('Inquiries'); setShowNotifications(false); }}
@@ -227,7 +227,7 @@ const AdminDashboard = () => {
                         </div>
                       </button>
                     )}
-                    {(counts.unreadLeads === 0 && counts.pendingOrders === 0) && (
+                    {(counts.unreadLeads === 0) && (
                       <div className="p-8 text-center text-gray-400">
                         <CheckCircle size={28} className="mx-auto mb-3 opacity-30" />
                         <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400">All caught up!</p>
@@ -247,19 +247,19 @@ const AdminDashboard = () => {
              <m.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
                 {activeTab === 'Overview' && (
                   <div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                    {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                       <StatCard label="Total Orders" value={counts.totalOrders} icon={ShoppingCart} onClick={() => setActiveTab('Orders')} />
                       <StatCard label="Pending Orders" value={counts.pendingOrders} icon={Clock} onClick={() => setActiveTab('Orders')} />
                       <StatCard label="Delivered Orders" value={counts.completedOrders} icon={CheckCircle} onClick={() => setActiveTab('Orders')} />
                       <StatCard label="Cancelled Orders" value={counts.cancelledOrders} icon={XCircle} onClick={() => setActiveTab('Orders')} />
-                    </div>
+                    </div> */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                       <StatCard label="Total Leads" value={counts.totalLeads} icon={Layers} onClick={() => setActiveTab('Inquiries')} />
                       <StatCard label="Products" value={counts.products} icon={ShoppingBag} onClick={() => setActiveTab('Products')} />
                       <StatCard label="Albums" value={counts.albums} icon={ImageIcon} onClick={() => setActiveTab('Portfolio')} />
                       <StatCard label="Testimonials" value={counts.testimonials} icon={Star} onClick={() => setActiveTab('Testimonials')} />
                     </div>
-                    <AdminAnalytics orders={ordersData} />
+                    {/* <AdminAnalytics orders={ordersData} /> */}
                   </div>
                 )}
                 <Suspense fallback={
@@ -272,7 +272,7 @@ const AdminDashboard = () => {
                   {activeTab === 'Portfolio' && <PortfolioManagement refreshStats={fetchCounts} />}
                   {activeTab === 'Testimonials' && <TestimonialManagement refreshStats={fetchCounts} />}
                   {activeTab === 'Inquiries' && <InquiryManagement refreshStats={fetchCounts} />}
-                  {activeTab === 'Orders' && <OrderManagement refreshStats={fetchCounts} />}
+                  {/* {activeTab === 'Orders' && <OrderManagement refreshStats={fetchCounts} />} */}
                   {activeTab === 'Settings' && <SettingsManagement />}
                 </Suspense>
              </m.div>

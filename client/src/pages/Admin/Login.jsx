@@ -107,7 +107,7 @@ const Login = () => {
                   <User size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
                   <input
                     type="email"
-                    placeholder="admin@rimpy.com"
+                    placeholder="your.email@example.com"
                     className="w-full py-4 pl-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
                     onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
