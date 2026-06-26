@@ -37,3 +37,6 @@ Thumbs.db
 
 # Uploads
 server/public/uploads/
+
+# Seed file
+server/prisma/seed.js
