@@ -62,10 +62,10 @@ app.use((req, res, next) => {
 });
 
 // Static Folders
-app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads'), { maxAge: '1y' }));
 
 // Serve Static Files
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '../../client/dist'), { maxAge: '1y' }));
 
 // API Routes
 app.use('/api', apiRoutes);

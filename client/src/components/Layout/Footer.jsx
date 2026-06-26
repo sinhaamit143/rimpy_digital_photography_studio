@@ -44,7 +44,7 @@ const Footer = () => {
 
           {/* Column 2: Studio Navigation */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-accent">Studio Guide</h3>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-gray-300">Studio Guide</h3>
             <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-8 gap-y-4 w-full md:w-auto">
               {['Home', 'Portfolio', 'Services', 'Shop', 'About', 'Contact'].map((item) => (
                 <li key={item}>
@@ -61,7 +61,7 @@ const Footer = () => {
 
           {/* Column 3: Visit Us */}
           <div className="flex flex-col items-center md:items-start space-y-8">
-            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-accent">Visit Us</h3>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-gray-300">Visit Us</h3>
             <div className="space-y-6 w-full max-w-xs md:max-w-none">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-4 text-gray-400 group">
                 <MapPin size={18} className="text-primary md:mt-1 shrink-0 group-hover:scale-110 transition-transform" />
@@ -82,7 +82,7 @@ const Footer = () => {
 
           {/* Column 4: Follow Us */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-accent">Follow Us</h3>
+            <h3 className="text-[10px] uppercase tracking-[0.4em] mb-8 font-bold text-gray-300">Follow Us</h3>
             <div className="flex gap-4 mb-10">
               {[
                 { name: 'Instagram', icon: Instagram, link: settings?.instagram, color: 'hover:text-pink-500' },
