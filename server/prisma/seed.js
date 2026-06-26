@@ -6,17 +6,17 @@ async function main() {
   console.log('Seeding data...');
 
   // 1. Create Admin
-  const hashedPassword = await bcrypt.hash('admin123', 10);
+  const hashedPassword = await bcrypt.hash('securepassword123', 10);
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@rimpy.com' },
+    where: { email: 'your.email@example.com' },
     update: {},
     create: {
-      email: 'admin@rimpy.com',
+      email: 'your.email@example.com',
       passwordHash: hashedPassword,
       role: 'ADMIN'
     },
   });
-  console.log('Admin created: admin@rimpy.com / admin123');
+  console.log('Admin created: your.email@example.com / securepassword123');
 
   // 2. Create Shop Categories
   const cat1 = await prisma.productCategory.upsert({
