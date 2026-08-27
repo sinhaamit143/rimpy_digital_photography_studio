@@ -71,11 +71,11 @@ const Footer = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Phone size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
-                <p className="text-sm font-sans font-medium tracking-wide truncate w-full">{settings?.phone || '+91 98124 11818'}</p>
+                <a href={`tel:${settings?.phone?.replace(/\D/g, '') || '+919812411818'}`} className="text-sm font-sans font-medium tracking-wide truncate w-full hover:text-white transition-colors">{settings?.phone || '+91 98124 11818'}</a>
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Mail size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
-                <p className="text-sm italic font-serif truncate w-full">{settings?.email || 'hello@rimpy.com'}</p>
+                <a href={`mailto:${settings?.email || 'hello@rimpy.com'}`} className="text-sm italic font-serif truncate w-full hover:text-white transition-colors">{settings?.email || 'hello@rimpy.com'}</a>
               </div>
             </div>
           </div>
