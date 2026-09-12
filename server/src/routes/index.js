@@ -7,6 +7,7 @@ const portfolioRoutes = require('./portfolio.routes');
 const contactRoutes = require('./contact.routes');
 const testimonialRoutes = require('./testimonial.routes');
 const settingsRoutes = require('./settings.routes');
+const analyticsRoutes = require('./analyticsRoutes');
 // const orderRoutes = require('./order.routes');
 
 router.use('/auth', authRoutes);
@@ -15,6 +16,7 @@ router.use('/portfolio', portfolioRoutes);
 router.use('/contact', contactRoutes);
 router.use('/testimonials', testimonialRoutes);
 router.use('/settings', settingsRoutes);
+router.use('/analytics', analyticsRoutes);
 // router.use('/orders', orderRoutes);
 
 console.log('✅ API Routes initialized: /auth, /products, /portfolio, /contact, /testimonials, /settings, /orders');

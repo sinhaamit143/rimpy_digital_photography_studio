@@ -11,6 +11,7 @@ import api, { setAccessToken } from '../../utils/api';
 // Shared Components
 import StatCard from './components/StatCard';
 import AdminAnalytics from './components/AdminAnalytics';
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 // Management Modules (Lazy Loaded)
 const ProductManagement = lazy(() => import('./modules/ProductManagement'));
@@ -260,6 +261,7 @@ const AdminDashboard = () => {
                       <StatCard label="Testimonials" value={counts.testimonials} icon={Star} onClick={() => setActiveTab('Testimonials')} />
                     </div>
                     {/* <AdminAnalytics orders={ordersData} /> */}
+                    <GoogleAnalytics />
                   </div>
                 )}
                 <Suspense fallback={
