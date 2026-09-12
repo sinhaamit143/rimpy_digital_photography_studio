@@ -65,9 +65,9 @@ const Footer = () => {
             <div className="space-y-6 w-full max-w-xs md:max-w-none">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-4 text-gray-400 group">
                 <MapPin size={18} className="text-primary md:mt-1 shrink-0 group-hover:scale-110 transition-transform" />
-                <p className="text-sm leading-relaxed italic font-serif">
+                <a href="https://www.google.com/maps?cid=9837681666753068686&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAFKgSoqNcy" target="_blank" rel="noopener noreferrer" className="text-sm leading-relaxed italic font-serif hover:text-white transition-colors">
                   {settings?.address || 'Shop No 18, Near Dav Women College, Railway Road, Karnal-132001, Haryana'}
-                </p>
+                </a>
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Phone size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />

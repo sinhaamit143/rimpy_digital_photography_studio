@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion as m } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Home, Sparkles, Image as ImageIcon, ShoppingBag, Phone } from 'lucide-react';
 

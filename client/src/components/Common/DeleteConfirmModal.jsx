@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion as m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, Trash2, AlertTriangle, Loader2 } from 'lucide-react';
 
 const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, title, loading }) => {

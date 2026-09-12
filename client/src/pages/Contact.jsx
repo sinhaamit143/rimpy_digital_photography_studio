@@ -247,12 +247,14 @@ const Contact = () => {
               {/* Info Cards */}
               <div className="space-y-8 md:space-y-10">
                 <div className="flex gap-6 md:gap-8 group">
-                  <div className="w-12 h-12 md:w-14 md:h-14 bg-secondary flex items-center justify-center rounded-full shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
+                  <a href="https://www.google.com/maps?cid=9837681666753068686&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAFKgSoqNcy" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-secondary flex items-center justify-center rounded-full shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
                     <MapPin size={20} />
-                  </div>
+                  </a>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Visit Our Studio</h4>
-                    <p className="text-main font-serif italic text-base md:text-lg leading-relaxed">{settings?.address || 'Shop No 18, Near Dav Women College, Railway Road, Karnal-132001, Haryana'}</p>
+                    <a href="https://www.google.com/maps?cid=9837681666753068686&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAFKgSoqNcy" target="_blank" rel="noopener noreferrer" className="block text-main font-serif italic text-base md:text-lg leading-relaxed hover:text-primary transition-colors">
+                      {settings?.address || 'Shop No 18, Near Dav Women College, Railway Road, Karnal-132001, Haryana'}
+                    </a>
                   </div>
                 </div>
 

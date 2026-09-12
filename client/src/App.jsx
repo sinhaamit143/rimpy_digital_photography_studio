@@ -49,17 +49,21 @@ function App() {
     // 1. Instantly apply from localStorage to prevent FOUC
     const savedTheme = localStorage.getItem('rimpyTheme');
     if (savedTheme) {
-      const colors = JSON.parse(savedTheme);
-      const root = document.documentElement;
-      if(colors.primary) root.style.setProperty('--color-primary', hexToRgb(colors.primary));
-      if(colors.secondary) root.style.setProperty('--color-secondary', hexToRgb(colors.secondary));
-      if(colors.accent) root.style.setProperty('--color-accent', hexToRgb(colors.accent));
-      if(colors.dark) root.style.setProperty('--color-dark', hexToRgb(colors.dark));
-      if(colors['text-main']) root.style.setProperty('--color-text-main', hexToRgb(colors['text-main']));
-      if(colors['text-light']) root.style.setProperty('--color-text-light', hexToRgb(colors['text-light']));
-      if(colors.surface) root.style.setProperty('--color-surface', hexToRgb(colors.surface));
-      if(colors['surface-hover']) root.style.setProperty('--color-surface-hover', hexToRgb(colors['surface-hover']));
-      if(colors.border) root.style.setProperty('--color-border', hexToRgb(colors.border));
+      try {
+        const colors = JSON.parse(savedTheme);
+        const root = document.documentElement;
+        if(colors.primary) root.style.setProperty('--color-primary', hexToRgb(colors.primary));
+        if(colors.secondary) root.style.setProperty('--color-secondary', hexToRgb(colors.secondary));
+        if(colors.accent) root.style.setProperty('--color-accent', hexToRgb(colors.accent));
+        if(colors.dark) root.style.setProperty('--color-dark', hexToRgb(colors.dark));
+        if(colors['text-main']) root.style.setProperty('--color-text-main', hexToRgb(colors['text-main']));
+        if(colors['text-light']) root.style.setProperty('--color-text-light', hexToRgb(colors['text-light']));
+        if(colors.surface) root.style.setProperty('--color-surface', hexToRgb(colors.surface));
+        if(colors['surface-hover']) root.style.setProperty('--color-surface-hover', hexToRgb(colors['surface-hover']));
+        if(colors.border) root.style.setProperty('--color-border', hexToRgb(colors.border));
+      } catch (err) {
+        console.error('Error parsing cached theme:', err);
+      }
     }
 
     // 2. Fetch fresh from DB

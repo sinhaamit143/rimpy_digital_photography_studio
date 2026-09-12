@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion as m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { 
   Plus, Filter, Edit2, Trash2, Loader2, Upload, X, 
   Layers, FolderPlus, ImagePlus, RefreshCw, Clock, ImageIcon
