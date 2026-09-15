@@ -140,7 +140,10 @@
 
     /* Tawk.to: push chat bubble above mobile bottom navigation bar (72px tall) */
     @media (max-width: 767px) {
-      #tawk-bubble-container {
+      #tawk-bubble-container,
+      #tawkchat-minified-container,
+      [id^="tawk"],
+      [class*="tawk-min"] {
         bottom: 80px !important;
       }
     }

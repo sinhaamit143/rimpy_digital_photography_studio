@@ -142,14 +142,33 @@ function App() {
       window.Tawk_API = window.Tawk_API || {};
       window.Tawk_LoadStart = new Date();
 
-      // Set position AFTER widget is fully loaded (onLoad is reliable; pre-load customStyle is not)
+      // Directly reposition the Tawk.to widget container above the mobile bottom nav (72px tall)
+      // This DOM approach is version-agnostic and works when customStyle API fails
       window.Tawk_API.onLoad = function () {
-        window.Tawk_API.customStyle = {
-          visibility: {
-            desktop: { position: 'br', xOffset: 20, yOffset: 20 },
-            mobile:  { position: 'br', xOffset: 20, yOffset: 90 } // 72px nav + 18px breathing room
-          }
+        const moveWidgetAboveNav = () => {
+          if (window.innerWidth > 767) return;
+          // Find every Tawk.to iframe and walk up to its fixed-position wrapper
+          document.querySelectorAll('iframe').forEach(iframe => {
+            if (iframe.src && iframe.src.includes('tawk.to')) {
+              let el = iframe.parentElement;
+              while (el && el !== document.body) {
+                if (window.getComputedStyle(el).position === 'fixed') {
+                  el.style.setProperty('bottom', '80px', 'important');
+                  break;
+                }
+                el = el.parentElement;
+              }
+            }
+          });
         };
+
+        // Run immediately, then retry to handle delayed bubble rendering
+        moveWidgetAboveNav();
+        setTimeout(moveWidgetAboveNav, 1000);
+        setTimeout(moveWidgetAboveNav, 3000);
+
+        // Also reposition on window resize (e.g. orientation change)
+        window.addEventListener('resize', moveWidgetAboveNav);
       };
 
       const s1 = document.createElement("script");
@@ -159,6 +178,7 @@ function App() {
       s1.setAttribute('crossorigin','*');
       document.head.appendChild(s1);
     };
+
 
 
     // Load after interaction or timeout (8 seconds to clear Lighthouse audit)
