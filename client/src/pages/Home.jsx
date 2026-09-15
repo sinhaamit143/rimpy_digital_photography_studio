@@ -45,13 +45,29 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const [testRes, settingsRes] = await Promise.all([
+      const [testRes, settingsRes, googleRes] = await Promise.allSettled([
         api.get('/testimonials'),
-        api.get('/settings')
+        api.get('/settings'),
+        api.get('/google-reviews')
       ]);
-      const testimonialData = testRes.data.testimonials || [];
-      setTestimonials(testimonialData.filter(t => t.status === 'active'));
-      setSettings(settingsRes.data);
+
+      if (settingsRes.status === 'fulfilled') {
+        setSettings(settingsRes.value.data);
+      }
+
+      let activeTestimonials = [];
+
+      // Try Google Reviews first
+      if (googleRes.status === 'fulfilled' && googleRes.value.data?.success && googleRes.value.data.data?.length > 0) {
+        activeTestimonials = googleRes.value.data.data;
+      } 
+      // Fallback to custom testimonials
+      else if (testRes.status === 'fulfilled') {
+        const testimonialData = testRes.value.data.testimonials || [];
+        activeTestimonials = testimonialData.filter(t => t.status === 'active');
+      }
+
+      setTestimonials(activeTestimonials);
     } catch (err) {
       console.error('Failed to fetch home data:', err);
     } finally {
@@ -300,15 +316,20 @@ const Home = () => {
                           <Star key={i} size={16} fill={i < testimonials[currentTestimonial].rating ? "currentColor" : "transparent"} className={i < testimonials[currentTestimonial].rating ? "" : "text-white/20"} />
                         ))}
                       </div>
-                      <p className="text-gray-300 font-serif italic text-lg md:text-3xl leading-relaxed max-w-3xl mx-auto px-4 md:px-0">
-                        "{testimonials[currentTestimonial].comment}"
-                      </p>
-                      <div className="mt-8">
-                        <h3 className="text-[11px] uppercase tracking-[0.4em] font-bold text-white">
+                      <div className="text-gray-300 font-serif italic text-lg md:text-2xl leading-relaxed max-w-3xl mx-auto px-4 md:px-0 max-h-48 md:max-h-40 overflow-y-auto custom-scrollbar">
+                        <p className="pr-2">
+                          "{testimonials[currentTestimonial].comment}"
+                        </p>
+                      </div>
+                      <div className="mt-8 flex flex-col items-center justify-center">
+                        <h3 className="text-[11px] uppercase tracking-[0.4em] font-bold text-white flex items-center justify-center">
                           {testimonials[currentTestimonial].name}
+                          {testimonials[currentTestimonial].isGoogle && (
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Review" className="w-4 h-4 ml-3" title="Verified Google Review" />
+                          )}
                         </h3>
                         <p className="text-[9px] text-accent uppercase tracking-widest mt-2 font-bold opacity-60">
-                          {testimonials[currentTestimonial].profession || 'Happy Client'}
+                          {testimonials[currentTestimonial].isGoogle ? 'Google Reviewer' : (testimonials[currentTestimonial].profession || 'Happy Client')}
                         </p>
                       </div>
                     </m.div>

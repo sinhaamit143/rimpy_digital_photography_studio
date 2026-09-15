@@ -17,6 +17,7 @@ router.use('/contact', contactRoutes);
 router.use('/testimonials', testimonialRoutes);
 router.use('/settings', settingsRoutes);
 router.use('/analytics', analyticsRoutes);
+router.use('/google-reviews', require('./googleReviews.routes'));
 // router.use('/orders', orderRoutes);
 
 console.log('✅ API Routes initialized: /auth, /products, /portfolio, /contact, /testimonials, /settings, /orders');

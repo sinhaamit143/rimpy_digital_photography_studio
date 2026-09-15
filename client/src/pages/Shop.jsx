@@ -77,9 +77,9 @@ const Shop = () => {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-20 gap-8 md:gap-10">
           <div className="max-w-2xl">
             <span className="text-primary uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold mb-4 block">Boutique Store</span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight">Personalized <br className="md:hidden" /> Gifting</h2>
-            <p className="text-text-light font-serif italic text-base md:text-lg leading-relaxed max-w-xl">
-              Explore our wide range of 3D crystals, designer frames, and custom keychains. Every piece is crafted to tell a story.
+            <h2 className="text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight">All <br className="md:hidden" /> Categories</h2>
+            <p className="text-main font-serif text-base md:text-lg leading-relaxed max-w-xl">
+              Explore our wide range of gift categories, including 3D crystals, designer frames, custom keychains, and more—each crafted to tell your story.
             </p>
           </div>
           
@@ -160,7 +160,7 @@ const Shop = () => {
                 </div>
                 
                 <div className="px-6 md:px-8 pt-6 md:pt-8 pb-8 md:pb-10 text-center">
-                  <span className="text-[10px] uppercase tracking-widest text-primary font-bold mb-3 block opacity-60">{product.category?.name}</span>
+                  <span className="text-xs md:text-sm uppercase tracking-widest text-primary font-bold mb-3 block opacity-80">{product.category?.name}</span>
                   <h3 className="text-lg md:text-xl font-serif mb-4 tracking-wide group-hover:text-primary transition-colors line-clamp-1">{product.title}</h3>
                   <div className="h-0.5 w-12 bg-primary/20 mx-auto group-hover:w-24 transition-all duration-500" />
                 </div>

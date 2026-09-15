@@ -133,6 +133,31 @@ function App() {
     }
   }, [location.pathname]);
 
+  // Handle Tawk.to chat widget visibility
+  useEffect(() => {
+    const handleTawkVisibility = () => {
+      if (window.Tawk_API && typeof window.Tawk_API.hideWidget === 'function') {
+        if (isAdminPage) {
+          window.Tawk_API.hideWidget();
+        } else {
+          window.Tawk_API.showWidget();
+        }
+      }
+    };
+
+    // Try immediately
+    handleTawkVisibility();
+    
+    // Tawk.to loads asynchronously, so check periodically for a few seconds
+    const interval = setInterval(handleTawkVisibility, 500);
+    const timeout = setTimeout(() => clearInterval(interval), 5000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, [isAdminPage]);
+
   return (
     <div className="app bg-secondary min-h-screen selection:bg-primary selection:text-white pb-[72px] md:pb-0 relative">
       <ScrollToTop />
