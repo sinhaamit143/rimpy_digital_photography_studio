@@ -1,0 +1,23 @@
+# Rimpy Gifts Studio
+
+Rimpy Gifts Studio is Karnal's premium personalized gifting and photography studio, crafting timeless memories since 2004.
+
+## About the Website
+This website serves as the digital storefront and portfolio for Rimpy Gifts Studio, offering bespoke custom gifts, photo frames, resin preservation art, and professional photography services.
+
+## Navigation and Resources
+
+- [Home](https://rimpysite.com/) - Main landing page.
+- [About Us](https://rimpysite.com/about) - Learn about our 22+ year history.
+- [Services](https://rimpysite.com/services) - Photography and custom framing services.
+- [Portfolio](https://rimpysite.com/portfolio) - Our visual journal and curated stories.
+- [Shop](https://rimpysite.com/shop) - Browse our personalized gifting categories.
+- [Contact](https://rimpysite.com/contact) - Get in touch or visit our physical studio.
+
+## Business Details
+- **Address**: Shop No 18, D.A.V. Women College Market, Railway Road, Karnal, Haryana, India 132001
+- **Contact**: [Chat with us on WhatsApp](https://wa.me/919812411818)
+
+## Legal
+- [Privacy Policy](https://rimpysite.com/privacy)
+- [Terms & Conditions](https://rimpysite.com/terms)

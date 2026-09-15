@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { m, AnimatePresence } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, ArrowRight, ArrowLeft, Loader2, HelpCircle } from 'lucide-react';
@@ -84,7 +84,7 @@ const Login = () => {
           <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-12 text-center lg:text-left">
               <div className="inline-block p-4 bg-white/5 rounded-xl border border-white/10 mb-8 mx-auto lg:mx-0">
-                <img src="/inverselogo.png" alt="Logo" className="h-14 md:h-16 w-auto object-contain" />
+                <img src="/inverselogo.webp" alt="Logo" className="h-14 md:h-16 w-auto object-contain" />
               </div>
               <h1 className="text-3xl md:text-4xl font-serif text-main mb-3 leading-tight">Welcome <span className="italic text-primary">Back</span></h1>
               <p className="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Authorized Personnel Only</p>
@@ -123,7 +123,7 @@ const Login = () => {
                   <Lock size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
                   <input
                     type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
+                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                     className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
                     onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}

@@ -26,17 +26,17 @@ const MobileNav = () => {
 
   return (
     <div className="fixed bottom-0 left-0 w-full z-[100] md:hidden bg-dark shadow-[0_-10px_40px_rgba(0,0,0,0.3)] border-t border-white/5 rounded-t-3xl h-[72px]">
-      <ul className="flex relative h-full w-full">
-        {/* Floating Indicator Bubble */}
-        <m.div
-          className="absolute top-[-24px] w-1/5 h-14 flex justify-center z-10 pointer-events-none"
-          initial={false}
-          animate={{ x: `${activeIndex * 100}%` }}
-          transition={{ type: "spring", stiffness: 400, damping: 35 }}
-        >
-          <div className="w-14 h-14 bg-primary rounded-full border-[5px] border-dark flex items-center justify-center shadow-xl shadow-primary/40" />
-        </m.div>
+      {/* Floating Indicator Bubble */}
+      <m.div
+        className="absolute top-[-24px] w-1/5 h-14 flex justify-center z-10 pointer-events-none"
+        initial={false}
+        animate={{ x: `${activeIndex * 100}%` }}
+        transition={{ type: "spring", stiffness: 400, damping: 35 }}
+      >
+        <div className="w-14 h-14 bg-primary rounded-full border-[5px] border-dark flex items-center justify-center shadow-xl shadow-primary/40" />
+      </m.div>
 
+      <ul className="flex relative h-full w-full">
         {navItems.map((item, i) => {
           const isActive = activeIndex === i;
           return (

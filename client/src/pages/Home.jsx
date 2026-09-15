@@ -168,7 +168,7 @@ const Home = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="block text-[10px] md:text-sm uppercase tracking-[0.4em] mb-6 font-medium text-secondary"
+            className="block text-[10px] md:text-sm uppercase tracking-[0.4em] mb-6 font-medium text-white bg-red-600 px-3 py-1 inline-block"
           >
             Since 2004 • Karnal's Premium Studio
           </m.span>

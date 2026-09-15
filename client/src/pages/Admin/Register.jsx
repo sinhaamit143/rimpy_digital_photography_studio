@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { m, AnimatePresence } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, ArrowRight, ArrowLeft, Loader2, ShieldCheck, CheckCircle } from 'lucide-react';
@@ -78,7 +78,7 @@ const Register = () => {
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-20 py-16">
           <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="mb-10 text-center lg:text-left">
-              <img src="/inverselogo.png" alt="Logo" className="h-16 md:h-20 mb-8 mx-auto lg:mx-0 w-auto object-contain" />
+              <img src="/inverselogo.webp" alt="Logo" className="h-16 md:h-20 mb-8 mx-auto lg:mx-0 w-auto object-contain" />
               <h1 className="text-3xl font-serif text-main mb-2">Create Admin</h1>
               <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Join the Rimpy Gifts Studio workspace</p>
             </div>
@@ -114,7 +114,7 @@ const Register = () => {
                   <Lock size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" />
                   <input
                     type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
+                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                     className="w-full py-4 pl-10 pr-10 bg-transparent border-b border-primary/10 focus:border-primary transition-all outline-none text-main"
                     required
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}

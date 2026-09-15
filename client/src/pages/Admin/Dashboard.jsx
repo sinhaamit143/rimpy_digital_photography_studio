@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+﻿import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -125,7 +125,7 @@ const AdminDashboard = () => {
         <div className="p-6 flex items-center justify-between border-b border-white/5 h-20">
           <AnimatePresence mode='wait'>
             {sidebarOpen ? (
-              <m.img key="logo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} src="/inverselogo.png" alt="Logo" className="h-14 w-auto object-contain" />
+              <m.img key="logo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} src="/inverselogo.webp" alt="Logo" className="h-14 w-auto object-contain" />
             ) : (
               <m.img key="icon" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} src="/logo_rdps2.png" alt="Icon" className="h-8 brightness-0 invert mx-auto" />
             )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Instagram, Facebook, Youtube, MapPin, Phone, Mail } from 'lucide-react';
 import api from '../../utils/api';
 import { Link } from 'react-router-dom';
@@ -40,17 +40,17 @@ const Footer = () => {
           {/* Column 1: Branding */}
           <div className="flex flex-col items-center md:items-start space-y-8">
             <img 
-              src="/inverselogo.png" 
+              src="/inverselogo.webp" 
               alt="Rimpy Gifts Studio" 
               className="h-16 md:h-20 w-auto object-contain transition-transform hover:scale-105 duration-500" 
               width="120"
               height="48"
             />
             <div className="space-y-4 max-w-sm md:max-w-none">
-              <p className="text-gray-400 text-sm font-serif italic leading-loose opacity-80">
+              <p className="text-gray-300 text-sm font-serif italic leading-loose">
                 Pioneering visual excellence in Karnal since 2004. We specialize in transforming your most intimate moments into timeless artistic treasures.
               </p>
-              <p className="text-gray-400 text-[10px] uppercase tracking-[0.3em] font-bold leading-relaxed">
+              <p className="text-gray-300 text-[10px] uppercase tracking-[0.3em] font-bold leading-relaxed">
                 Premium Photography & <br className="hidden lg:block" /> Personalized Gifting Studio
               </p>
             </div>
@@ -63,7 +63,7 @@ const Footer = () => {
               {['Home', 'Portfolio', 'Services', 'Shop', 'About', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link 
-                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
+                    to={item === 'Home' ? '/home' : `/${item.toLowerCase()}`} 
                     className="text-xs md:text-sm text-gray-400 hover:text-primary hover:translate-x-2 transition-all duration-300 inline-block"
                   >
                     {item}
@@ -118,7 +118,10 @@ const Footer = () => {
             </div>
             <div className="p-6 bg-surface/5 border border-white/10 rounded-sm w-full">
               <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 font-bold">Studio Status</p>
-              <p className="text-xs text-accent font-bold mt-2">Available for Bookings</p>
+              <p className="text-xs text-gray-200 font-bold mt-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                Available for Bookings
+              </p>
             </div>
           </div>
 

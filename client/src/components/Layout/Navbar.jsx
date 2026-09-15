@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -44,7 +44,7 @@ const Navbar = () => {
       <div className="container h-full flex justify-between items-center">
         <Link to="/home" className="group" onClick={() => setIsOpen(false)}>
           <img
-            src="/inverselogo.png"
+            src="/inverselogo.webp"
             alt="Rimpy Digital Logo"
             className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             width="240"
@@ -101,7 +101,7 @@ const Navbar = () => {
       <div className={`fixed top-0 left-0 w-full h-[100dvh] bg-dark z-[1000] flex flex-col items-center justify-center transition-all duration-500 lg:hidden ${isOpen ? 'translate-y-0' : '-translate-y-full opacity-0 invisible'}`}>
         <div className="absolute top-0 left-0 w-full h-28 px-8 flex items-center justify-between border-b border-white/5">
           <Link to="/home" onClick={() => setIsOpen(false)}>
-            <img src="/inverselogo.png" alt="Logo" className="h-16 w-auto object-contain" width="160" height="64" />
+            <img src="/inverselogo.webp" alt="Logo" className="h-16 w-auto object-contain" width="160" height="64" />
           </Link>
           <div className="w-10"></div> {/* Spacer to balance the logo */}
         </div>

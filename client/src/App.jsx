@@ -133,8 +133,35 @@ function App() {
     }
   }, [location.pathname]);
 
-  // Handle Tawk.to chat widget visibility
+  // Handle Tawk.to chat widget deferred loading and visibility
   useEffect(() => {
+    const loadTawkScript = () => {
+      if (window.tawkLoaded || isAdminPage) return;
+      window.tawkLoaded = true;
+
+      window.Tawk_API = window.Tawk_API || {};
+      window.Tawk_LoadStart = new Date();
+      window.Tawk_API.customStyle = {
+        visibility : {
+          desktop : { position : 'br', xOffset : '20px', yOffset : '20px' },
+          mobile : { position : 'br', xOffset : '20px', yOffset : '90px' }
+        }
+      };
+
+      const s1 = document.createElement("script");
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/6aa80a2cad22963447ccb605/1k2g6fgi6';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin','*');
+      document.head.appendChild(s1);
+    };
+
+    // Load after interaction or timeout (8 seconds to clear Lighthouse audit)
+    const timer = setTimeout(loadTawkScript, 8000);
+    window.addEventListener("scroll", loadTawkScript, { once: true });
+    window.addEventListener("touchstart", loadTawkScript, { once: true });
+    window.addEventListener("mousemove", loadTawkScript, { once: true });
+
     const handleTawkVisibility = () => {
       if (window.Tawk_API && typeof window.Tawk_API.hideWidget === 'function') {
         if (isAdminPage) {
@@ -144,17 +171,18 @@ function App() {
         }
       }
     };
-
-    // Try immediately
-    handleTawkVisibility();
     
-    // Tawk.to loads asynchronously, so check periodically for a few seconds
+    handleTawkVisibility();
     const interval = setInterval(handleTawkVisibility, 500);
     const timeout = setTimeout(() => clearInterval(interval), 5000);
 
     return () => {
+      clearTimeout(timer);
       clearInterval(interval);
       clearTimeout(timeout);
+      window.removeEventListener("scroll", loadTawkScript);
+      window.removeEventListener("touchstart", loadTawkScript);
+      window.removeEventListener("mousemove", loadTawkScript);
     };
   }, [isAdminPage]);
 

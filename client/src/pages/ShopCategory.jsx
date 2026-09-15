@@ -83,8 +83,7 @@ const ShopCategory = () => {
     }
   };
 
-  if (loading) return <PageLoader message="Organizing Collection..." visible={true} />;
-
+  // Loading state now uses inline skeletons where possible
   return (
     <div className="bg-secondary min-h-screen">
       {/* Hero Section */}
@@ -104,7 +103,7 @@ const ShopCategory = () => {
           <m.span
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="block text-xs uppercase tracking-[0.4em] mb-4 text-primary"
+            className="block text-xs uppercase tracking-[0.4em] mb-4 text-white bg-red-600 px-3 py-1 inline-block"
           >
             Since 2004 • Karnal's Premium Studio
           </m.span>
@@ -196,38 +195,50 @@ const ShopCategory = () => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-            {categories.slice((catPage - 1) * itemsPerPage, catPage * itemsPerPage).map((cat) => {
-              const config = categoryMap[cat.name] || { icon: Gift, img: "https://images.unsplash.com/photo-1549465220-1d8c95ad76e0?q=80&w=800" };
-              const Icon = config.icon;
-              const catImage = cat.imageUrl ? (cat.imageUrl.startsWith('http') ? cat.imageUrl : `${BASE_URL}${cat.imageUrl}`) : config.img;
-
-              return (
-                <m.div
-                  key={cat.id}
-                  whileHover={{ y: -10 }}
-                  onClick={() => handleCategoryClick(cat.name)}
-                  className="group cursor-pointer"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface shadow-sm border border-surface">
-                    <img
-                      src={catImage}
-                      alt={cat.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=800"; }}
-                    />
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors"></div>
-
-                    <div className="absolute bottom-4 left-4 right-4 bg-white/70 backdrop-blur-md rounded-lg p-4 flex flex-col items-center justify-center shadow-lg border border-white/20 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                      <Icon size={24} className="text-primary mb-2" />
-                      <h3 className="text-sm md:text-base font-bold text-main uppercase tracking-widest group-hover:text-primary transition-colors text-center">
-                        {cat.name}
-                      </h3>
-                    </div>
+            {loading ? (
+              // Skeleton Loaders
+              Array.from({ length: 8 }).map((_, idx) => (
+                <div key={`cat-skeleton-${idx}`} className="group relative">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface shadow-sm border border-surface animate-pulse">
+                    <div className="w-full h-full bg-zinc-200 dark:bg-zinc-800"></div>
                   </div>
-                </m.div>
-              );
-            })}
+                </div>
+              ))
+            ) : (
+              categories.slice((catPage - 1) * itemsPerPage, catPage * itemsPerPage).map((cat) => {
+                const config = categoryMap[cat.name] || { icon: Gift, img: "https://images.unsplash.com/photo-1549465220-1d8c95ad76e0?q=80&w=800" };
+                const Icon = config.icon;
+                const catImage = cat.imageUrl ? (cat.imageUrl.startsWith('http') ? cat.imageUrl : `${BASE_URL}${cat.imageUrl}`) : config.img;
+
+                return (
+                  <m.div
+                    key={cat.id}
+                    whileHover={{ y: -10 }}
+                    onClick={() => handleCategoryClick(cat.name)}
+                    className="group cursor-pointer"
+                  >
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface shadow-sm border border-surface">
+                      <img
+                        src={catImage}
+                        alt={cat.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=800"; }}
+                      />
+                      <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors"></div>
+
+                      <div className="absolute bottom-4 left-4 right-4 bg-white/70 backdrop-blur-md rounded-lg p-4 flex flex-col items-center justify-center shadow-lg border border-white/20 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        <Icon size={24} className="text-primary mb-2" />
+                        <h3 className="text-sm md:text-base font-bold text-main uppercase tracking-widest group-hover:text-primary transition-colors text-center">
+                          {cat.name}
+                        </h3>
+                      </div>
+                    </div>
+                  </m.div>
+                );
+              })
+            )}
           </div>
 
           <div className="text-center mt-20 space-y-8">

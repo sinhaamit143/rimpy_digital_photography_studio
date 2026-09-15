@@ -66,10 +66,7 @@ const Shop = () => {
     ? products 
     : products.filter(p => p.category?.name === activeCategory);
 
-  if (loading) {
-    return <PageLoader message="Curating the Collection..." visible={true} />;
-  }
-
+  // loading state now handled via skeletons inline
   return (
     <div className="pt-32 md:pt-40 pb-20 bg-secondary min-h-screen section-shop">
       <div className="px-6 md:container">
@@ -123,49 +120,71 @@ const Shop = () => {
           </div>
         </div>
 
-        {/* Product Grid */}
+        {/* Product Grid / Skeletons */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           <AnimatePresence mode='popLayout'>
-            {products.map((product) => (
-              <m.div
-                layout
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.5 }}
-                className="bg-surface group shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-sm overflow-hidden border border-surface"
-              >
-                <div className="relative aspect-square overflow-hidden bg-zinc-900">
-                  <div className="aspect-studio w-full h-full">
-                    <img 
-                      src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
-                      alt={product.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                      loading="lazy"
-                      onError={(e) => { e.target.src = fallbackImg; }}
-                    />
+            {loading ? (
+              // Skeleton Loaders
+              Array.from({ length: 9 }).map((_, idx) => (
+                <m.div
+                  key={`skeleton-${idx}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="bg-surface shadow-sm rounded-sm overflow-hidden border border-surface animate-pulse"
+                >
+                  <div className="relative aspect-square bg-zinc-800" style={{ aspectRatio: '1/1' }}></div>
+                  <div className="px-6 md:px-8 pt-6 md:pt-8 pb-8 md:pb-10 flex flex-col items-center">
+                    <div className="h-2 w-16 bg-zinc-800 rounded mb-4"></div>
+                    <div className="h-4 w-3/4 bg-zinc-800 rounded mb-4"></div>
+                    <div className="h-0.5 w-12 bg-zinc-800"></div>
                   </div>
-                  <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                    <button 
-                      onClick={() => navigate(`/shop/${product.id}`)}
-                      className="bg-surface text-main px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary hover:text-white transition-all shadow-2xl scale-90 group-hover:scale-100 duration-500 rounded-sm"
-                    >
-                      View Product
-                    </button>
+                </m.div>
+              ))
+            ) : (
+              products.map((product, index) => (
+                <m.div
+                  layout
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-surface group shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-sm overflow-hidden border border-surface"
+                >
+                  <div className="relative aspect-square overflow-hidden bg-zinc-900" style={{ aspectRatio: '1/1' }}>
+                    <div className="w-full h-full">
+                      <img 
+                        src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
+                        alt={product.title} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                        loading={index < 4 ? "eager" : "lazy"}
+                        fetchpriority={index < 2 ? "high" : "auto"}
+                        decoding="async"
+                        onError={(e) => { e.target.src = fallbackImg; }}
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                      <button 
+                        onClick={() => navigate(`/shop/${product.id}`)}
+                        className="bg-surface text-main px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary hover:text-white transition-all shadow-2xl scale-90 group-hover:scale-100 duration-500 rounded-sm"
+                      >
+                        View Product
+                      </button>
+                    </div>
+                    <div className="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary border border-primary/10">
+                      ₹{product.price.toLocaleString('en-IN')}
+                    </div>
                   </div>
-                  <div className="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary border border-primary/10">
-                    ₹{product.price.toLocaleString('en-IN')}
+                  
+                  <div className="px-6 md:px-8 pt-6 md:pt-8 pb-8 md:pb-10 text-center">
+                    <span className="text-xs md:text-sm uppercase tracking-widest text-primary font-bold mb-3 block opacity-80">{product.category?.name}</span>
+                    <h3 className="text-lg md:text-xl font-serif mb-4 tracking-wide group-hover:text-primary transition-colors line-clamp-1">{product.title}</h3>
+                    <div className="h-0.5 w-12 bg-primary/20 mx-auto group-hover:w-24 transition-all duration-500" />
                   </div>
-                </div>
-                
-                <div className="px-6 md:px-8 pt-6 md:pt-8 pb-8 md:pb-10 text-center">
-                  <span className="text-xs md:text-sm uppercase tracking-widest text-primary font-bold mb-3 block opacity-80">{product.category?.name}</span>
-                  <h3 className="text-lg md:text-xl font-serif mb-4 tracking-wide group-hover:text-primary transition-colors line-clamp-1">{product.title}</h3>
-                  <div className="h-0.5 w-12 bg-primary/20 mx-auto group-hover:w-24 transition-all duration-500" />
-                </div>
-              </m.div>
-            ))}
+                </m.div>
+              ))
+            )}
           </AnimatePresence>
         </div>
 
