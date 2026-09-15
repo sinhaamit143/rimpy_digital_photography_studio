@@ -99,7 +99,7 @@ const ShopCategory = () => {
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
-        <div className="container relative z-10 text-center text-white px-6">
+        <div className="container relative z-10 text-center text-white px-6 pt-28">
           <m.span
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
