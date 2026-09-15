@@ -141,11 +141,15 @@ function App() {
 
       window.Tawk_API = window.Tawk_API || {};
       window.Tawk_LoadStart = new Date();
-      window.Tawk_API.customStyle = {
-        visibility : {
-          desktop : { position : 'br', xOffset : '20px', yOffset : '20px' },
-          mobile : { position : 'br', xOffset : '20px', yOffset : '90px' }
-        }
+
+      // Set position AFTER widget is fully loaded (onLoad is reliable; pre-load customStyle is not)
+      window.Tawk_API.onLoad = function () {
+        window.Tawk_API.customStyle = {
+          visibility: {
+            desktop: { position: 'br', xOffset: 20, yOffset: 20 },
+            mobile:  { position: 'br', xOffset: 20, yOffset: 90 } // 72px nav + 18px breathing room
+          }
+        };
       };
 
       const s1 = document.createElement("script");
@@ -155,6 +159,7 @@ function App() {
       s1.setAttribute('crossorigin','*');
       document.head.appendChild(s1);
     };
+
 
     // Load after interaction or timeout (8 seconds to clear Lighthouse audit)
     const timer = setTimeout(loadTawkScript, 8000);

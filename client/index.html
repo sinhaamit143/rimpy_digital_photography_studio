@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -136,6 +136,13 @@
 
     #root {
       min-height: 100vh;
+    }
+
+    /* Tawk.to: push chat bubble above mobile bottom navigation bar (72px tall) */
+    @media (max-width: 767px) {
+      #tawk-bubble-container {
+        bottom: 80px !important;
+      }
     }
   </style>
   <title>Rimpy Gifts Studio | Custom Gifts & Photo Services in Karnal</title>
