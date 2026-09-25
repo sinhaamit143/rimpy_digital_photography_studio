@@ -1,8 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+let cachedSettings = null;
+
 const getSettings = async (req, res, next) => {
   try {
+    if (cachedSettings) {
+      return res.json(cachedSettings);
+    }
+
     let settings = await prisma.studioSettings.findUnique({
       where: { id: 1 }
     });
@@ -24,7 +30,7 @@ const getSettings = async (req, res, next) => {
       });
     }
 
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    cachedSettings = settings;
     res.json(settings);
   } catch (error) {
     next(error);
@@ -50,6 +56,9 @@ const updateSettings = async (req, res, next) => {
         instagram, facebook, whatsapp, youtube, themeColors
       }
     });
+
+    // Invalidate cache
+    cachedSettings = settings;
 
     res.json(settings);
   } catch (error) {

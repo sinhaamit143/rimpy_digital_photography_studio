@@ -17,11 +17,17 @@ const deleteFile = (filePath) => {
 };
 
 // Categories
+let cachedCategories = null;
+
 const getAllCategories = async (req, res, next) => {
   try {
+    if (cachedCategories) {
+      return res.json(cachedCategories);
+    }
     const categories = await prisma.productCategory.findMany({
       include: { products: true }
     });
+    cachedCategories = categories;
     res.json(categories);
   } catch (error) {
     next(error);
@@ -35,6 +41,7 @@ const createCategory = async (req, res, next) => {
     const category = await prisma.productCategory.create({
       data: { name, imageUrl }
     });
+    cachedCategories = null; // Invalidate cache
     res.status(201).json(category);
   } catch (error) {
     next(error);
@@ -61,6 +68,7 @@ const updateCategory = async (req, res, next) => {
       data: updateData
     });
 
+    cachedCategories = null; // Invalidate cache
     res.json(category);
   } catch (error) {
     next(error);
@@ -105,10 +113,18 @@ const getAllProducts = async (req, res, next) => {
 const getProductById = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const parsedId = parseInt(id, 10);
+    
+    // Prevent Prisma 'Argument `id` is missing' error if ID is NaN
+    if (isNaN(parsedId)) {
+      return res.status(400).json({ success: false, message: 'Invalid product ID format' });
+    }
+
     const product = await prisma.product.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: parsedId },
       include: { category: true }
     });
+    
     if (!product) return res.status(404).json({ message: 'Product not found' });
     res.json(product);
   } catch (error) {
