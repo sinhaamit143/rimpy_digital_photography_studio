@@ -89,15 +89,21 @@ const Footer = () => {
                   {(settings?.phone
                     ? settings.phone.split(/[,\n\/|]+/).map(p => p.trim()).filter(Boolean)
                     : ['+91 9812411818', '+91 9896172784']
-                  ).map((phone, i) => (
-                    <a
-                      key={i}
-                      href={`tel:${phone.replace(/\D/g, '')}`}
-                      className="text-sm font-sans font-medium tracking-wide hover:text-white transition-colors"
-                    >
-                      {phone}
-                    </a>
-                  ))}
+                  ).map((phone, i) => {
+                    const coreNumber = phone.replace(/\D/g, '').slice(-10);
+                    if (coreNumber.length !== 10) {
+                      return <span key={i} className="text-sm font-sans font-medium tracking-wide text-gray-400">{phone}</span>;
+                    }
+                    return (
+                      <a
+                        key={i}
+                        href={`tel:+91${coreNumber}`}
+                        className="text-sm font-sans font-medium tracking-wide hover:text-white transition-colors"
+                      >
+                        +91 {coreNumber}
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
