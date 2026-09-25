@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useSearchParams, useNavigationType } from 'react-router-dom';
 import { Filter, ShoppingBag, Loader2, ChevronDown } from 'lucide-react';
 import api from '../utils/api';
 import Pagination from '../components/Common/Pagination';
@@ -12,15 +12,30 @@ const fallbackImg = "https://images.unsplash.com/photo-1542038784456-1ea8e935640
 const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5004' : '';
 
 const Shop = () => {
-  const location = useLocation();
-  const [activeCategory, setActiveCategory] = useState(location.state?.selectedCategory || "All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  // Derive category directly from URL — persists through navigation & back button
+  const activeCategory = searchParams.get('category') || 'All';
+  const pageParam = parseInt(searchParams.get('page') || '1', 10);
+  const navigationType = useNavigationType(); // 'POP' = back/forward
+
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(pageParam);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+
+  // Update URL when category changes — this is what makes back button work
+  const handleCategoryChange = (category) => {
+    if (category === 'All') {
+      setSearchParams(params => { params.delete('category'); params.delete('page'); return params; }, { replace: false });
+    } else {
+      // Switching category naturally drops the 'page' parameter so they start at page 1
+      setSearchParams({ category }, { replace: false });
+    }
+    setIsDropdownOpen(false);
+  };
 
   const fetchData = async (page = 1) => {
     setLoading(true);
@@ -31,7 +46,7 @@ const Shop = () => {
       setCategories(cats);
 
       let url = `/products?page=${page}&limit=9`;
-      
+
       if (activeCategory !== "All") {
         const cat = cats.find(c => c.name === activeCategory);
         if (cat) {
@@ -40,7 +55,7 @@ const Shop = () => {
       }
 
       const prodRes = await api.get(url);
-      
+
       setProducts(prodRes.data.products);
       setPagination(prodRes.data.pagination);
       setCurrentPage(page);
@@ -52,18 +67,25 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    fetchData(1);
-  }, [activeCategory]);
+    fetchData(pageParam);
+  }, [activeCategory, pageParam]);
 
+  // Restore scroll position when returning via back button (after products finish loading)
   useEffect(() => {
-    // Only clear location state once on mount to allow free filtering
-    if (location.state?.selectedCategory) {
-      navigate(location.pathname, { replace: true, state: {} });
+    if (loading) return;
+    if (navigationType === 'POP') {
+      const savedY = sessionStorage.getItem('shopScrollY');
+      if (savedY) {
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: parseInt(savedY, 10), behavior: 'instant' });
+        });
+        sessionStorage.removeItem('shopScrollY');
+      }
     }
-  }, [location.state?.selectedCategory, location.pathname, navigate]);
+  }, [loading]);
 
-  const filteredProducts = activeCategory === "All" 
-    ? products 
+  const filteredProducts = activeCategory === "All"
+    ? products
     : products.filter(p => p.category?.name === activeCategory);
 
   // loading state now handled via skeletons inline
@@ -73,13 +95,13 @@ const Shop = () => {
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-20 gap-8 md:gap-10">
           <div className="max-w-2xl">
-            <span className="text-primary uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold mb-4 block">Boutique Store</span>
+            <span className="text-primary uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold mb-4 block">Gifts Store</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight">All <br className="md:hidden" /> Categories</h2>
             <p className="text-main font-serif text-base md:text-lg leading-relaxed max-w-xl">
               Explore our wide range of gift categories, including 3D crystals, designer frames, custom keychains, and more—each crafted to tell your story.
             </p>
           </div>
-          
+
           <div className="w-full lg:w-64 mt-6 lg:mt-0 relative z-50">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -88,7 +110,7 @@ const Shop = () => {
               <span className="truncate">{activeCategory === "All" ? "All Categories" : activeCategory}</span>
               <ChevronDown size={16} className={`text-primary transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
-            
+
             <AnimatePresence>
               {isDropdownOpen && (
                 <m.div
@@ -99,7 +121,7 @@ const Shop = () => {
                 >
                   <div className="max-h-60 overflow-y-auto custom-scrollbar">
                     <button
-                      onClick={() => { setActiveCategory("All"); setIsDropdownOpen(false); }}
+                      onClick={() => handleCategoryChange('All')}
                       className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors ${activeCategory === "All" ? 'bg-primary text-white' : 'text-gray-400 hover:bg-surface/5 hover:text-white'}`}
                     >
                       All Categories
@@ -107,7 +129,7 @@ const Shop = () => {
                     {categories.map(cat => (
                       <button
                         key={cat.id}
-                        onClick={() => { setActiveCategory(cat.name); setIsDropdownOpen(false); }}
+                        onClick={() => handleCategoryChange(cat.name)}
                         className={`w-full text-left px-6 py-4 text-[10px] md:text-xs uppercase tracking-widest font-bold transition-colors border-t border-white/5 ${activeCategory === cat.name ? 'bg-primary text-white' : 'text-gray-400 hover:bg-surface/5 hover:text-white'}`}
                       >
                         {cat.name}
@@ -154,10 +176,10 @@ const Shop = () => {
                 >
                   <div className="relative aspect-square overflow-hidden bg-zinc-900" style={{ aspectRatio: '1/1' }}>
                     <div className="w-full h-full">
-                      <img 
-                        src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`} 
-                        alt={product.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                      <img
+                        src={product.imageUrl?.startsWith('http') ? product.imageUrl : `${BASE_URL}${product.imageUrl}`}
+                        alt={product.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading={index < 4 ? "eager" : "lazy"}
                         fetchpriority={index < 2 ? "high" : "auto"}
                         decoding="async"
@@ -165,8 +187,14 @@ const Shop = () => {
                       />
                     </div>
                     <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                      <button 
-                        onClick={() => navigate(`/shop/${product.id}`)}
+                      <button
+                        onClick={() => {
+                          // Save current scroll so Shop can restore it on back navigation
+                          sessionStorage.setItem('shopScrollY', window.scrollY.toString());
+                          navigate(`/shop/${product.id}`, {
+                            state: { fromCategory: activeCategory, fromPage: currentPage }
+                          });
+                        }}
                         className="bg-surface text-main px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary hover:text-white transition-all shadow-2xl scale-90 group-hover:scale-100 duration-500 rounded-sm"
                       >
                         View Product
@@ -176,7 +204,7 @@ const Shop = () => {
                       ₹{product.price.toLocaleString('en-IN')}
                     </div>
                   </div>
-                  
+
                   <div className="px-6 md:px-8 pt-6 md:pt-8 pb-8 md:pb-10 text-center">
                     <span className="text-xs md:text-sm uppercase tracking-widest text-primary font-bold mb-3 block opacity-80">{product.category?.name}</span>
                     <h3 className="text-lg md:text-xl font-serif mb-4 tracking-wide group-hover:text-primary transition-colors line-clamp-1">{product.title}</h3>
@@ -188,9 +216,15 @@ const Shop = () => {
           </AnimatePresence>
         </div>
 
-        <Pagination 
-          pagination={pagination} 
-          onPageChange={(page) => fetchData(page)} 
+        <Pagination
+          pagination={pagination}
+          onPageChange={(page) => {
+            setSearchParams(params => {
+              if (page === 1) params.delete('page');
+              else params.set('page', page.toString());
+              return params;
+            });
+          }}
         />
 
         {/* Empty State */}
@@ -204,8 +238,8 @@ const Shop = () => {
         {/* Shop Info Snippet - Bulk Orders */}
         <div className="mt-20 md:mt-40 relative overflow-hidden group rounded-sm shadow-2xl">
           <div className="absolute inset-0 z-0">
-            <img 
-              src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=2000" 
+            <img
+              src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=2000"
               alt="Gifting Workshop"
               loading="lazy"
               className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3s] ease-out"
@@ -225,9 +259,9 @@ const Shop = () => {
                 </p>
               </div>
             </div>
-            
-            <a 
-              href="/contact" 
+
+            <a
+              href="/contact"
               className="w-full lg:w-auto text-center px-12 py-5 bg-primary text-white uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-surface hover:text-main transition-all duration-500 shadow-2xl rounded-sm"
             >
               Enquire Now

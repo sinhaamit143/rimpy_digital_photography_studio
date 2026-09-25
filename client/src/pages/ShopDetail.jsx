@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { m } from 'framer-motion';
 import { ArrowLeft, MessageSquare } from 'lucide-react';
 import api from '../utils/api';
@@ -10,10 +10,34 @@ const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:50
 const ShopDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [product, setProduct] = useState(null);
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Category and page passed from Shop.jsx when navigating to product
+  const fromCategory = location.state?.fromCategory;
+  const fromPage = location.state?.fromPage;
+
+  // Build the back URL with category preserved (used as fallback if no history)
+  const buildBackUrl = () => {
+    const params = new URLSearchParams();
+    if (fromCategory && fromCategory !== 'All') params.set('category', fromCategory);
+    if (fromPage && fromPage > 1) params.set('page', fromPage);
+    const query = params.toString();
+    return `/shop/products${query ? `?${query}` : ''}`;
+  };
+
+  const handleBackNavigation = () => {
+    // If state exists, they navigated from within the app -> safe to go back in history (POP)
+    if (location.state) {
+      navigate(-1);
+    } else {
+      // Direct visit -> push a new history entry with correct category
+      navigate(buildBackUrl());
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +76,7 @@ const ShopDetail = () => {
     <div className="pt-32 pb-24 px-4 min-h-screen flex flex-col items-center justify-center bg-secondary">
       <div className="text-center">
         <h2 className="text-2xl text-accent mb-4">{error}</h2>
-        <button onClick={() => navigate('/shop/products')} className="text-primary hover:text-white underline">Back to Shop</button>
+        <button onClick={handleBackNavigation} className="text-primary hover:text-white underline">Back to Shop</button>
       </div>
     </div>
   );
@@ -62,11 +86,12 @@ const ShopDetail = () => {
     <div className="pt-32 md:pt-40 pb-20 bg-secondary min-h-screen">
       <div className="px-6 md:container max-w-7xl mx-auto">
         <button 
-          onClick={() => navigate(-1)}
+          onClick={handleBackNavigation}
           className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-primary transition-colors mb-12"
         >
           <ArrowLeft size={16} /> Back to Shop
         </button>
+
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Product Image */}

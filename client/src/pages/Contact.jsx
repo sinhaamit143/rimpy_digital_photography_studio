@@ -278,7 +278,18 @@ const Contact = () => {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400">Direct Contact</h4>
-                    <a href={`tel:${settings?.phone?.replace(/\D/g, '') || '+919812411818'}`} className="block text-main font-sans font-medium tracking-wide text-sm md:text-base leading-relaxed hover:text-primary transition-colors">{settings?.phone || '+91 98124 11818'}</a>
+                    {(settings?.phone
+                      ? settings.phone.split(/[,\n\/|]+/).map(p => p.trim()).filter(Boolean)
+                      : ['+91 9812411818', '+91 9896172784']
+                    ).map((phone, i) => (
+                      <a
+                        key={i}
+                        href={`tel:${phone.replace(/\D/g, '')}`}
+                        className="block text-main font-sans font-medium tracking-wide text-sm md:text-base leading-relaxed hover:text-primary transition-colors"
+                      >
+                        {phone}
+                      </a>
+                    ))}
                     <a href={`mailto:${settings?.email || 'hello@rimpy.com'}`} className="block text-main font-sans font-medium tracking-wide text-sm md:text-base leading-relaxed hover:text-primary transition-colors">{settings?.email || 'hello@rimpy.com'}</a>
                   </div>
                 </div>

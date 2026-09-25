@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Instagram, Facebook, Youtube, MapPin, Phone, Mail } from 'lucide-react';
 import api from '../../utils/api';
 import { Link } from 'react-router-dom';
@@ -83,9 +83,22 @@ const Footer = () => {
                   {settings?.address || 'Shop No 18, Near Dav Women College, Railway Road, Karnal-132001, Haryana'}
                 </a>
               </div>
-              <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
-                <Phone size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
-                <a href={`tel:${settings?.phone?.replace(/\D/g, '') || '+919812411818'}`} className="text-sm font-sans font-medium tracking-wide truncate w-full hover:text-white transition-colors">{settings?.phone || '+91 98124 11818'}</a>
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 text-gray-400 group">
+                <Phone size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform mt-1" />
+                <div className="flex flex-col gap-1">
+                  {(settings?.phone
+                    ? settings.phone.split(/[,\n\/|]+/).map(p => p.trim()).filter(Boolean)
+                    : ['+91 9812411818', '+91 9896172784']
+                  ).map((phone, i) => (
+                    <a
+                      key={i}
+                      href={`tel:${phone.replace(/\D/g, '')}`}
+                      className="text-sm font-sans font-medium tracking-wide hover:text-white transition-colors"
+                    >
+                      {phone}
+                    </a>
+                  ))}
+                </div>
               </div>
               <div className="flex flex-col md:flex-row items-center md:items-center gap-4 text-gray-400 group">
                 <Mail size={18} className="text-primary shrink-0 group-hover:scale-110 transition-transform" />
