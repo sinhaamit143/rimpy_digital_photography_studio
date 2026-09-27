@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { m } from 'framer-motion';
-import { ArrowLeft, MessageSquare } from 'lucide-react';
+import { ArrowLeft, MessageSquare, Share2, Check } from 'lucide-react';
 import api from '../utils/api';
 import PageLoader from '../components/PageLoader';
 
@@ -60,13 +60,83 @@ const ShopDetail = () => {
     }
   }, [id, navigate]);
 
-  const handleWhatsAppOrder = () => {
-    // The user explicitly requested to use this number for orders, as the admin setting might be a WhatsApp Channel link
-    const phoneNumber = '919812411818';
-    
+  const [shareCopied, setShareCopied] = useState(false);
+
+  const handleShare = async () => {
     const productUrl = window.location.href;
-    const message = `Hi, I would like to order this product:\n\n*Name:* ${product.title}\n*Price:* ₹${product.price.toLocaleString('en-IN')}\n*Description:* ${product.description || 'N/A'}\n\n*Link:* ${productUrl}`;
-    
+    // OG-enabled share URL — WhatsApp reads OG tags from this server route
+    const sharePageUrl = `${window.location.origin}/share/product/${id}`;
+
+    const imageUrl = product.imageUrl?.startsWith('http')
+      ? product.imageUrl
+      : `${window.location.origin}${product.imageUrl}`;
+
+    const caption =
+      `${product.title}\n` +
+      `₹${product.price.toLocaleString('en-IN')}\n` +
+      (product.description ? `${product.description.slice(0, 120)}\n\n` : '\n') +
+      productUrl;
+
+    // ── Tier 1: Web Share API with image file (Android/iOS) ──────────────────
+    if (typeof navigator.share === 'function') {
+      // Try sharing the actual image file — WhatsApp shows it as a photo with caption
+      if (typeof navigator.canShare === 'function') {
+        try {
+          const imgRes = await fetch(imageUrl, { mode: 'cors' });
+          const blob = await imgRes.blob();
+          const ext = blob.type.includes('png') ? 'png' : 'jpg';
+          const file = new File([blob], `${product.title.replace(/\s+/g, '-')}.${ext}`, { type: blob.type });
+
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({ title: product.title, text: caption, files: [file] });
+            return; // done ✅
+          }
+        } catch {
+          // Image fetch or file share failed — fall through to URL share
+        }
+      }
+
+      // ── Tier 2: URL share — OG route gives WhatsApp a rich link preview ────
+      try {
+        await navigator.share({
+          title: product.title,
+          text: `${product.title} — ₹${product.price.toLocaleString('en-IN')}`,
+          url: sharePageUrl,
+        });
+        return; // done ✅
+      } catch {
+        // User cancelled — do nothing
+        return;
+      }
+    }
+
+    // ── Tier 3: Desktop clipboard fallback ────────────────────────────────────
+    try {
+      await navigator.clipboard.writeText(sharePageUrl);
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2500);
+    } catch {
+      alert('Could not copy link. Please copy it manually from the address bar.');
+    }
+  };
+
+  const handleWhatsAppOrder = () => {
+    const phoneNumber = '919812411818';
+    const productUrl = window.location.href;
+
+    // Build the full public image URL so the owner can view the exact product
+    const imageUrl = product.imageUrl?.startsWith('http')
+      ? product.imageUrl
+      : `${window.location.origin}${product.imageUrl}`;
+
+    const message =
+      `Hi, I would like to order this product:\n\n` +
+      `*Name:* ${product.title}\n` +
+      `*Price:* ₹${product.price.toLocaleString('en-IN')}\n` +
+      `*Description:* ${product.description || 'N/A'}\n\n` +
+      `*Product Link:* ${productUrl}\n` +
+      `*Product Image:* ${imageUrl}`;
+
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -85,13 +155,30 @@ const ShopDetail = () => {
   return (
     <div className="pt-32 md:pt-40 pb-20 bg-secondary min-h-screen">
       <div className="px-6 md:container max-w-7xl mx-auto">
-        <button 
-          onClick={handleBackNavigation}
-          className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-primary transition-colors mb-12"
-        >
-          <ArrowLeft size={16} /> Back to Shop
-        </button>
+        <div className="flex items-center justify-between mb-12">
+          <button 
+            onClick={handleBackNavigation}
+            className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-primary transition-colors"
+          >
+            <ArrowLeft size={16} /> Back to Shop
+          </button>
 
+          {/* Share Button */}
+          <button
+            onClick={handleShare}
+            className={`flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold transition-all px-4 py-2 rounded-sm border ${
+              shareCopied
+                ? 'border-green-500 text-green-500'
+                : 'border-gray-300 text-gray-500 hover:border-primary hover:text-primary'
+            }`}
+          >
+            {shareCopied ? (
+              <><Check size={14} /> Copied!</>
+            ) : (
+              <><Share2 size={14} /> Share</>
+            )}
+          </button>
+        </div>
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Product Image */}

@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const apiRoutes = require('./routes/index');
+const { shareProduct } = require('./controllers/shareProduct.controller');
 const errorHandler = require('./middlewares/errorHandler.middleware');
 
 const app = express();
@@ -69,6 +70,10 @@ app.use(express.static(path.join(__dirname, '../../client/dist'), { maxAge: '1y'
 
 // API Routes
 app.use('/api', apiRoutes);
+
+// ─── Share Route for Open Graph / WhatsApp Link Previews ──────────────────────
+// Must be BEFORE the SPA fallback so crawlers get OG meta tags, not index.html
+app.get('/share/product/:id', shareProduct);
 
 // SPA Fallback - MUST BE AFTER API ROUTES
 app.use((req, res, next) => {

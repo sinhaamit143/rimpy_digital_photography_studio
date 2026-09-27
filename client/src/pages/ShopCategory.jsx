@@ -72,7 +72,7 @@ const ShopCategory = () => {
   const whatsappNumber = settings?.phone?.split(',')[0].replace(/[^0-9]/g, '') || "919812411818";
 
   const handleCategoryClick = (categoryName) => {
-    navigate('/shop/products', { state: { selectedCategory: categoryName } });
+    navigate(`/shop/products?category=${encodeURIComponent(categoryName)}`);
   };
 
   const scroll = (direction) => {
