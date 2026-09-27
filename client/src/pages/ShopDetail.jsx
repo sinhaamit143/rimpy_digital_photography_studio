@@ -63,54 +63,27 @@ const ShopDetail = () => {
   const [shareCopied, setShareCopied] = useState(false);
 
   const handleShare = async () => {
-    const productUrl = window.location.href;
-    // OG-enabled share URL — WhatsApp reads OG tags from this server route
+    // Use the OG-enabled share route — WhatsApp generates a rich preview card
+    // (product image + title + price) from the og: meta tags on this URL.
+    // This avoids the "file attachment + separate text" split that happens
+    // when sharing image files directly via the Web Share API.
     const sharePageUrl = `${window.location.origin}/share/product/${id}`;
+    const shareText = `${product.title} — ₹${product.price.toLocaleString('en-IN')}`;
 
-    const imageUrl = product.imageUrl?.startsWith('http')
-      ? product.imageUrl
-      : `${window.location.origin}${product.imageUrl}`;
-
-    const caption =
-      `${product.title}\n` +
-      `₹${product.price.toLocaleString('en-IN')}\n` +
-      (product.description ? `${product.description.slice(0, 120)}\n\n` : '\n') +
-      productUrl;
-
-    // ── Tier 1: Web Share API with image file (Android/iOS) ──────────────────
     if (typeof navigator.share === 'function') {
-      // Try sharing the actual image file — WhatsApp shows it as a photo with caption
-      if (typeof navigator.canShare === 'function') {
-        try {
-          const imgRes = await fetch(imageUrl, { mode: 'cors' });
-          const blob = await imgRes.blob();
-          const ext = blob.type.includes('png') ? 'png' : 'jpg';
-          const file = new File([blob], `${product.title.replace(/\s+/g, '-')}.${ext}`, { type: blob.type });
-
-          if (navigator.canShare({ files: [file] })) {
-            await navigator.share({ title: product.title, text: caption, files: [file] });
-            return; // done ✅
-          }
-        } catch {
-          // Image fetch or file share failed — fall through to URL share
-        }
-      }
-
-      // ── Tier 2: URL share — OG route gives WhatsApp a rich link preview ────
       try {
         await navigator.share({
           title: product.title,
-          text: `${product.title} — ₹${product.price.toLocaleString('en-IN')}`,
+          text: shareText,
           url: sharePageUrl,
         });
-        return; // done ✅
       } catch {
         // User cancelled — do nothing
-        return;
       }
+      return;
     }
 
-    // ── Tier 3: Desktop clipboard fallback ────────────────────────────────────
+    // Desktop fallback: copy the OG share link to clipboard
     try {
       await navigator.clipboard.writeText(sharePageUrl);
       setShareCopied(true);
@@ -122,20 +95,17 @@ const ShopDetail = () => {
 
   const handleWhatsAppOrder = () => {
     const phoneNumber = '919812411818';
-    const productUrl = window.location.href;
-
-    // Build the full public image URL so the owner can view the exact product
-    const imageUrl = product.imageUrl?.startsWith('http')
-      ? product.imageUrl
-      : `${window.location.origin}${product.imageUrl}`;
+    // End the message with the share page URL.
+    // WhatsApp renders this URL as an inline product preview card
+    // (image + title + description) — much better than a raw image URL.
+    const sharePageUrl = `${window.location.origin}/share/product/${id}`;
 
     const message =
       `Hi, I would like to order this product:\n\n` +
       `*Name:* ${product.title}\n` +
       `*Price:* ₹${product.price.toLocaleString('en-IN')}\n` +
       `*Description:* ${product.description || 'N/A'}\n\n` +
-      `*Product Link:* ${productUrl}\n` +
-      `*Product Image:* ${imageUrl}`;
+      sharePageUrl;
 
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
