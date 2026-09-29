@@ -133,83 +133,81 @@ function App() {
     }
   }, [location.pathname]);
 
-  // Handle Tawk.to chat widget deferred loading and visibility
-  useEffect(() => {
-    const loadTawkScript = () => {
-      if (window.tawkLoaded || isAdminPage) return;
-      window.tawkLoaded = true;
+  // ── Tawk.to chat widget — DISABLED by owner (comment out to re-enable) ────
+  // useEffect(() => {
+  //   const loadTawkScript = () => {
+  //     if (window.tawkLoaded || isAdminPage) return;
+  //     window.tawkLoaded = true;
 
-      window.Tawk_API = window.Tawk_API || {};
-      window.Tawk_LoadStart = new Date();
+  //     window.Tawk_API = window.Tawk_API || {};
+  //     window.Tawk_LoadStart = new Date();
 
-      // Directly reposition the Tawk.to widget container above the mobile bottom nav (72px tall)
-      // This DOM approach is version-agnostic and works when customStyle API fails
-      window.Tawk_API.onLoad = function () {
-        const moveWidgetAboveNav = () => {
-          if (window.innerWidth > 767) return;
-          // Find every Tawk.to iframe and walk up to its fixed-position wrapper
-          document.querySelectorAll('iframe').forEach(iframe => {
-            if (iframe.src && iframe.src.includes('tawk.to')) {
-              let el = iframe.parentElement;
-              while (el && el !== document.body) {
-                if (window.getComputedStyle(el).position === 'fixed') {
-                  el.style.setProperty('bottom', '80px', 'important');
-                  break;
-                }
-                el = el.parentElement;
-              }
-            }
-          });
-        };
+  //     // Directly reposition the Tawk.to widget container above the mobile bottom nav (72px tall)
+  //     // This DOM approach is version-agnostic and works when customStyle API fails
+  //     window.Tawk_API.onLoad = function () {
+  //       const moveWidgetAboveNav = () => {
+  //         if (window.innerWidth > 767) return;
+  //         // Find every Tawk.to iframe and walk up to its fixed-position wrapper
+  //         document.querySelectorAll('iframe').forEach(iframe => {
+  //           if (iframe.src && iframe.src.includes('tawk.to')) {
+  //             let el = iframe.parentElement;
+  //             while (el && el !== document.body) {
+  //               if (window.getComputedStyle(el).position === 'fixed') {
+  //                 el.style.setProperty('bottom', '80px', 'important');
+  //                 break;
+  //               }
+  //               el = el.parentElement;
+  //             }
+  //           }
+  //         });
+  //       };
 
-        // Run immediately, then retry to handle delayed bubble rendering
-        moveWidgetAboveNav();
-        setTimeout(moveWidgetAboveNav, 1000);
-        setTimeout(moveWidgetAboveNav, 3000);
+  //       // Run immediately, then retry to handle delayed bubble rendering
+  //       moveWidgetAboveNav();
+  //       setTimeout(moveWidgetAboveNav, 1000);
+  //       setTimeout(moveWidgetAboveNav, 3000);
 
-        // Also reposition on window resize (e.g. orientation change)
-        window.addEventListener('resize', moveWidgetAboveNav);
-      };
+  //       // Also reposition on window resize (e.g. orientation change)
+  //       window.addEventListener('resize', moveWidgetAboveNav);
+  //     };
 
-      const s1 = document.createElement("script");
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/6aa80a2cad22963447ccb605/1k2g6fgi6';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin','*');
-      document.head.appendChild(s1);
-    };
+  //     const s1 = document.createElement("script");
+  //     s1.async = true;
+  //     s1.src = 'https://embed.tawk.to/6aa80a2cad22963447ccb605/1k2g6fgi6';
+  //     s1.charset = 'UTF-8';
+  //     s1.setAttribute('crossorigin','*');
+  //     document.head.appendChild(s1);
+  //   };
 
+  //   // Load after interaction or timeout (8 seconds to clear Lighthouse audit)
+  //   const timer = setTimeout(loadTawkScript, 8000);
+  //   window.addEventListener("scroll", loadTawkScript, { once: true });
+  //   window.addEventListener("touchstart", loadTawkScript, { once: true });
+  //   window.addEventListener("mousemove", loadTawkScript, { once: true });
 
-
-    // Load after interaction or timeout (8 seconds to clear Lighthouse audit)
-    const timer = setTimeout(loadTawkScript, 8000);
-    window.addEventListener("scroll", loadTawkScript, { once: true });
-    window.addEventListener("touchstart", loadTawkScript, { once: true });
-    window.addEventListener("mousemove", loadTawkScript, { once: true });
-
-    const handleTawkVisibility = () => {
-      if (window.Tawk_API && typeof window.Tawk_API.hideWidget === 'function') {
-        if (isAdminPage) {
-          window.Tawk_API.hideWidget();
-        } else {
-          window.Tawk_API.showWidget();
-        }
-      }
-    };
+  //   const handleTawkVisibility = () => {
+  //     if (window.Tawk_API && typeof window.Tawk_API.hideWidget === 'function') {
+  //       if (isAdminPage) {
+  //         window.Tawk_API.hideWidget();
+  //       } else {
+  //         window.Tawk_API.showWidget();
+  //       }
+  //     }
+  //   };
     
-    handleTawkVisibility();
-    const interval = setInterval(handleTawkVisibility, 500);
-    const timeout = setTimeout(() => clearInterval(interval), 5000);
+  //   handleTawkVisibility();
+  //   const interval = setInterval(handleTawkVisibility, 500);
+  //   const timeout = setTimeout(() => clearInterval(interval), 5000);
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(interval);
-      clearTimeout(timeout);
-      window.removeEventListener("scroll", loadTawkScript);
-      window.removeEventListener("touchstart", loadTawkScript);
-      window.removeEventListener("mousemove", loadTawkScript);
-    };
-  }, [isAdminPage]);
+  //   return () => {
+  //     clearTimeout(timer);
+  //     clearInterval(interval);
+  //     clearTimeout(timeout);
+  //     window.removeEventListener("scroll", loadTawkScript);
+  //     window.removeEventListener("touchstart", loadTawkScript);
+  //     window.removeEventListener("mousemove", loadTawkScript);
+  //   };
+  // }, [isAdminPage]);
 
   return (
     <div className="app bg-secondary min-h-screen selection:bg-primary selection:text-white pb-[72px] md:pb-0 relative">
